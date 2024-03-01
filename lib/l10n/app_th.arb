@@ -1,0 +1,16 @@
+{
+  "helloWorld": "สวัสดี โลก",
+  "home": "หน้าแรก",
+  "search": "ค้นหา",
+  "saved": "บันทึก",
+  "chats": "ข้อความ",
+  "plates": "ทะเบียน",
+  "store": "ร้าน",
+  "account": "บัญชี",
+  "settings": "ตั้งค่า",
+  "helpAndSupport": "ช่วยเหลือ",
+  "logOut": "ออกจากระบบ",
+  "explore": "สำรวจ",
+  "liked": "ถูกใจ",
+  "message": "ข้อความ"
+}

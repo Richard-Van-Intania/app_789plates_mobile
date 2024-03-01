@@ -1,0 +1,16 @@
+{
+  "helloWorld": "Hello World!",
+  "home": "Home",
+  "search": "Search",
+  "saved": "Saved",
+  "chats": "Chats",
+  "plates": "Plates",
+  "store": "Store",
+  "account": "Account",
+  "settings": "Settings",
+  "helpAndSupport": "Help & support",
+  "logOut": "Log out",
+  "explore": "Explore",
+  "liked": "Liked",
+  "message": "Message"
+}
