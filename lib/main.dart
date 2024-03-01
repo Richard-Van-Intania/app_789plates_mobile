@@ -38,6 +38,9 @@ class _MyHomePageState extends State<MyHomePage> {
       appBar: AppBar(
         title: Text(AppLocalizations.of(context)!.helloWorld),
       ),
+      floatingActionButton: FloatingActionButton(onPressed: () {
+        print('object');
+      }),
     );
   }
 }
