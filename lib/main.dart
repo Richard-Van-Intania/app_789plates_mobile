@@ -32,7 +32,7 @@ class MyApp extends HookConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final Locale locale = ref.watch(localeUpdateProvider);
     final ThemeMode themeMode = ref.watch(themeModeUpdateProvider);
-    return MaterialApp(
+    return MaterialApp.router(
       title: '789plates',
       localizationsDelegates: AppLocalizations.localizationsDelegates,
       supportedLocales: AppLocalizations.supportedLocales,
@@ -40,7 +40,8 @@ class MyApp extends HookConsumerWidget {
       themeMode: themeMode,
       theme: ThemeData(fontFamily: 'Noto Sans Thai', useMaterial3: true, colorScheme: lightColorScheme),
       darkTheme: ThemeData(fontFamily: 'Noto Sans Thai', useMaterial3: true, colorScheme: darkColorScheme),
-      home: const MyHomePage(),
+      //   home: const MyHomePage(),
+      routerConfig: _router,
     );
   }
 }
