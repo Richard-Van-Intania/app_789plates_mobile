@@ -41,7 +41,25 @@ class MyApp extends HookConsumerWidget {
       theme: ThemeData(fontFamily: 'Noto Sans Thai', useMaterial3: true, colorScheme: lightColorScheme),
       darkTheme: ThemeData(fontFamily: 'Noto Sans Thai', useMaterial3: true, colorScheme: darkColorScheme),
       //   home: const MyHomePage(),
-      routerConfig: _router,
+      routerConfig: GoRouter(
+        initialLocation: '/',
+        routes: <RouteBase>[
+          GoRoute(
+            path: '/',
+            builder: (BuildContext context, GoRouterState state) => const MyHomePage(),
+          ),
+          GoRoute(
+            path: '/signin',
+            builder: (context, state) => const SignInScreen(),
+            routes: <RouteBase>[
+              GoRoute(
+                path: 'createaccount',
+                builder: (BuildContext context, GoRouterState state) => const CreateNewAccountScreen(),
+              ),
+            ],
+          ),
+        ],
+      ),
     );
   }
 }
@@ -151,23 +169,3 @@ class _MyHomePageState extends ConsumerState<MyHomePage> {
         ));
   }
 }
-
-final GoRouter _router = GoRouter(
-  initialLocation: '/',
-  routes: <RouteBase>[
-    GoRoute(
-      path: '/',
-      builder: (BuildContext context, GoRouterState state) => const MyHomePage(),
-    ),
-    GoRoute(
-      path: '/signin',
-      builder: (context, state) => const SignInScreen(),
-      routes: <RouteBase>[
-        GoRoute(
-          path: 'createaccount',
-          builder: (BuildContext context, GoRouterState state) => const CreateNewAccountScreen(),
-        ),
-      ],
-    ),
-  ],
-);
