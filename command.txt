@@ -1,0 +1,7 @@
+open ios/Runner.xcworkspace
+
+dart run custom_lint
+
+dart run build_runner build
+
+flutter pub get

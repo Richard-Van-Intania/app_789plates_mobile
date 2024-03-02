@@ -2,7 +2,18 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:go_router/go_router.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'color_schemes.g.dart';
 import 'initialize.dart';
+import 'provider.dart';
+import 'screen/create_new_account/create_new_account_screen.dart';
+import 'screen/sign_in_screen.dart';
+import 'tab/chat_tab.dart';
+import 'tab/explore_tab.dart';
+import 'tab/home_tab.dart';
+import 'tab/saved_tab.dart';
+import 'tab/store_tab.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -11,48 +22,151 @@ Future<void> main() async {
     yield LicenseEntryWithLineBreaks(['google_fonts'], license);
   });
   await initialize();
-  runApp(const MyApp());
+  runApp(const ProviderScope(child: MyApp()));
 }
 
-class MyApp extends StatelessWidget {
+class MyApp extends HookConsumerWidget {
   const MyApp({super.key});
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    final Locale locale = ref.watch(localeUpdateProvider);
+    final ThemeMode themeMode = ref.watch(themeModeUpdateProvider);
     return MaterialApp(
       title: '789plates',
       localizationsDelegates: AppLocalizations.localizationsDelegates,
       supportedLocales: AppLocalizations.supportedLocales,
-      locale: const Locale('th'),
-      theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
-        useMaterial3: true,
-      ),
+      locale: locale,
+      themeMode: themeMode,
+      theme: ThemeData(fontFamily: 'Noto Sans Thai', useMaterial3: true, colorScheme: lightColorScheme),
+      darkTheme: ThemeData(fontFamily: 'Noto Sans Thai', useMaterial3: true, colorScheme: darkColorScheme),
       home: const MyHomePage(),
     );
   }
 }
 
-class MyHomePage extends StatefulWidget {
+class MyHomePage extends StatefulHookConsumerWidget {
   const MyHomePage({super.key});
 
   @override
-  State<MyHomePage> createState() => _MyHomePageState();
+  ConsumerState<MyHomePage> createState() => _MyHomePageState();
 }
 
-class _MyHomePageState extends State<MyHomePage> {
+class _MyHomePageState extends ConsumerState<MyHomePage> {
+  final List<GlobalKey<NavigatorState>> _tabNavigatorKeys = [
+    GlobalKey<NavigatorState>(),
+    GlobalKey<NavigatorState>(),
+    GlobalKey<NavigatorState>(),
+    GlobalKey<NavigatorState>(),
+    GlobalKey<NavigatorState>(),
+  ];
+
   @override
   Widget build(BuildContext context) {
+    final int tabIndex = ref.watch(tabIndexProvider);
     return Scaffold(
-      body: Center(
-        child: Text(
-          AppLocalizations.of(context)!.helloWorld,
-          style: const TextStyle(fontWeight: FontWeight.w400, fontSize: 50.0, fontFamily: 'Noto Sans Thai'),
+        body: IndexedStack(
+          index: tabIndex,
+          children: [
+            Navigator(
+                key: _tabNavigatorKeys[0],
+                onGenerateRoute: (RouteSettings settings) {
+                  return MaterialPageRoute<void>(
+                      settings: settings,
+                      builder: (BuildContext context) {
+                        return const HomeTab();
+                      });
+                }),
+            Navigator(
+                key: _tabNavigatorKeys[1],
+                onGenerateRoute: (RouteSettings settings) {
+                  return MaterialPageRoute<void>(
+                      settings: settings,
+                      builder: (BuildContext context) {
+                        return const ExploreTab();
+                      });
+                }),
+            Navigator(
+                key: _tabNavigatorKeys[2],
+                onGenerateRoute: (RouteSettings settings) {
+                  return MaterialPageRoute<void>(
+                      settings: settings,
+                      builder: (BuildContext context) {
+                        return const SavedTab();
+                      });
+                }),
+            Navigator(
+                key: _tabNavigatorKeys[3],
+                onGenerateRoute: (RouteSettings settings) {
+                  return MaterialPageRoute<void>(
+                      settings: settings,
+                      builder: (BuildContext context) {
+                        return const ChatTab();
+                      });
+                }),
+            Navigator(
+                key: _tabNavigatorKeys[4],
+                onGenerateRoute: (RouteSettings settings) {
+                  return MaterialPageRoute<void>(
+                      settings: settings,
+                      builder: (BuildContext context) {
+                        return const StoreTab();
+                      });
+                })
+          ],
         ),
-      ),
-      floatingActionButton: FloatingActionButton(onPressed: () {
-        print('object');
-      }),
-    );
+        bottomNavigationBar: NavigationBar(
+          selectedIndex: tabIndex,
+          onDestinationSelected: (int index) {
+            ref.read(tabIndexProvider.notifier).updateTabIndex(index);
+          },
+          destinations: <Widget>[
+            NavigationDestination(
+              icon: const Icon(Icons.home_outlined),
+              selectedIcon: const Icon(Icons.home),
+              label: AppLocalizations.of(context)!.home,
+            ),
+            NavigationDestination(
+              icon: const Icon(Icons.explore_outlined),
+              selectedIcon: const Icon(Icons.explore),
+              label: AppLocalizations.of(context)!.explore,
+            ),
+            NavigationDestination(
+              icon: const Icon(Icons.bookmark_border_outlined),
+              selectedIcon: const Icon(Icons.bookmark_outlined),
+              label: AppLocalizations.of(context)!.saved,
+            ),
+            NavigationDestination(
+              icon: const Icon(Icons.chat_outlined),
+              selectedIcon: const Icon(Icons.chat),
+              label: AppLocalizations.of(context)!.chats,
+            ),
+            NavigationDestination(
+              icon: const Icon(Icons.store_outlined),
+              selectedIcon: const Icon(Icons.store),
+              label: AppLocalizations.of(context)!.store,
+            ),
+          ],
+        ));
   }
 }
+
+final GoRouter _router = GoRouter(
+  initialLocation: '/',
+  routes: <RouteBase>[
+    GoRoute(
+      path: '/',
+      builder: (BuildContext context, GoRouterState state) => const MyHomePage(),
+    ),
+    GoRoute(
+      path: '/signin',
+      builder: (context, state) => const SignInScreen(),
+      routes: <RouteBase>[
+        GoRoute(
+          path: 'createaccount',
+          builder: (BuildContext context, GoRouterState state) => const CreateNewAccountScreen(),
+        ),
+      ],
+    ),
+  ],
+);
