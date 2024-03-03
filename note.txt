@@ -10,3 +10,12 @@ StatefulHookConsumerWidget
 
 
    Navigator.of(context, rootNavigator: true).push(MaterialPageRoute(builder: (context) => const ChatRoomScreen()));
+
+
+
+   3 ways Navigation
+
+   go no back
+
+go --- normal --- go
+no child route

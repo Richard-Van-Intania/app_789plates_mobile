@@ -8,6 +8,9 @@ import 'color_schemes.g.dart';
 import 'initialize.dart';
 import 'provider.dart';
 import 'screen/create_new_account/create_new_account_screen.dart';
+import 'screen/forgot_password/forgot_password_screen.dart';
+import 'screen/forgot_password/new_password_screen.dart';
+import 'screen/forgot_password/verification_code_forgot_screen.dart';
 import 'screen/sign_in_screen.dart';
 import 'tab/chat_tab.dart';
 import 'tab/explore_tab.dart';
@@ -40,21 +43,36 @@ class MyApp extends HookConsumerWidget {
       themeMode: themeMode,
       theme: ThemeData(fontFamily: 'Noto Sans Thai', useMaterial3: true, colorScheme: lightColorScheme),
       darkTheme: ThemeData(fontFamily: 'Noto Sans Thai', useMaterial3: true, colorScheme: darkColorScheme),
-      //   home: const MyHomePage(),
       routerConfig: GoRouter(
-        initialLocation: '/',
+        initialLocation: '/myhomepage',
         routes: <RouteBase>[
           GoRoute(
-            path: '/',
+            path: '/myhomepage',
             builder: (BuildContext context, GoRouterState state) => const MyHomePage(),
           ),
           GoRoute(
-            path: '/signin',
-            builder: (context, state) => const SignInScreen(),
+            path: '/signinscreen',
+            builder: (BuildContext context, GoRouterState state) => const SignInScreen(),
             routes: <RouteBase>[
               GoRoute(
-                path: 'createaccount',
+                path: 'createnewaccountscreen',
                 builder: (BuildContext context, GoRouterState state) => const CreateNewAccountScreen(),
+              ),
+            ],
+          ),
+          GoRoute(
+            path: '/forgotpasswordscreen',
+            builder: (BuildContext context, GoRouterState state) => const ForgotPasswordScreen(),
+            routes: <RouteBase>[
+              GoRoute(
+                path: 'verificationcodeforgotscreen',
+                builder: (BuildContext context, GoRouterState state) => const VerificationCodeForgotScreen(),
+                routes: <RouteBase>[
+                  GoRoute(
+                    path: 'newpasswordscreen',
+                    builder: (BuildContext context, GoRouterState state) => const NewPasswordScreen(),
+                  ),
+                ],
               ),
             ],
           ),

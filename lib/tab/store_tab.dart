@@ -130,8 +130,7 @@ class _StoreTabState extends ConsumerState<StoreTab> {
             child: TextButton.icon(
               onPressed: () {
                 Navigator.pop(context);
-                // sign out
-                context.go('/signin');
+                context.go('/forgotpasswordscreen');
               },
               icon: const Icon(Icons.logout_outlined),
               label: Text(AppLocalizations.of(context)!.logOut),

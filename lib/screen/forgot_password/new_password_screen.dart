@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+
+import '../../main.dart';
 
 class NewPasswordScreen extends StatefulHookConsumerWidget {
   const NewPasswordScreen({super.key});
@@ -46,7 +49,9 @@ class _NewPasswordScreenState extends ConsumerState<NewPasswordScreen> {
               height: 32,
             ),
             FilledButton(
-              onPressed: () {},
+              onPressed: () {
+                context.go('/');
+              },
               child: Container(width: double.infinity, height: 48, alignment: Alignment.center, child: Text('Ok')),
             ),
           ],

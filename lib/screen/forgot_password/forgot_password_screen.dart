@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'verification_code_forgot_screen.dart';
 
@@ -40,6 +41,9 @@ class _ForgotPasswordScreenState extends ConsumerState<ForgotPasswordScreen> {
             FilledButton(
               onPressed: () {
                 Navigator.of(context).push(MaterialPageRoute(builder: (context) => const VerificationCodeForgotScreen()));
+                // context.push('/forgotpasswordscreen');
+                // context.go('/forgotpasswordscreen');
+                // context.push('/forgotpasswordscreen/verificationcodeforgotscreen');
               },
               child: Container(width: double.infinity, height: 48, alignment: Alignment.center, child: Text('Next')),
             ),
