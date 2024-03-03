@@ -22,11 +22,7 @@ class _ConfirmationPasswordScreenState extends ConsumerState<ConfirmationPasswor
         child: Column(
           children: [
             SizedBox(
-              height: 48,
-            ),
-            Container(alignment: Alignment.centerLeft, child: Text('Enter your password')),
-            SizedBox(
-              height: 24,
+              height: 96,
             ),
             TextField(
               decoration: InputDecoration(
@@ -46,13 +42,12 @@ class _ConfirmationPasswordScreenState extends ConsumerState<ConfirmationPasswor
             SizedBox(
               height: 32,
             ),
-            FilledButton(
-              onPressed: () {
-                // clear stage
-                context.go('/myhomepage');
-              },
-              child: Container(width: double.infinity, height: 48, alignment: Alignment.center, child: Text('Ok')),
-            ),
+            ElevatedButton(
+                onPressed: () {
+                  // clear stage
+                  context.go('/myhomepage');
+                },
+                child: Text('Ok')),
           ],
         ),
       ),

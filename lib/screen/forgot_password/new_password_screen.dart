@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-
 import '../../main.dart';
 
 class NewPasswordScreen extends StatefulHookConsumerWidget {
@@ -48,14 +47,13 @@ class _NewPasswordScreenState extends ConsumerState<NewPasswordScreen> {
             SizedBox(
               height: 32,
             ),
-            FilledButton(
-              onPressed: () {
-                // clear stage
-                // sign auto
-                context.go('/myhomepage');
-              },
-              child: Container(width: double.infinity, height: 48, alignment: Alignment.center, child: Text('Ok')),
-            ),
+            ElevatedButton(
+                onPressed: () {
+                  // clear stage
+                  // sign auto
+                  context.go('/myhomepage');
+                },
+                child: Text('Ok')),
           ],
         ),
       ),

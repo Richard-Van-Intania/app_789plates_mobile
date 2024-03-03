@@ -11,6 +11,7 @@ class VerificationCodeNewScreen extends StatefulHookConsumerWidget {
 }
 
 class _VerificationCodeNewScreenState extends ConsumerState<VerificationCodeNewScreen> {
+  final TextEditingController controller = TextEditingController();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -23,27 +24,24 @@ class _VerificationCodeNewScreenState extends ConsumerState<VerificationCodeNewS
         child: Column(
           children: [
             SizedBox(
-              height: 48,
-            ),
-            Container(alignment: Alignment.centerLeft, child: Text('Enter verification code')),
-            SizedBox(
-              height: 24,
+              height: 96,
             ),
             TextField(
+              controller: controller,
+              keyboardType: TextInputType.number,
               decoration: InputDecoration(
-                hintText: 'Code',
+                hintText: 'Verification code',
                 border: const OutlineInputBorder(),
               ),
             ),
             SizedBox(
               height: 32,
             ),
-            FilledButton(
-              onPressed: () {
-                Navigator.of(context).push(MaterialPageRoute(builder: (context) => const ConfirmationPasswordScreen()));
-              },
-              child: Container(width: double.infinity, height: 48, alignment: Alignment.center, child: Text('Next')),
-            ),
+            ElevatedButton(
+                onPressed: () {
+                  Navigator.of(context).push(MaterialPageRoute(builder: (context) => const ConfirmationPasswordScreen()));
+                },
+                child: Text('Next')),
           ],
         ),
       ),

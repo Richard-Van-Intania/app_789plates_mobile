@@ -37,12 +37,11 @@ class _VerificationCodeForgotScreenState extends ConsumerState<VerificationCodeF
             SizedBox(
               height: 32,
             ),
-            FilledButton(
-              onPressed: () {
-                Navigator.of(context).push(MaterialPageRoute(builder: (context) => const NewPasswordScreen()));
-              },
-              child: Container(width: double.infinity, height: 48, alignment: Alignment.center, child: Text('Next')),
-            ),
+            ElevatedButton(
+                onPressed: () {
+                  Navigator.of(context).push(MaterialPageRoute(builder: (context) => const NewPasswordScreen()));
+                },
+                child: Text('Next')),
           ],
         ),
       ),
