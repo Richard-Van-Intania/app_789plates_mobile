@@ -50,7 +50,9 @@ class _NewPasswordScreenState extends ConsumerState<NewPasswordScreen> {
             ),
             FilledButton(
               onPressed: () {
-                context.go('/');
+                // clear stage
+                // sign auto
+                context.go('/myhomepage');
               },
               child: Container(width: double.infinity, height: 48, alignment: Alignment.center, child: Text('Ok')),
             ),

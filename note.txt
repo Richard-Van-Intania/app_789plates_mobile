@@ -19,3 +19,9 @@ StatefulHookConsumerWidget
 
 go --- normal --- go
 no child route
+
+
+word
+signinscreen
+createnewaccountscreen
+forgotpasswordscreen

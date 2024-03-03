@@ -41,9 +41,6 @@ class _ForgotPasswordScreenState extends ConsumerState<ForgotPasswordScreen> {
             FilledButton(
               onPressed: () {
                 Navigator.of(context).push(MaterialPageRoute(builder: (context) => const VerificationCodeForgotScreen()));
-                // context.push('/forgotpasswordscreen');
-                // context.go('/forgotpasswordscreen');
-                // context.push('/forgotpasswordscreen/verificationcodeforgotscreen');
               },
               child: Container(width: double.infinity, height: 48, alignment: Alignment.center, child: Text('Next')),
             ),

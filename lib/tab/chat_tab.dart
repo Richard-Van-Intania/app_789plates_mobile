@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-
 import '../screen/chat_room_screen.dart';
 
 class ChatTab extends StatefulHookConsumerWidget {

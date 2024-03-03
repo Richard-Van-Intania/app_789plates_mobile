@@ -30,10 +30,6 @@ class _HomeTabState extends ConsumerState<HomeTab> {
           ),
         ),
       ),
-      floatingActionButton: FloatingActionButton(onPressed: () {
-        context.go('/forgotpasswordscreen');
-        // context.push('/forgotpasswordscreen');
-      }),
     );
   }
 }

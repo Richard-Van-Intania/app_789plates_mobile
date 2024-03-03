@@ -53,28 +53,6 @@ class MyApp extends HookConsumerWidget {
           GoRoute(
             path: '/signinscreen',
             builder: (BuildContext context, GoRouterState state) => const SignInScreen(),
-            routes: <RouteBase>[
-              GoRoute(
-                path: 'createnewaccountscreen',
-                builder: (BuildContext context, GoRouterState state) => const CreateNewAccountScreen(),
-              ),
-            ],
-          ),
-          GoRoute(
-            path: '/forgotpasswordscreen',
-            builder: (BuildContext context, GoRouterState state) => const ForgotPasswordScreen(),
-            routes: <RouteBase>[
-              GoRoute(
-                path: 'verificationcodeforgotscreen',
-                builder: (BuildContext context, GoRouterState state) => const VerificationCodeForgotScreen(),
-                routes: <RouteBase>[
-                  GoRoute(
-                    path: 'newpasswordscreen',
-                    builder: (BuildContext context, GoRouterState state) => const NewPasswordScreen(),
-                  ),
-                ],
-              ),
-            ],
           ),
         ],
       ),
