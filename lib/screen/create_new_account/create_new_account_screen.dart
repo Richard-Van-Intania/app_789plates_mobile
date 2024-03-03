@@ -45,16 +45,26 @@ class _CreateNewAccountScreenState extends ConsumerState<CreateNewAccountScreen>
                 final email = controller.text.trim().toLowerCase();
                 final valid = EmailValidator.validate(email);
                 if (valid) {
-                  final Uri uri = Uri(scheme: 'http', host: '10.0.2.2', port: 8700, path: '/verifyemail');
+                  final Uri uri = Uri(scheme: 'http', host: '10.0.2.2', port: 8700, path: '/checkavailabilityemail');
                   final response = await http.post(
                     uri,
                     headers: <String, String>{'Content-Type': 'application/json; charset=UTF-8'},
                     body: jsonEncode(<String, String>{'email': email}),
                   );
-                  if (response.statusCode == 200) {
-                    if (!context.mounted) return;
-                    Navigator.of(context).push(MaterialPageRoute(builder: (context) => const VerificationCodeNewScreen()));
-                  } else {}
+                  switch (response.statusCode) {
+                    case 200:
+                      print(response.body);
+                      if (!context.mounted) return;
+                      Navigator.of(context).push(MaterialPageRoute(builder: (context) => const VerificationCodeNewScreen()));
+                    case 400:
+                      print("email not correct");
+                    case 403:
+                      print("email not avialable");
+                    case 500:
+                      print("service error");
+                    default:
+                      print("sth wrong");
+                  }
                 } else {
                   // error
                 }
