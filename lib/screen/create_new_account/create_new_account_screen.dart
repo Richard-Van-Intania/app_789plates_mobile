@@ -26,7 +26,7 @@ class _CreateNewAccountScreenState extends ConsumerState<CreateNewAccountScreen>
         child: Column(
           children: [
             SizedBox(
-              height: 96,
+              height: 120,
             ),
             TextField(
               controller: controller,
