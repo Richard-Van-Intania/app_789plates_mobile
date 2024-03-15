@@ -20,7 +20,7 @@ class _SignInScreenState extends ConsumerState<SignInScreen> {
         child: Column(
           children: [
             SizedBox(
-              height: 96,
+              height: 120,
             ),
             TextField(
               decoration: InputDecoration(

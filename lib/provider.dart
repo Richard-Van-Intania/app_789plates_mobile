@@ -12,8 +12,8 @@ class LocaleUpdate extends _$LocaleUpdate {
     return languageCode == null ? const Locale('en') : Locale(languageCode);
   }
 
-  void updateLocale(Locale locale) {
-    prefs.setString('languageCode', locale.languageCode);
+  Future<void> updateLocale(Locale locale) async {
+    await prefs.setString('languageCode', locale.languageCode);
     state = locale;
   }
 }
