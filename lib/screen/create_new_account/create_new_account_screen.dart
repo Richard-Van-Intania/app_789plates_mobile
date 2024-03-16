@@ -24,6 +24,7 @@ class _CreateNewAccountScreenState extends ConsumerState<CreateNewAccountScreen>
   Widget build(BuildContext context) {
     final TextEditingController controller = useTextEditingController();
     final response = ref.watch(checkavAilabilityEmailProvider);
+
     WidgetsBinding.instance.addPostFrameCallback((Duration timeStamp) {
       switch (response) {
         case AsyncValue(:final error?):
@@ -97,16 +98,7 @@ class _CreateNewAccountScreenState extends ConsumerState<CreateNewAccountScreen>
         _ => Center(child: const CircularProgressIndicator()),
       },
       floatingActionButton: FloatingActionButton(
-        onPressed: () async {
-          final Uri uri = Uri(scheme: 'http', host: '10.0.2.2', port: 8700, path: '/debug');
-          final response = await http.post(
-            uri,
-            headers: <String, String>{'Content-Type': 'application/json; charset=UTF-8'},
-            body: jsonEncode(const Email(email: 'กรุงเทพมหานคร อมรรัตนโกสินทร์ มหินทรายุธยา มหาดิลกภพ นพรัตนราชธานีบูรีรมย์ อุดมราชนิเวศน์มหาสถาน อมรพิมานอวตารสถิต สักกะทัตติยวิษณุกรรมประสิทธิ์').toJson()),
-          );
-          final VerificationRes verificationRes = VerificationRes.fromJson(jsonDecode(utf8.decode(response.bodyBytes)));
-          print(verificationRes);
-        },
+        onPressed: () async {},
       ),
     );
   }

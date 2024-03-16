@@ -105,3 +105,16 @@ class CheckVerificationCode extends _$CheckVerificationCode {
     state = AsyncData(response);
   }
 }
+
+@riverpod
+class Test extends _$Test {
+  @override
+  Future<String> build() async {
+    return 'hello';
+  }
+
+  Future<void> fetch() async {
+    await Future.delayed(const Duration(seconds: 10));
+    state = AsyncData(DateTime.now().toIso8601String());
+  }
+}

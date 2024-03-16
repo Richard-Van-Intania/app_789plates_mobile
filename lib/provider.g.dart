@@ -71,7 +71,7 @@ final checkavAilabilityEmailProvider = AutoDisposeAsyncNotifierProvider<CheckavA
 );
 
 typedef _$CheckavAilabilityEmail = AutoDisposeAsyncNotifier<Response>;
-String _$checkVerificationCodeHash() => r'bebb0f8ca44ac3947aad279be8d7b50780e679d9';
+String _$checkVerificationCodeHash() => r'a0c97a3033615f233a9694012fe81dfa83d8edaf';
 
 /// See also [CheckVerificationCode].
 @ProviderFor(CheckVerificationCode)
@@ -84,5 +84,18 @@ final checkVerificationCodeProvider = AutoDisposeAsyncNotifierProvider<CheckVeri
 );
 
 typedef _$CheckVerificationCode = AutoDisposeAsyncNotifier<Response>;
+String _$testHash() => r'a1b64b6c3d790cf948fea3d82f6f37ea4d43aca4';
+
+/// See also [Test].
+@ProviderFor(Test)
+final testProvider = AutoDisposeAsyncNotifierProvider<Test, String>.internal(
+  Test.new,
+  name: r'testProvider',
+  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product') ? null : _$testHash,
+  dependencies: null,
+  allTransitiveDependencies: null,
+);
+
+typedef _$Test = AutoDisposeAsyncNotifier<String>;
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member
