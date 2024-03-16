@@ -72,8 +72,26 @@ class CheckavAilabilityEmail extends _$CheckavAilabilityEmail {
     return 0;
   }
 
-  Future<void> postCheck(String email) async {
+  Future<void> fetch(String email) async {
     final Uri uri = Uri(scheme: 'http', host: '10.0.2.2', port: 8700, path: '/checkavailabilityemail');
+    final response = await http.post(
+      uri,
+      headers: <String, String>{'Content-Type': 'application/json; charset=UTF-8'},
+      body: jsonEncode(Email(email: email).toJson()),
+    );
+    state = AsyncData(response.statusCode);
+  }
+}
+
+@riverpod
+class CheckVerificationCode extends _$CheckVerificationCode {
+  @override
+  Future<int> build() async {
+    return 0;
+  }
+
+  Future<void> fetch(String email) async {
+    final Uri uri = Uri(scheme: 'http', host: '10.0.2.2', port: 8700, path: '/checkverificationcode');
     final response = await http.post(
       uri,
       headers: <String, String>{'Content-Type': 'application/json; charset=UTF-8'},

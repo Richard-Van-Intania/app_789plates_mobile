@@ -81,7 +81,7 @@ class _CreateNewAccountScreenState extends ConsumerState<CreateNewAccountScreen>
                 ElevatedButton(
                   onPressed: () {
                     if (formKey.currentState!.validate()) {
-                      ref.read(checkavAilabilityEmailProvider.notifier).postCheck(controller.text.trim().toLowerCase());
+                      ref.read(checkavAilabilityEmailProvider.notifier).fetch(controller.text.trim().toLowerCase());
                       FocusScope.of(context).unfocus();
                     }
                   },

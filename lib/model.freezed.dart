@@ -130,3 +130,151 @@ abstract class _Email implements Email {
   @JsonKey(ignore: true)
   _$$EmailImplCopyWith<_$EmailImpl> get copyWith => throw _privateConstructorUsedError;
 }
+
+VerificationRes _$VerificationResFromJson(Map<String, dynamic> json) {
+  return _VerificationRes.fromJson(json);
+}
+
+/// @nodoc
+mixin _$VerificationRes {
+  int get verification_id => throw _privateConstructorUsedError;
+  String get email => throw _privateConstructorUsedError;
+  int get reference => throw _privateConstructorUsedError;
+
+  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
+  @JsonKey(ignore: true)
+  $VerificationResCopyWith<VerificationRes> get copyWith => throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class $VerificationResCopyWith<$Res> {
+  factory $VerificationResCopyWith(VerificationRes value, $Res Function(VerificationRes) then) = _$VerificationResCopyWithImpl<$Res, VerificationRes>;
+  @useResult
+  $Res call({int verification_id, String email, int reference});
+}
+
+/// @nodoc
+class _$VerificationResCopyWithImpl<$Res, $Val extends VerificationRes> implements $VerificationResCopyWith<$Res> {
+  _$VerificationResCopyWithImpl(this._value, this._then);
+
+  // ignore: unused_field
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? verification_id = null,
+    Object? email = null,
+    Object? reference = null,
+  }) {
+    return _then(_value.copyWith(
+      verification_id: null == verification_id
+          ? _value.verification_id
+          : verification_id // ignore: cast_nullable_to_non_nullable
+              as int,
+      email: null == email
+          ? _value.email
+          : email // ignore: cast_nullable_to_non_nullable
+              as String,
+      reference: null == reference
+          ? _value.reference
+          : reference // ignore: cast_nullable_to_non_nullable
+              as int,
+    ) as $Val);
+  }
+}
+
+/// @nodoc
+abstract class _$$VerificationResImplCopyWith<$Res> implements $VerificationResCopyWith<$Res> {
+  factory _$$VerificationResImplCopyWith(_$VerificationResImpl value, $Res Function(_$VerificationResImpl) then) = __$$VerificationResImplCopyWithImpl<$Res>;
+  @override
+  @useResult
+  $Res call({int verification_id, String email, int reference});
+}
+
+/// @nodoc
+class __$$VerificationResImplCopyWithImpl<$Res> extends _$VerificationResCopyWithImpl<$Res, _$VerificationResImpl> implements _$$VerificationResImplCopyWith<$Res> {
+  __$$VerificationResImplCopyWithImpl(_$VerificationResImpl _value, $Res Function(_$VerificationResImpl) _then) : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? verification_id = null,
+    Object? email = null,
+    Object? reference = null,
+  }) {
+    return _then(_$VerificationResImpl(
+      verification_id: null == verification_id
+          ? _value.verification_id
+          : verification_id // ignore: cast_nullable_to_non_nullable
+              as int,
+      email: null == email
+          ? _value.email
+          : email // ignore: cast_nullable_to_non_nullable
+              as String,
+      reference: null == reference
+          ? _value.reference
+          : reference // ignore: cast_nullable_to_non_nullable
+              as int,
+    ));
+  }
+}
+
+/// @nodoc
+@JsonSerializable()
+class _$VerificationResImpl implements _VerificationRes {
+  const _$VerificationResImpl({required this.verification_id, required this.email, required this.reference});
+
+  factory _$VerificationResImpl.fromJson(Map<String, dynamic> json) => _$$VerificationResImplFromJson(json);
+
+  @override
+  final int verification_id;
+  @override
+  final String email;
+  @override
+  final int reference;
+
+  @override
+  String toString() {
+    return 'VerificationRes(verification_id: $verification_id, email: $email, reference: $reference)';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) || (other.runtimeType == runtimeType && other is _$VerificationResImpl && (identical(other.verification_id, verification_id) || other.verification_id == verification_id) && (identical(other.email, email) || other.email == email) && (identical(other.reference, reference) || other.reference == reference));
+  }
+
+  @JsonKey(ignore: true)
+  @override
+  int get hashCode => Object.hash(runtimeType, verification_id, email, reference);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$VerificationResImplCopyWith<_$VerificationResImpl> get copyWith => __$$VerificationResImplCopyWithImpl<_$VerificationResImpl>(this, _$identity);
+
+  @override
+  Map<String, dynamic> toJson() {
+    return _$$VerificationResImplToJson(
+      this,
+    );
+  }
+}
+
+abstract class _VerificationRes implements VerificationRes {
+  const factory _VerificationRes({required final int verification_id, required final String email, required final int reference}) = _$VerificationResImpl;
+
+  factory _VerificationRes.fromJson(Map<String, dynamic> json) = _$VerificationResImpl.fromJson;
+
+  @override
+  int get verification_id;
+  @override
+  String get email;
+  @override
+  int get reference;
+  @override
+  @JsonKey(ignore: true)
+  _$$VerificationResImplCopyWith<_$VerificationResImpl> get copyWith => throw _privateConstructorUsedError;
+}
