@@ -1,6 +1,8 @@
 import 'dart:convert';
+import 'package:app_789plates_mobile/provider.dart';
 import 'package:email_validator/email_validator.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:http/http.dart' as http;
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'verification_code_new_screen.dart';
@@ -13,9 +15,27 @@ class CreateNewAccountScreen extends StatefulHookConsumerWidget {
 }
 
 class _CreateNewAccountScreenState extends ConsumerState<CreateNewAccountScreen> {
-  final TextEditingController controller = TextEditingController();
+  @override
+  void initState() {
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
+    final controller = useTextEditingController();
+    final AsyncValue<int> statusCode = ref.watch(checkavAilabilityEmailProvider);
+    WidgetsBinding.instance.addPostFrameCallback((Duration timeStamp) async {
+      switch (statusCode) {
+        case AsyncValue(:final error?):
+          ScaffoldMessenger.of(context).showSnackBar(SnackBar(behavior: SnackBarBehavior.floating, dismissDirection: DismissDirection.up, content: Text(error.toString())));
+        case AsyncValue(:final valueOrNull?):
+          switch (valueOrNull) {
+            case 500:
+            default:
+          }
+        default:
+      }
+    });
     return Scaffold(
       appBar: AppBar(
         title: Text('create new account'),
@@ -41,32 +61,7 @@ class _CreateNewAccountScreenState extends ConsumerState<CreateNewAccountScreen>
             ),
             ElevatedButton(
               onPressed: () async {
-                final email = controller.text.trim().toLowerCase();
-                final valid = EmailValidator.validate(email);
-                if (valid) {
-                  final Uri uri = Uri(scheme: 'http', host: '10.0.2.2', port: 8700, path: '/checkavailabilityemail');
-                  final response = await http.post(
-                    uri,
-                    headers: <String, String>{'Content-Type': 'application/json; charset=UTF-8'},
-                    body: jsonEncode(<String, String>{'email': email}),
-                  );
-                  switch (response.statusCode) {
-                    case 200:
-                      print(response.body);
-                      if (!context.mounted) return;
-                      Navigator.of(context).push(MaterialPageRoute(builder: (context) => const VerificationCodeNewScreen()));
-                    case 400:
-                      print("email not correct");
-                    case 403:
-                      print("email not avialable");
-                    case 500:
-                      print("service error");
-                    default:
-                      print("sth wrong");
-                  }
-                } else {
-                  // error
-                }
+                await ref.read(checkavAilabilityEmailProvider.notifier).postCheck(controller.text);
               },
               child: Text('Next'),
             ),

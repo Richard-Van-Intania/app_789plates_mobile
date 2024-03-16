@@ -10,10 +10,12 @@ String _$localeUpdateHash() => r'c2f21a219cf3038cfc3d3c3183441c613f74e7d8';
 
 /// See also [LocaleUpdate].
 @ProviderFor(LocaleUpdate)
-final localeUpdateProvider = AutoDisposeNotifierProvider<LocaleUpdate, Locale>.internal(
+final localeUpdateProvider =
+    AutoDisposeNotifierProvider<LocaleUpdate, Locale>.internal(
   LocaleUpdate.new,
   name: r'localeUpdateProvider',
-  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product') ? null : _$localeUpdateHash,
+  debugGetCreateSourceHash:
+      const bool.fromEnvironment('dart.vm.product') ? null : _$localeUpdateHash,
   dependencies: null,
   allTransitiveDependencies: null,
 );
@@ -26,7 +28,8 @@ String _$tabIndexHash() => r'94c85a9090a1843123f5e566f8b967538c3c5b69';
 final tabIndexProvider = AutoDisposeNotifierProvider<TabIndex, int>.internal(
   TabIndex.new,
   name: r'tabIndexProvider',
-  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product') ? null : _$tabIndexHash,
+  debugGetCreateSourceHash:
+      const bool.fromEnvironment('dart.vm.product') ? null : _$tabIndexHash,
   dependencies: null,
   allTransitiveDependencies: null,
 );
@@ -36,10 +39,12 @@ String _$drawerIndexHash() => r'a09012e30c1335159b5e2eb1a29bf036d42bd255';
 
 /// See also [DrawerIndex].
 @ProviderFor(DrawerIndex)
-final drawerIndexProvider = AutoDisposeNotifierProvider<DrawerIndex, int>.internal(
+final drawerIndexProvider =
+    AutoDisposeNotifierProvider<DrawerIndex, int>.internal(
   DrawerIndex.new,
   name: r'drawerIndexProvider',
-  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product') ? null : _$drawerIndexHash,
+  debugGetCreateSourceHash:
+      const bool.fromEnvironment('dart.vm.product') ? null : _$drawerIndexHash,
   dependencies: null,
   allTransitiveDependencies: null,
 );
@@ -49,14 +54,34 @@ String _$themeModeUpdateHash() => r'dabfd75d393239efa938cb4d1a28a4224c892c78';
 
 /// See also [ThemeModeUpdate].
 @ProviderFor(ThemeModeUpdate)
-final themeModeUpdateProvider = AutoDisposeNotifierProvider<ThemeModeUpdate, ThemeMode>.internal(
+final themeModeUpdateProvider =
+    AutoDisposeNotifierProvider<ThemeModeUpdate, ThemeMode>.internal(
   ThemeModeUpdate.new,
   name: r'themeModeUpdateProvider',
-  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product') ? null : _$themeModeUpdateHash,
+  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
+      ? null
+      : _$themeModeUpdateHash,
   dependencies: null,
   allTransitiveDependencies: null,
 );
 
 typedef _$ThemeModeUpdate = AutoDisposeNotifier<ThemeMode>;
+String _$checkavAilabilityEmailHash() =>
+    r'6ada4913ff0fa6d9dbbe4789c47a08c0af874605';
+
+/// See also [CheckavAilabilityEmail].
+@ProviderFor(CheckavAilabilityEmail)
+final checkavAilabilityEmailProvider =
+    AutoDisposeAsyncNotifierProvider<CheckavAilabilityEmail, int>.internal(
+  CheckavAilabilityEmail.new,
+  name: r'checkavAilabilityEmailProvider',
+  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
+      ? null
+      : _$checkavAilabilityEmailHash,
+  dependencies: null,
+  allTransitiveDependencies: null,
+);
+
+typedef _$CheckavAilabilityEmail = AutoDisposeAsyncNotifier<int>;
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member
