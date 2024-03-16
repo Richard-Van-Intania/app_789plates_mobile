@@ -24,7 +24,7 @@ class _CreateNewAccountScreenState extends ConsumerState<CreateNewAccountScreen>
   Widget build(BuildContext context) {
     final TextEditingController controller = useTextEditingController();
     final response = ref.watch(checkavAilabilityEmailProvider);
-
+    final isLoading = ref.watch(loadingProvider);
     WidgetsBinding.instance.addPostFrameCallback((Duration timeStamp) {
       switch (response) {
         case AsyncValue(:final error?):
@@ -83,12 +83,15 @@ class _CreateNewAccountScreenState extends ConsumerState<CreateNewAccountScreen>
                   height: 32,
                 ),
                 ElevatedButton(
-                  onPressed: () {
-                    if (formKey.currentState!.validate()) {
-                      ref.read(checkavAilabilityEmailProvider.notifier).fetch(controller.text.trim().toLowerCase());
-                      FocusScope.of(context).unfocus();
-                    }
-                  },
+                  onPressed: isLoading
+                      ? null
+                      : () {
+                          if (formKey.currentState!.validate()) {
+                            ref.read(checkavAilabilityEmailProvider.notifier).fetch(controller.text.trim().toLowerCase());
+                            FocusScope.of(context).unfocus();
+                            ref.read(loadingProvider.notifier).toggle(true);
+                          }
+                        },
                   child: Text('Next'),
                 ),
               ],

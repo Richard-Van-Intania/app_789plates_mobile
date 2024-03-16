@@ -44,8 +44,8 @@ class _ExploreTabState extends ConsumerState<ExploreTab> {
         actions: [
           IconButton(
             onPressed: () {
-              ref.read(loadingProvider.notifier).update(true);
               ref.read(testProvider.notifier).fetch();
+              ref.read(loadingProvider.notifier).toggle(true);
             },
             icon: const Icon(Icons.settings),
           )

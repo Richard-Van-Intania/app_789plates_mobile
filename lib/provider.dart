@@ -83,6 +83,7 @@ class CheckavAilabilityEmail extends _$CheckavAilabilityEmail {
       body: jsonEncode(Email(email: email).toJson()),
     );
     state = AsyncData(response);
+    ref.read(loadingProvider.notifier).toggle(false);
   }
 }
 
@@ -116,8 +117,8 @@ class Test extends _$Test {
 
   Future<void> fetch() async {
     await Future.delayed(const Duration(seconds: 5));
-    ref.read(loadingProvider.notifier).update(false);
     state = AsyncData(DateTime.now().toIso8601String());
+    ref.read(loadingProvider.notifier).toggle(false);
   }
 }
 
@@ -125,5 +126,5 @@ class Test extends _$Test {
 class Loading extends _$Loading {
   @override
   bool build() => false;
-  void update(bool isLoading) => state = isLoading;
+  void toggle(bool isLoading) => state = isLoading;
 }
