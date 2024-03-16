@@ -1,10 +1,12 @@
 import 'dart:convert';
+import 'package:app_789plates_mobile/model.dart';
 import 'package:app_789plates_mobile/provider.dart';
 import 'package:email_validator/email_validator.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:http/http.dart' as http;
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+
 import 'verification_code_new_screen.dart';
 
 class CreateNewAccountScreen extends StatefulHookConsumerWidget {
@@ -20,23 +22,23 @@ class _CreateNewAccountScreenState extends ConsumerState<CreateNewAccountScreen>
   @override
   Widget build(BuildContext context) {
     final TextEditingController controller = useTextEditingController();
-    final AsyncValue<int> statusCode = ref.watch(checkavAilabilityEmailProvider);
+    final response = ref.watch(checkavAilabilityEmailProvider);
     WidgetsBinding.instance.addPostFrameCallback((Duration timeStamp) {
-      switch (statusCode) {
+      switch (response) {
         case AsyncValue(:final error?):
           ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(error.toString())));
         case AsyncValue(:final valueOrNull?):
-          switch (valueOrNull) {
-            case 0:
+          switch (valueOrNull.statusCode) {
+            case 100:
               {}
             case 200:
               Navigator.of(context).push(MaterialPageRoute(builder: (context) => const VerificationCodeNewScreen()));
             case 500:
-              ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(valueOrNull.toString()), behavior: SnackBarBehavior.floating));
+              ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(valueOrNull.statusCode.toString()), behavior: SnackBarBehavior.floating));
             case 409:
-              ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(valueOrNull.toString()), behavior: SnackBarBehavior.floating));
+              ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(valueOrNull.statusCode.toString()), behavior: SnackBarBehavior.floating));
             case 400:
-              ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(valueOrNull.toString()), behavior: SnackBarBehavior.floating));
+              ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(valueOrNull.statusCode.toString()), behavior: SnackBarBehavior.floating));
             default:
               ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('Oops, something unexpected happened'), behavior: SnackBarBehavior.floating));
           }
@@ -48,7 +50,7 @@ class _CreateNewAccountScreenState extends ConsumerState<CreateNewAccountScreen>
         title: Text('create new account'),
       ),
       resizeToAvoidBottomInset: false,
-      body: switch (statusCode) {
+      body: switch (response) {
         AsyncData(:final value) => Padding(
             padding: EdgeInsets.symmetric(horizontal: 16.0),
             child: Column(
@@ -93,6 +95,18 @@ class _CreateNewAccountScreenState extends ConsumerState<CreateNewAccountScreen>
         AsyncError() => Center(child: const Text('Oops, something unexpected happened')),
         _ => Center(child: const CircularProgressIndicator()),
       },
+      floatingActionButton: FloatingActionButton(
+        onPressed: () async {
+          final Uri uri = Uri(scheme: 'http', host: '10.0.2.2', port: 8700, path: '/debug');
+          final response = await http.post(
+            uri,
+            headers: <String, String>{'Content-Type': 'application/json; charset=UTF-8'},
+            body: jsonEncode(const Email(email: 'กรุงเทพมหานคร อมรรัตนโกสินทร์ มหินทรายุธยา มหาดิลกภพ นพรัตนราชธานีบูรีรมย์ อุดมราชนิเวศน์มหาสถาน อมรพิมานอวตารสถิต สักกะทัตติยวิษณุกรรมประสิทธิ์').toJson()),
+          );
+          final VerificationRes verificationRes = VerificationRes.fromJson(jsonDecode(utf8.decode(response.bodyBytes)));
+          print(verificationRes);
+        },
+      ),
     );
   }
 }

@@ -2,11 +2,14 @@ import 'dart:convert';
 
 import 'package:app_789plates_mobile/model.dart';
 import 'package:flutter/material.dart';
+import 'package:http/http.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'initialize.dart';
 import 'package:http/http.dart' as http;
 
 part 'provider.g.dart';
+
+final initResponse = Response('', 100);
 
 @riverpod
 class LocaleUpdate extends _$LocaleUpdate {
@@ -68,35 +71,37 @@ class ThemeModeUpdate extends _$ThemeModeUpdate {
 @riverpod
 class CheckavAilabilityEmail extends _$CheckavAilabilityEmail {
   @override
-  Future<int> build() async {
-    return 0;
+  Future<Response> build() async {
+    return initResponse;
   }
 
   Future<void> fetch(String email) async {
     final Uri uri = Uri(scheme: 'http', host: '10.0.2.2', port: 8700, path: '/checkavailabilityemail');
-    final response = await http.post(
+    final Response response = await http.post(
       uri,
       headers: <String, String>{'Content-Type': 'application/json; charset=UTF-8'},
       body: jsonEncode(Email(email: email).toJson()),
     );
-    state = AsyncData(response.statusCode);
+    state = AsyncData(response);
   }
 }
 
 @riverpod
 class CheckVerificationCode extends _$CheckVerificationCode {
   @override
-  Future<int> build() async {
-    return 0;
+  Future<Response> build() async {
+    return initResponse;
   }
 
-  Future<void> fetch(String email) async {
+  Future<void> fetch(int code) async {
+    final checkavAilabilityEmailResponse = await ref.watch(checkavAilabilityEmailProvider.future);
+    final VerificationRes verificationRes = VerificationRes.fromJson(jsonDecode(utf8.decode(checkavAilabilityEmailResponse.bodyBytes)));
     final Uri uri = Uri(scheme: 'http', host: '10.0.2.2', port: 8700, path: '/checkverificationcode');
-    final response = await http.post(
+    final Response response = await http.post(
       uri,
       headers: <String, String>{'Content-Type': 'application/json; charset=UTF-8'},
-      body: jsonEncode(Email(email: email).toJson()),
+      body: jsonEncode(VerificationCode(verification_id: verificationRes.verification_id, reference: verificationRes.reference, code: code).toJson()),
     );
-    state = AsyncData(response.statusCode);
+    state = AsyncData(response);
   }
 }

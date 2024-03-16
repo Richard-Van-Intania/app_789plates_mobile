@@ -278,3 +278,151 @@ abstract class _VerificationRes implements VerificationRes {
   @JsonKey(ignore: true)
   _$$VerificationResImplCopyWith<_$VerificationResImpl> get copyWith => throw _privateConstructorUsedError;
 }
+
+VerificationCode _$VerificationCodeFromJson(Map<String, dynamic> json) {
+  return _VerificationCode.fromJson(json);
+}
+
+/// @nodoc
+mixin _$VerificationCode {
+  int get verification_id => throw _privateConstructorUsedError;
+  int get reference => throw _privateConstructorUsedError;
+  int get code => throw _privateConstructorUsedError;
+
+  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
+  @JsonKey(ignore: true)
+  $VerificationCodeCopyWith<VerificationCode> get copyWith => throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class $VerificationCodeCopyWith<$Res> {
+  factory $VerificationCodeCopyWith(VerificationCode value, $Res Function(VerificationCode) then) = _$VerificationCodeCopyWithImpl<$Res, VerificationCode>;
+  @useResult
+  $Res call({int verification_id, int reference, int code});
+}
+
+/// @nodoc
+class _$VerificationCodeCopyWithImpl<$Res, $Val extends VerificationCode> implements $VerificationCodeCopyWith<$Res> {
+  _$VerificationCodeCopyWithImpl(this._value, this._then);
+
+  // ignore: unused_field
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? verification_id = null,
+    Object? reference = null,
+    Object? code = null,
+  }) {
+    return _then(_value.copyWith(
+      verification_id: null == verification_id
+          ? _value.verification_id
+          : verification_id // ignore: cast_nullable_to_non_nullable
+              as int,
+      reference: null == reference
+          ? _value.reference
+          : reference // ignore: cast_nullable_to_non_nullable
+              as int,
+      code: null == code
+          ? _value.code
+          : code // ignore: cast_nullable_to_non_nullable
+              as int,
+    ) as $Val);
+  }
+}
+
+/// @nodoc
+abstract class _$$VerificationCodeImplCopyWith<$Res> implements $VerificationCodeCopyWith<$Res> {
+  factory _$$VerificationCodeImplCopyWith(_$VerificationCodeImpl value, $Res Function(_$VerificationCodeImpl) then) = __$$VerificationCodeImplCopyWithImpl<$Res>;
+  @override
+  @useResult
+  $Res call({int verification_id, int reference, int code});
+}
+
+/// @nodoc
+class __$$VerificationCodeImplCopyWithImpl<$Res> extends _$VerificationCodeCopyWithImpl<$Res, _$VerificationCodeImpl> implements _$$VerificationCodeImplCopyWith<$Res> {
+  __$$VerificationCodeImplCopyWithImpl(_$VerificationCodeImpl _value, $Res Function(_$VerificationCodeImpl) _then) : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? verification_id = null,
+    Object? reference = null,
+    Object? code = null,
+  }) {
+    return _then(_$VerificationCodeImpl(
+      verification_id: null == verification_id
+          ? _value.verification_id
+          : verification_id // ignore: cast_nullable_to_non_nullable
+              as int,
+      reference: null == reference
+          ? _value.reference
+          : reference // ignore: cast_nullable_to_non_nullable
+              as int,
+      code: null == code
+          ? _value.code
+          : code // ignore: cast_nullable_to_non_nullable
+              as int,
+    ));
+  }
+}
+
+/// @nodoc
+@JsonSerializable()
+class _$VerificationCodeImpl implements _VerificationCode {
+  const _$VerificationCodeImpl({required this.verification_id, required this.reference, required this.code});
+
+  factory _$VerificationCodeImpl.fromJson(Map<String, dynamic> json) => _$$VerificationCodeImplFromJson(json);
+
+  @override
+  final int verification_id;
+  @override
+  final int reference;
+  @override
+  final int code;
+
+  @override
+  String toString() {
+    return 'VerificationCode(verification_id: $verification_id, reference: $reference, code: $code)';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) || (other.runtimeType == runtimeType && other is _$VerificationCodeImpl && (identical(other.verification_id, verification_id) || other.verification_id == verification_id) && (identical(other.reference, reference) || other.reference == reference) && (identical(other.code, code) || other.code == code));
+  }
+
+  @JsonKey(ignore: true)
+  @override
+  int get hashCode => Object.hash(runtimeType, verification_id, reference, code);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$VerificationCodeImplCopyWith<_$VerificationCodeImpl> get copyWith => __$$VerificationCodeImplCopyWithImpl<_$VerificationCodeImpl>(this, _$identity);
+
+  @override
+  Map<String, dynamic> toJson() {
+    return _$$VerificationCodeImplToJson(
+      this,
+    );
+  }
+}
+
+abstract class _VerificationCode implements VerificationCode {
+  const factory _VerificationCode({required final int verification_id, required final int reference, required final int code}) = _$VerificationCodeImpl;
+
+  factory _VerificationCode.fromJson(Map<String, dynamic> json) = _$VerificationCodeImpl.fromJson;
+
+  @override
+  int get verification_id;
+  @override
+  int get reference;
+  @override
+  int get code;
+  @override
+  @JsonKey(ignore: true)
+  _$$VerificationCodeImplCopyWith<_$VerificationCodeImpl> get copyWith => throw _privateConstructorUsedError;
+}

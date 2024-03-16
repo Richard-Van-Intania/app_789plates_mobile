@@ -58,11 +58,11 @@ final themeModeUpdateProvider = AutoDisposeNotifierProvider<ThemeModeUpdate, The
 );
 
 typedef _$ThemeModeUpdate = AutoDisposeNotifier<ThemeMode>;
-String _$checkavAilabilityEmailHash() => r'7ac9c3dbd87deb28cb933ce7b020cfa9631f4715';
+String _$checkavAilabilityEmailHash() => r'571d4e11cd48021fa0a2a0714ec68e25a271c01a';
 
 /// See also [CheckavAilabilityEmail].
 @ProviderFor(CheckavAilabilityEmail)
-final checkavAilabilityEmailProvider = AutoDisposeAsyncNotifierProvider<CheckavAilabilityEmail, int>.internal(
+final checkavAilabilityEmailProvider = AutoDisposeAsyncNotifierProvider<CheckavAilabilityEmail, Response>.internal(
   CheckavAilabilityEmail.new,
   name: r'checkavAilabilityEmailProvider',
   debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product') ? null : _$checkavAilabilityEmailHash,
@@ -70,12 +70,12 @@ final checkavAilabilityEmailProvider = AutoDisposeAsyncNotifierProvider<CheckavA
   allTransitiveDependencies: null,
 );
 
-typedef _$CheckavAilabilityEmail = AutoDisposeAsyncNotifier<int>;
-String _$checkVerificationCodeHash() => r'011fa382e6bdf5a99bfce083d24bda219246a200';
+typedef _$CheckavAilabilityEmail = AutoDisposeAsyncNotifier<Response>;
+String _$checkVerificationCodeHash() => r'bebb0f8ca44ac3947aad279be8d7b50780e679d9';
 
 /// See also [CheckVerificationCode].
 @ProviderFor(CheckVerificationCode)
-final checkVerificationCodeProvider = AutoDisposeAsyncNotifierProvider<CheckVerificationCode, int>.internal(
+final checkVerificationCodeProvider = AutoDisposeAsyncNotifierProvider<CheckVerificationCode, Response>.internal(
   CheckVerificationCode.new,
   name: r'checkVerificationCodeProvider',
   debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product') ? null : _$checkVerificationCodeHash,
@@ -83,6 +83,6 @@ final checkVerificationCodeProvider = AutoDisposeAsyncNotifierProvider<CheckVeri
   allTransitiveDependencies: null,
 );
 
-typedef _$CheckVerificationCode = AutoDisposeAsyncNotifier<int>;
+typedef _$CheckVerificationCode = AutoDisposeAsyncNotifier<Response>;
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member

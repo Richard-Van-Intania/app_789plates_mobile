@@ -6,8 +6,10 @@ part 'model.g.dart';
 
 @freezed
 class Email with _$Email {
-  const factory Email({required String email}) = _Email;
-  factory Email.fromJson(Map<String, Object> json) => _$EmailFromJson(json);
+  const factory Email({
+    required String email,
+  }) = _Email;
+  factory Email.fromJson(Map<String, Object?> json) => _$EmailFromJson(json);
 }
 
 @freezed
@@ -18,5 +20,16 @@ class VerificationRes with _$VerificationRes {
     required int reference,
   }) = _VerificationRes;
 
-  factory VerificationRes.fromJson(Map<String, Object> json) => _$VerificationResFromJson(json);
+  factory VerificationRes.fromJson(Map<String, Object?> json) => _$VerificationResFromJson(json);
+}
+
+@freezed
+class VerificationCode with _$VerificationCode {
+  const factory VerificationCode({
+    required int verification_id,
+    required int reference,
+    required int code,
+  }) = _VerificationCode;
+
+  factory VerificationCode.fromJson(Map<String, Object?> json) => _$VerificationCodeFromJson(json);
 }

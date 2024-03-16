@@ -25,3 +25,15 @@ Map<String, dynamic> _$$VerificationResImplToJson(_$VerificationResImpl instance
       'email': instance.email,
       'reference': instance.reference,
     };
+
+_$VerificationCodeImpl _$$VerificationCodeImplFromJson(Map<String, dynamic> json) => _$VerificationCodeImpl(
+      verification_id: json['verification_id'] as int,
+      reference: json['reference'] as int,
+      code: json['code'] as int,
+    );
+
+Map<String, dynamic> _$$VerificationCodeImplToJson(_$VerificationCodeImpl instance) => <String, dynamic>{
+      'verification_id': instance.verification_id,
+      'reference': instance.reference,
+      'code': instance.code,
+    };
