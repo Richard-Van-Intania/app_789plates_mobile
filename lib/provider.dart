@@ -110,11 +110,20 @@ class CheckVerificationCode extends _$CheckVerificationCode {
 class Test extends _$Test {
   @override
   Future<String> build() async {
+    await Future.delayed(const Duration(seconds: 5));
     return 'hello';
   }
 
   Future<void> fetch() async {
-    await Future.delayed(const Duration(seconds: 10));
+    await Future.delayed(const Duration(seconds: 5));
+    ref.read(loadingProvider.notifier).update(false);
     state = AsyncData(DateTime.now().toIso8601String());
   }
+}
+
+@riverpod
+class Loading extends _$Loading {
+  @override
+  bool build() => false;
+  void update(bool isLoading) => state = isLoading;
 }

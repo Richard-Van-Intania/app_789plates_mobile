@@ -1,5 +1,6 @@
 import 'package:app_789plates_mobile/provider.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
@@ -13,8 +14,8 @@ class ExploreTab extends StatefulHookConsumerWidget {
 class _ExploreTabState extends ConsumerState<ExploreTab> {
   @override
   Widget build(BuildContext context) {
-    print(DateTime.now().toIso8601String());
     final AsyncValue<String> test = ref.watch(testProvider);
+    final isLoading = ref.watch(loadingProvider);
     return Scaffold(
       appBar: AppBar(
         leading: SearchAnchor(
@@ -43,29 +44,31 @@ class _ExploreTabState extends ConsumerState<ExploreTab> {
         actions: [
           IconButton(
             onPressed: () {
+              ref.read(loadingProvider.notifier).update(true);
               ref.read(testProvider.notifier).fetch();
             },
             icon: const Icon(Icons.settings),
           )
         ],
       ),
-      body: switch (test) {
-        AsyncValue(:final error?) => Center(
-              child: Text(
-            'Error: $error',
-            style: const TextStyle(
-              fontSize: 25.0,
+      body: test.when(
+        data: (String text) => Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Text(
+              'Text: $text',
+              style: const TextStyle(
+                fontSize: 25.0,
+              ),
             ),
-          )),
-        AsyncValue(:final valueOrNull?) => Center(
-              child: Text(
-            '$valueOrNull',
-            style: const TextStyle(
-              fontSize: 25.0,
-            ),
-          )),
-        _ => Center(child: const CircularProgressIndicator()),
-      },
+            if (isLoading) CircularProgressIndicator()
+          ],
+        ),
+        error: (e, s) => const Center(
+          child: Text('Uh oh. Something went wrong!'),
+        ),
+        loading: () => const Center(child: CircularProgressIndicator()),
+      ),
     );
   }
 }
