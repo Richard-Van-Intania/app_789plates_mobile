@@ -12,43 +12,47 @@ class ConfirmationPasswordScreen extends StatefulHookConsumerWidget {
 class _ConfirmationPasswordScreenState extends ConsumerState<ConfirmationPasswordScreen> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text('Password'),
-      ),
-      resizeToAvoidBottomInset: false,
-      body: Padding(
-        padding: EdgeInsets.symmetric(horizontal: 16.0),
-        child: Column(
-          children: [
-            SizedBox(
-              height: 96,
-            ),
-            TextField(
-              decoration: InputDecoration(
-                hintText: 'Password',
-                border: const OutlineInputBorder(),
+    return PopScope(
+      canPop: false,
+      child: Scaffold(
+        appBar: AppBar(
+          automaticallyImplyLeading: false,
+          title: Text('Password'),
+        ),
+        resizeToAvoidBottomInset: false,
+        body: Padding(
+          padding: EdgeInsets.symmetric(horizontal: 16.0),
+          child: Column(
+            children: [
+              SizedBox(
+                height: 96,
               ),
-            ),
-            SizedBox(
-              height: 24,
-            ),
-            TextField(
-              decoration: InputDecoration(
-                hintText: 'Confirm password',
-                border: const OutlineInputBorder(),
+              TextField(
+                decoration: InputDecoration(
+                  hintText: 'Password',
+                  border: const OutlineInputBorder(),
+                ),
               ),
-            ),
-            SizedBox(
-              height: 32,
-            ),
-            ElevatedButton(
-                onPressed: () {
-                  // clear stage
-                  context.go('/myhomepage');
-                },
-                child: Text('Ok')),
-          ],
+              SizedBox(
+                height: 24,
+              ),
+              TextField(
+                decoration: InputDecoration(
+                  hintText: 'Confirm password',
+                  border: const OutlineInputBorder(),
+                ),
+              ),
+              SizedBox(
+                height: 32,
+              ),
+              ElevatedButton(
+                  onPressed: () {
+                    // clear stage
+                    context.go('/myhomepage');
+                  },
+                  child: Text('Ok')),
+            ],
+          ),
         ),
       ),
     );
