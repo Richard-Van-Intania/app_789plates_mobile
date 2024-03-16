@@ -16,45 +16,49 @@ class _VerificationCodeNewScreenState extends ConsumerState<VerificationCodeNewS
   final TextEditingController controller = TextEditingController();
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text('Verification code'),
-      ),
-      resizeToAvoidBottomInset: false,
-      body: Padding(
-        padding: EdgeInsets.symmetric(horizontal: 16.0),
-        child: Column(
-          children: [
-            SizedBox(
-              height: 96,
-            ),
-            TextField(
-              controller: controller,
-              keyboardType: TextInputType.number,
-              decoration: InputDecoration(
-                hintText: 'Verification code',
-                border: const OutlineInputBorder(),
+    return PopScope(
+      canPop: false,
+      child: Scaffold(
+        appBar: AppBar(
+          automaticallyImplyLeading: false,
+          title: Text('Verification code'),
+        ),
+        resizeToAvoidBottomInset: false,
+        body: Padding(
+          padding: EdgeInsets.symmetric(horizontal: 16.0),
+          child: Column(
+            children: [
+              SizedBox(
+                height: 96,
               ),
-            ),
-            SizedBox(
-              height: 32,
-            ),
-            ElevatedButton(
-                onPressed: () async {
-                  final Uri uri = Uri(scheme: 'http', host: '10.0.2.2', port: 8700, path: '/checkverificationcode');
-                  final response = await http.post(
-                    uri,
-                    headers: <String, String>{'Content-Type': 'application/json; charset=UTF-8'},
-                    body: jsonEncode(<String, String>{
-                      'uuid': '88862a24-acc0-4400-b630-77111ed11c1a',
-                      'reference': '79',
-                      'code': '122980',
-                    }),
-                  );
-                  Navigator.of(context).push(MaterialPageRoute(builder: (context) => const ConfirmationPasswordScreen()));
-                },
-                child: Text('Next')),
-          ],
+              TextField(
+                controller: controller,
+                keyboardType: TextInputType.number,
+                decoration: InputDecoration(
+                  hintText: 'Verification code',
+                  border: const OutlineInputBorder(),
+                ),
+              ),
+              SizedBox(
+                height: 32,
+              ),
+              ElevatedButton(
+                  onPressed: () async {
+                    final Uri uri = Uri(scheme: 'http', host: '10.0.2.2', port: 8700, path: '/checkverificationcode');
+                    final response = await http.post(
+                      uri,
+                      headers: <String, String>{'Content-Type': 'application/json; charset=UTF-8'},
+                      body: jsonEncode(<String, String>{
+                        'uuid': '88862a24-acc0-4400-b630-77111ed11c1a',
+                        'reference': '79',
+                        'code': '122980',
+                      }),
+                    );
+                    Navigator.of(context).push(MaterialPageRoute(builder: (context) => const ConfirmationPasswordScreen()));
+                  },
+                  child: Text('Next')),
+            ],
+          ),
         ),
       ),
     );

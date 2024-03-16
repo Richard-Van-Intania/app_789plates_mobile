@@ -15,14 +15,10 @@ class CreateNewAccountScreen extends StatefulHookConsumerWidget {
 }
 
 class _CreateNewAccountScreenState extends ConsumerState<CreateNewAccountScreen> {
-  @override
-  void initState() {
-    super.initState();
-  }
-
+  final GlobalKey<FormState> formKey = GlobalKey<FormState>();
   @override
   Widget build(BuildContext context) {
-    final controller = useTextEditingController();
+    final TextEditingController controller = useTextEditingController();
     final AsyncValue<int> statusCode = ref.watch(checkavAilabilityEmailProvider);
     WidgetsBinding.instance.addPostFrameCallback((Duration timeStamp) {
       switch (statusCode) {
@@ -35,13 +31,13 @@ class _CreateNewAccountScreenState extends ConsumerState<CreateNewAccountScreen>
             case 200:
               Navigator.of(context).push(MaterialPageRoute(builder: (context) => const VerificationCodeNewScreen()));
             case 500:
-              ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(valueOrNull.toString())));
+              ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(valueOrNull.toString()), behavior: SnackBarBehavior.floating));
             case 409:
-              ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(valueOrNull.toString())));
+              ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(valueOrNull.toString()), behavior: SnackBarBehavior.floating));
             case 400:
-              ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(valueOrNull.toString())));
+              ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(valueOrNull.toString()), behavior: SnackBarBehavior.floating));
             default:
-              ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('Oops, something unexpected happened')));
+              ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('Oops, something unexpected happened'), behavior: SnackBarBehavior.floating));
           }
         default:
       }
@@ -51,33 +47,51 @@ class _CreateNewAccountScreenState extends ConsumerState<CreateNewAccountScreen>
         title: Text('create new account'),
       ),
       resizeToAvoidBottomInset: false,
-      body: Padding(
-        padding: EdgeInsets.symmetric(horizontal: 16.0),
-        child: Column(
-          children: [
-            SizedBox(
-              height: 120,
+      body: switch (statusCode) {
+        AsyncData(:final value) => Padding(
+            padding: EdgeInsets.symmetric(horizontal: 16.0),
+            child: Column(
+              children: [
+                SizedBox(
+                  height: 120,
+                ),
+                Form(
+                  key: formKey,
+                  child: TextFormField(
+                    controller: controller,
+                    keyboardType: TextInputType.emailAddress,
+                    decoration: InputDecoration(
+                      hintText: 'Email',
+                      border: const OutlineInputBorder(),
+                    ),
+                    validator: (String? value) {
+                      if (value == null || value.isEmpty) {
+                        return 'Please enter some emailAddress';
+                      } else if (!EmailValidator.validate(value.trim().toLowerCase())) {
+                        return 'emailAddress not correct';
+                      }
+                      return null;
+                    },
+                  ),
+                ),
+                SizedBox(
+                  height: 32,
+                ),
+                ElevatedButton(
+                  onPressed: () {
+                    if (formKey.currentState!.validate()) {
+                      ref.read(checkavAilabilityEmailProvider.notifier).postCheck(controller.text.trim().toLowerCase());
+                      FocusScope.of(context).unfocus();
+                    }
+                  },
+                  child: Text('Next'),
+                ),
+              ],
             ),
-            TextField(
-              controller: controller,
-              keyboardType: TextInputType.emailAddress,
-              decoration: InputDecoration(
-                hintText: 'Email',
-                border: const OutlineInputBorder(),
-              ),
-            ),
-            SizedBox(
-              height: 32,
-            ),
-            ElevatedButton(
-              onPressed: () async {
-                await ref.read(checkavAilabilityEmailProvider.notifier).postCheck(controller.text);
-              },
-              child: Text('Next'),
-            ),
-          ],
-        ),
-      ),
+          ),
+        AsyncError() => Center(child: const Text('Oops, something unexpected happened')),
+        _ => Center(child: const CircularProgressIndicator()),
+      },
     );
   }
 }
