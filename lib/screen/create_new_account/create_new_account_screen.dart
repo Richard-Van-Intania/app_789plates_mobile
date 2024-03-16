@@ -16,6 +16,7 @@ class CreateNewAccountScreen extends StatefulHookConsumerWidget {
 
 class _CreateNewAccountScreenState extends ConsumerState<CreateNewAccountScreen> {
   final GlobalKey<FormState> formKey = GlobalKey<FormState>();
+
   @override
   Widget build(BuildContext context) {
     final TextEditingController controller = useTextEditingController();

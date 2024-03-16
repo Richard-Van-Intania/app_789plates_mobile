@@ -1,6 +1,6 @@
 import 'dart:convert';
-
 import 'package:flutter/material.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'confirmation_password_screen.dart';
 import 'package:http/http.dart' as http;
@@ -13,9 +13,11 @@ class VerificationCodeNewScreen extends StatefulHookConsumerWidget {
 }
 
 class _VerificationCodeNewScreenState extends ConsumerState<VerificationCodeNewScreen> {
-  final TextEditingController controller = TextEditingController();
+  final GlobalKey<FormState> formKey = GlobalKey<FormState>();
+
   @override
   Widget build(BuildContext context) {
+    final TextEditingController controller = useTextEditingController();
     return PopScope(
       canPop: false,
       child: Scaffold(
@@ -31,12 +33,21 @@ class _VerificationCodeNewScreenState extends ConsumerState<VerificationCodeNewS
               SizedBox(
                 height: 96,
               ),
-              TextField(
-                controller: controller,
-                keyboardType: TextInputType.number,
-                decoration: InputDecoration(
-                  hintText: 'Verification code',
-                  border: const OutlineInputBorder(),
+              Form(
+                key: formKey,
+                child: TextFormField(
+                  controller: controller,
+                  keyboardType: TextInputType.number,
+                  decoration: InputDecoration(
+                    hintText: 'Verification code',
+                    border: const OutlineInputBorder(),
+                  ),
+                  validator: (String? value) {
+                    if (value == null || value.isEmpty) {
+                      return 'Please enter some Verification code';
+                    }
+                    return null;
+                  },
                 ),
               ),
               SizedBox(
@@ -44,17 +55,10 @@ class _VerificationCodeNewScreenState extends ConsumerState<VerificationCodeNewS
               ),
               ElevatedButton(
                   onPressed: () async {
-                    final Uri uri = Uri(scheme: 'http', host: '10.0.2.2', port: 8700, path: '/checkverificationcode');
-                    final response = await http.post(
-                      uri,
-                      headers: <String, String>{'Content-Type': 'application/json; charset=UTF-8'},
-                      body: jsonEncode(<String, String>{
-                        'uuid': '88862a24-acc0-4400-b630-77111ed11c1a',
-                        'reference': '79',
-                        'code': '122980',
-                      }),
-                    );
-                    Navigator.of(context).push(MaterialPageRoute(builder: (context) => const ConfirmationPasswordScreen()));
+                    if (formKey.currentState!.validate()) {
+                      //
+                      FocusScope.of(context).unfocus();
+                    }
                   },
                   child: Text('Next')),
             ],
