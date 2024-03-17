@@ -15,7 +15,11 @@ class _ExploreTabState extends ConsumerState<ExploreTab> {
   @override
   Widget build(BuildContext context) {
     final AsyncValue<String> test = ref.watch(testProvider);
-    final isLoading = ref.watch(loadingProvider);
+    // final isLoading = ref.watch(loadingProvider);
+
+    final pendingFetch = useState<Future<void>?>(null);
+    final snapshot = useFuture(pendingFetch.value);
+    final isErrored = snapshot.hasError && snapshot.connectionState != ConnectionState.waiting;
     return Scaffold(
       appBar: AppBar(
         leading: SearchAnchor(
@@ -44,8 +48,7 @@ class _ExploreTabState extends ConsumerState<ExploreTab> {
         actions: [
           IconButton(
             onPressed: () {
-              ref.read(testProvider.notifier).fetch();
-              ref.read(loadingProvider.notifier).toggle(true);
+              pendingFetch.value = ref.read(testProvider.notifier).fetch();
             },
             icon: const Icon(Icons.settings),
           )
@@ -61,7 +64,7 @@ class _ExploreTabState extends ConsumerState<ExploreTab> {
                 fontSize: 25.0,
               ),
             ),
-            if (isLoading) CircularProgressIndicator()
+            if (snapshot.connectionState == ConnectionState.waiting) CircularProgressIndicator()
           ],
         ),
         error: (e, s) => const Center(

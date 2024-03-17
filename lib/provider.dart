@@ -88,6 +88,7 @@ class CheckAvailabilityEmail extends _$CheckAvailabilityEmail {
     );
     state = AsyncData(response);
     ref.read(loadingProvider.notifier).toggle(false);
+    await future;
   }
 }
 

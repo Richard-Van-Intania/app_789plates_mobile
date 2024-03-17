@@ -31,3 +31,12 @@ forgotpasswordscreen
 main logic first design later
 
 refactor model and response
+
+naming route model provider
+
+model name
+provider name
+
+route name
+handler name
+struct name
