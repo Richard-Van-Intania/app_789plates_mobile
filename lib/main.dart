@@ -12,6 +12,7 @@ import 'screen/forgot_password/forgot_password_screen.dart';
 import 'screen/forgot_password/new_password_screen.dart';
 import 'screen/forgot_password/verification_code_forgot_screen.dart';
 import 'screen/sign_in_screen.dart';
+
 import 'tab/chat_tab.dart';
 import 'tab/explore_tab.dart';
 import 'tab/home_tab.dart';
@@ -69,13 +70,7 @@ class MyHomePage extends StatefulHookConsumerWidget {
 }
 
 class _MyHomePageState extends ConsumerState<MyHomePage> {
-  final List<GlobalKey<NavigatorState>> _tabNavigatorKeys = [
-    GlobalKey<NavigatorState>(),
-    GlobalKey<NavigatorState>(),
-    GlobalKey<NavigatorState>(),
-    GlobalKey<NavigatorState>(),
-    GlobalKey<NavigatorState>(),
-  ];
+  final List<GlobalKey<NavigatorState>> _tabNavigatorKeys = [GlobalKey<NavigatorState>(), GlobalKey<NavigatorState>(), GlobalKey<NavigatorState>(), GlobalKey<NavigatorState>(), GlobalKey<NavigatorState>()];
 
   @override
   Widget build(BuildContext context) {

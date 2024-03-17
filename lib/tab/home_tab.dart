@@ -18,9 +18,9 @@ class _HomeTabState extends ConsumerState<HomeTab> {
     return Scaffold(
       body: Center(
         child: TextButton(
-          onPressed: () async {
+          onPressed: () {
             final Locale myLocale = Localizations.localeOf(context);
-            await ref.read(localeUpdateProvider.notifier).updateLocale(myLocale == const Locale('en') ? const Locale('th') : const Locale('en'));
+            ref.read(localeUpdateProvider.notifier).updateLocale(myLocale == const Locale('en') ? const Locale('th') : const Locale('en'));
           },
           child: Text(
             AppLocalizations.of(context)!.helloWorld,

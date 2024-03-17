@@ -1,5 +1,4 @@
 import 'dart:convert';
-
 import 'package:app_789plates_mobile/model.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart';
@@ -12,6 +11,13 @@ part 'provider.g.dart';
 final initResponse = Response('', 100);
 
 @riverpod
+class Loading extends _$Loading {
+  @override
+  bool build() => false;
+  void toggle(bool isLoading) => state = isLoading;
+}
+
+@riverpod
 class LocaleUpdate extends _$LocaleUpdate {
   @override
   Locale build() {
@@ -19,8 +25,8 @@ class LocaleUpdate extends _$LocaleUpdate {
     return languageCode == null ? const Locale('en') : Locale(languageCode);
   }
 
-  Future<void> updateLocale(Locale locale) async {
-    await prefs.setString('languageCode', locale.languageCode);
+  void updateLocale(Locale locale) {
+    prefs.setString('languageCode', locale.languageCode);
     state = locale;
   }
 }
@@ -29,7 +35,6 @@ class LocaleUpdate extends _$LocaleUpdate {
 class TabIndex extends _$TabIndex {
   @override
   int build() => 0;
-
   void updateTabIndex(int index) => state = index;
 }
 
@@ -37,7 +42,6 @@ class TabIndex extends _$TabIndex {
 class DrawerIndex extends _$DrawerIndex {
   @override
   int build() => 0;
-
   void updateDrawerIndex(int index) => state = index;
 }
 
@@ -120,11 +124,4 @@ class Test extends _$Test {
     state = AsyncData(DateTime.now().toIso8601String());
     ref.read(loadingProvider.notifier).toggle(false);
   }
-}
-
-@riverpod
-class Loading extends _$Loading {
-  @override
-  bool build() => false;
-  void toggle(bool isLoading) => state = isLoading;
 }

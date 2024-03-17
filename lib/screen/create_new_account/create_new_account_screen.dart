@@ -24,7 +24,7 @@ class _CreateNewAccountScreenState extends ConsumerState<CreateNewAccountScreen>
   Widget build(BuildContext context) {
     final TextEditingController controller = useTextEditingController();
     final response = ref.watch(checkavAilabilityEmailProvider);
-    final isLoading = ref.watch(loadingProvider);
+    final bool isLoading = ref.watch(loadingProvider);
     WidgetsBinding.instance.addPostFrameCallback((Duration timeStamp) {
       switch (response) {
         case AsyncValue(:final error?):
@@ -33,7 +33,7 @@ class _CreateNewAccountScreenState extends ConsumerState<CreateNewAccountScreen>
           switch (valueOrNull.statusCode) {
             case 100:
               {}
-            case 200:
+            case 200 when !isLoading:
               Navigator.of(context).push(MaterialPageRoute(builder: (context) => const VerificationCodeNewScreen()));
             case 500:
               ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(valueOrNull.statusCode.toString()), behavior: SnackBarBehavior.floating));
@@ -44,7 +44,6 @@ class _CreateNewAccountScreenState extends ConsumerState<CreateNewAccountScreen>
             default:
               ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('Oops, something unexpected happened'), behavior: SnackBarBehavior.floating));
           }
-        default:
       }
     });
     return Scaffold(
