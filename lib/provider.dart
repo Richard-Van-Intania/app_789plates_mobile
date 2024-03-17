@@ -121,14 +121,12 @@ class CreateNewAccountFetch extends _$CreateNewAccountFetch {
 
   Future<void> fetch(String password) async {
     final checkavAilabilityEmailResponse = await ref.read(checkAvailabilityEmailProvider.future);
-    final checkVerificationCodeResponse = await ref.read(checkVerificationCodeProvider.future);
     final VerificationRes verificationRes = VerificationRes.fromJson(jsonDecode(utf8.decode(checkavAilabilityEmailResponse.bodyBytes)));
-    final VerificationCode verificationCode = VerificationCode.fromJson(jsonDecode(utf8.decode(checkVerificationCodeResponse.bodyBytes)));
     final Uri uri = Uri(scheme: 'http', host: '10.0.2.2', port: 8700, path: '/createnewaccount');
     final Response response = await http.post(
       uri,
       headers: <String, String>{'Content-Type': 'application/json; charset=UTF-8'},
-      body: jsonEncode(CreateNewAccount(verification_id: verificationCode.verification_id, reference: verificationCode.reference, code: verificationCode.code, email: verificationRes.email, password: password).toJson()),
+      // body: jsonEncode(CreateNewAccount(verification_id: verificationRes.verification_id, reference: verificationRes.reference, code: verificationRes.code, email: verificationRes.email, password: password).toJson()),
     );
     state = AsyncData(response);
     ref.read(loadingProvider.notifier).toggle(false);

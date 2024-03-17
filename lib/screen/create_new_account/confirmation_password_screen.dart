@@ -19,8 +19,22 @@ class _ConfirmationPasswordScreenState extends ConsumerState<ConfirmationPasswor
     final TextEditingController controller1 = useTextEditingController();
     final TextEditingController controller2 = useTextEditingController();
     final bool isLoading = ref.watch(loadingProvider);
+    final createNewAccountFetchResponse = ref.watch(createNewAccountFetchProvider);
     WidgetsBinding.instance.addPostFrameCallback((Duration timeStamp) {
-      //
+      print(createNewAccountFetchResponse.valueOrNull?.statusCode);
+      // switch (createNewAccountFetchResponse) {
+      //   case AsyncValue(:final valueOrNull?):
+      //     if (valueOrNull.statusCode == 200) {
+      //       // store token in secret
+      //       context.go('/myhomepage');
+      //     } else {
+      //       print(valueOrNull.statusCode);
+      //     }
+      //   case AsyncValue(:final error?):
+      //     {}
+      //   default:
+      //     {}
+      // }
     });
     return PopScope(
       canPop: false,
@@ -96,11 +110,10 @@ class _ConfirmationPasswordScreenState extends ConsumerState<ConfirmationPasswor
                   onPressed: isLoading
                       ? null
                       : () {
-                          if (key.currentState!.validate()) {
-                            //
+                          if (key.currentState!.validate() && (controller1.text.trim() == controller2.text.trim())) {
+                            ref.read(createNewAccountFetchProvider.notifier).fetch(controller1.text.trim());
                             FocusScope.of(context).unfocus();
                             ref.read(loadingProvider.notifier).toggle(true);
-                            // context.go('/myhomepage');
                           }
                         },
                   child: Text('Ok')),
