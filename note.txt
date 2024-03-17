@@ -37,6 +37,5 @@ naming route model provider
 model name
 provider name
 
-route name
-handler name
-struct name
+route name same as provider name
+

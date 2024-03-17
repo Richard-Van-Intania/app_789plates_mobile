@@ -71,7 +71,7 @@ final themeModeUpdateProvider = AutoDisposeNotifierProvider<ThemeModeUpdate, The
 );
 
 typedef _$ThemeModeUpdate = AutoDisposeNotifier<ThemeMode>;
-String _$checkAvailabilityEmailHash() => r'2769a74245f2f32afc422bb2014e935ecd3621da';
+String _$checkAvailabilityEmailHash() => r'b87e76aff4df45eb8c0d781a5b4316c85c0bf289';
 
 /// See also [CheckAvailabilityEmail].
 @ProviderFor(CheckAvailabilityEmail)
@@ -97,7 +97,7 @@ final checkVerificationCodeProvider = AutoDisposeAsyncNotifierProvider<CheckVeri
 );
 
 typedef _$CheckVerificationCode = AutoDisposeAsyncNotifier<Response>;
-String _$createNewAccountFetchHash() => r'03d7ec3c02cfedf8828805b577535a25576fb4e3';
+String _$createNewAccountFetchHash() => r'9b168945f3ba7a167debe20a91ac9970e6921104';
 
 /// See also [CreateNewAccountFetch].
 @ProviderFor(CreateNewAccountFetch)

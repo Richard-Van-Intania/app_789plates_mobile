@@ -56,3 +56,18 @@ class SignIn with _$SignIn {
 
   factory SignIn.fromJson(Map<String, Object?> json) => _$SignInFromJson(json);
 }
+
+@freezed
+class Authentication with _$Authentication {
+  const factory Authentication({
+    required int verification_id,
+    required int reference,
+    required int code,
+    required String email,
+    required String password,
+    required String access_token,
+    required String refresh_token,
+  }) = _Authentication;
+
+  factory Authentication.fromJson(Map<String, Object?> json) => _$AuthenticationFromJson(json);
+}

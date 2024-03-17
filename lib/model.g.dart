@@ -63,3 +63,23 @@ Map<String, dynamic> _$$SignInImplToJson(_$SignInImpl instance) => <String, dyna
       'email': instance.email,
       'password': instance.password,
     };
+
+_$AuthenticationImpl _$$AuthenticationImplFromJson(Map<String, dynamic> json) => _$AuthenticationImpl(
+      verification_id: json['verification_id'] as int,
+      reference: json['reference'] as int,
+      code: json['code'] as int,
+      email: json['email'] as String,
+      password: json['password'] as String,
+      access_token: json['access_token'] as String,
+      refresh_token: json['refresh_token'] as String,
+    );
+
+Map<String, dynamic> _$$AuthenticationImplToJson(_$AuthenticationImpl instance) => <String, dynamic>{
+      'verification_id': instance.verification_id,
+      'reference': instance.reference,
+      'code': instance.code,
+      'email': instance.email,
+      'password': instance.password,
+      'access_token': instance.access_token,
+      'refresh_token': instance.refresh_token,
+    };
