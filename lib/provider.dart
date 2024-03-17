@@ -8,8 +8,6 @@ import 'package:http/http.dart' as http;
 
 part 'provider.g.dart';
 
-final initResponse = Response('', 100);
-
 @riverpod
 class Loading extends _$Loading {
   @override
@@ -72,6 +70,8 @@ class ThemeModeUpdate extends _$ThemeModeUpdate {
   }
 }
 
+final initResponse = Response('', 100);
+
 @riverpod
 class CheckavAilabilityEmail extends _$CheckavAilabilityEmail {
   @override
@@ -99,7 +99,7 @@ class CheckVerificationCode extends _$CheckVerificationCode {
   }
 
   Future<void> fetch(int code) async {
-    final checkavAilabilityEmailResponse = await ref.watch(checkavAilabilityEmailProvider.future);
+    final checkavAilabilityEmailResponse = await ref.read(checkavAilabilityEmailProvider.future);
     final VerificationRes verificationRes = VerificationRes.fromJson(jsonDecode(utf8.decode(checkavAilabilityEmailResponse.bodyBytes)));
     final Uri uri = Uri(scheme: 'http', host: '10.0.2.2', port: 8700, path: '/checkverificationcode');
     final Response response = await http.post(
@@ -108,6 +108,7 @@ class CheckVerificationCode extends _$CheckVerificationCode {
       body: jsonEncode(VerificationCode(verification_id: verificationRes.verification_id, reference: verificationRes.reference, code: code).toJson()),
     );
     state = AsyncData(response);
+    ref.read(loadingProvider.notifier).toggle(false);
   }
 }
 
