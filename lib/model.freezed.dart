@@ -426,3 +426,321 @@ abstract class _VerificationCode implements VerificationCode {
   @JsonKey(ignore: true)
   _$$VerificationCodeImplCopyWith<_$VerificationCodeImpl> get copyWith => throw _privateConstructorUsedError;
 }
+
+CreateNewAccount _$CreateNewAccountFromJson(Map<String, dynamic> json) {
+  return _CreateNewAccount.fromJson(json);
+}
+
+/// @nodoc
+mixin _$CreateNewAccount {
+  int get verification_id => throw _privateConstructorUsedError;
+  int get reference => throw _privateConstructorUsedError;
+  int get code => throw _privateConstructorUsedError;
+  String get email => throw _privateConstructorUsedError;
+  String get password => throw _privateConstructorUsedError;
+
+  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
+  @JsonKey(ignore: true)
+  $CreateNewAccountCopyWith<CreateNewAccount> get copyWith => throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class $CreateNewAccountCopyWith<$Res> {
+  factory $CreateNewAccountCopyWith(CreateNewAccount value, $Res Function(CreateNewAccount) then) = _$CreateNewAccountCopyWithImpl<$Res, CreateNewAccount>;
+  @useResult
+  $Res call({int verification_id, int reference, int code, String email, String password});
+}
+
+/// @nodoc
+class _$CreateNewAccountCopyWithImpl<$Res, $Val extends CreateNewAccount> implements $CreateNewAccountCopyWith<$Res> {
+  _$CreateNewAccountCopyWithImpl(this._value, this._then);
+
+  // ignore: unused_field
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? verification_id = null,
+    Object? reference = null,
+    Object? code = null,
+    Object? email = null,
+    Object? password = null,
+  }) {
+    return _then(_value.copyWith(
+      verification_id: null == verification_id
+          ? _value.verification_id
+          : verification_id // ignore: cast_nullable_to_non_nullable
+              as int,
+      reference: null == reference
+          ? _value.reference
+          : reference // ignore: cast_nullable_to_non_nullable
+              as int,
+      code: null == code
+          ? _value.code
+          : code // ignore: cast_nullable_to_non_nullable
+              as int,
+      email: null == email
+          ? _value.email
+          : email // ignore: cast_nullable_to_non_nullable
+              as String,
+      password: null == password
+          ? _value.password
+          : password // ignore: cast_nullable_to_non_nullable
+              as String,
+    ) as $Val);
+  }
+}
+
+/// @nodoc
+abstract class _$$CreateNewAccountImplCopyWith<$Res> implements $CreateNewAccountCopyWith<$Res> {
+  factory _$$CreateNewAccountImplCopyWith(_$CreateNewAccountImpl value, $Res Function(_$CreateNewAccountImpl) then) = __$$CreateNewAccountImplCopyWithImpl<$Res>;
+  @override
+  @useResult
+  $Res call({int verification_id, int reference, int code, String email, String password});
+}
+
+/// @nodoc
+class __$$CreateNewAccountImplCopyWithImpl<$Res> extends _$CreateNewAccountCopyWithImpl<$Res, _$CreateNewAccountImpl> implements _$$CreateNewAccountImplCopyWith<$Res> {
+  __$$CreateNewAccountImplCopyWithImpl(_$CreateNewAccountImpl _value, $Res Function(_$CreateNewAccountImpl) _then) : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? verification_id = null,
+    Object? reference = null,
+    Object? code = null,
+    Object? email = null,
+    Object? password = null,
+  }) {
+    return _then(_$CreateNewAccountImpl(
+      verification_id: null == verification_id
+          ? _value.verification_id
+          : verification_id // ignore: cast_nullable_to_non_nullable
+              as int,
+      reference: null == reference
+          ? _value.reference
+          : reference // ignore: cast_nullable_to_non_nullable
+              as int,
+      code: null == code
+          ? _value.code
+          : code // ignore: cast_nullable_to_non_nullable
+              as int,
+      email: null == email
+          ? _value.email
+          : email // ignore: cast_nullable_to_non_nullable
+              as String,
+      password: null == password
+          ? _value.password
+          : password // ignore: cast_nullable_to_non_nullable
+              as String,
+    ));
+  }
+}
+
+/// @nodoc
+@JsonSerializable()
+class _$CreateNewAccountImpl implements _CreateNewAccount {
+  const _$CreateNewAccountImpl({required this.verification_id, required this.reference, required this.code, required this.email, required this.password});
+
+  factory _$CreateNewAccountImpl.fromJson(Map<String, dynamic> json) => _$$CreateNewAccountImplFromJson(json);
+
+  @override
+  final int verification_id;
+  @override
+  final int reference;
+  @override
+  final int code;
+  @override
+  final String email;
+  @override
+  final String password;
+
+  @override
+  String toString() {
+    return 'CreateNewAccount(verification_id: $verification_id, reference: $reference, code: $code, email: $email, password: $password)';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$CreateNewAccountImpl &&
+            (identical(other.verification_id, verification_id) || other.verification_id == verification_id) &&
+            (identical(other.reference, reference) || other.reference == reference) &&
+            (identical(other.code, code) || other.code == code) &&
+            (identical(other.email, email) || other.email == email) &&
+            (identical(other.password, password) || other.password == password));
+  }
+
+  @JsonKey(ignore: true)
+  @override
+  int get hashCode => Object.hash(runtimeType, verification_id, reference, code, email, password);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$CreateNewAccountImplCopyWith<_$CreateNewAccountImpl> get copyWith => __$$CreateNewAccountImplCopyWithImpl<_$CreateNewAccountImpl>(this, _$identity);
+
+  @override
+  Map<String, dynamic> toJson() {
+    return _$$CreateNewAccountImplToJson(
+      this,
+    );
+  }
+}
+
+abstract class _CreateNewAccount implements CreateNewAccount {
+  const factory _CreateNewAccount({required final int verification_id, required final int reference, required final int code, required final String email, required final String password}) = _$CreateNewAccountImpl;
+
+  factory _CreateNewAccount.fromJson(Map<String, dynamic> json) = _$CreateNewAccountImpl.fromJson;
+
+  @override
+  int get verification_id;
+  @override
+  int get reference;
+  @override
+  int get code;
+  @override
+  String get email;
+  @override
+  String get password;
+  @override
+  @JsonKey(ignore: true)
+  _$$CreateNewAccountImplCopyWith<_$CreateNewAccountImpl> get copyWith => throw _privateConstructorUsedError;
+}
+
+SignIn _$SignInFromJson(Map<String, dynamic> json) {
+  return _SignIn.fromJson(json);
+}
+
+/// @nodoc
+mixin _$SignIn {
+  String get email => throw _privateConstructorUsedError;
+  String get password => throw _privateConstructorUsedError;
+
+  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
+  @JsonKey(ignore: true)
+  $SignInCopyWith<SignIn> get copyWith => throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class $SignInCopyWith<$Res> {
+  factory $SignInCopyWith(SignIn value, $Res Function(SignIn) then) = _$SignInCopyWithImpl<$Res, SignIn>;
+  @useResult
+  $Res call({String email, String password});
+}
+
+/// @nodoc
+class _$SignInCopyWithImpl<$Res, $Val extends SignIn> implements $SignInCopyWith<$Res> {
+  _$SignInCopyWithImpl(this._value, this._then);
+
+  // ignore: unused_field
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? email = null,
+    Object? password = null,
+  }) {
+    return _then(_value.copyWith(
+      email: null == email
+          ? _value.email
+          : email // ignore: cast_nullable_to_non_nullable
+              as String,
+      password: null == password
+          ? _value.password
+          : password // ignore: cast_nullable_to_non_nullable
+              as String,
+    ) as $Val);
+  }
+}
+
+/// @nodoc
+abstract class _$$SignInImplCopyWith<$Res> implements $SignInCopyWith<$Res> {
+  factory _$$SignInImplCopyWith(_$SignInImpl value, $Res Function(_$SignInImpl) then) = __$$SignInImplCopyWithImpl<$Res>;
+  @override
+  @useResult
+  $Res call({String email, String password});
+}
+
+/// @nodoc
+class __$$SignInImplCopyWithImpl<$Res> extends _$SignInCopyWithImpl<$Res, _$SignInImpl> implements _$$SignInImplCopyWith<$Res> {
+  __$$SignInImplCopyWithImpl(_$SignInImpl _value, $Res Function(_$SignInImpl) _then) : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? email = null,
+    Object? password = null,
+  }) {
+    return _then(_$SignInImpl(
+      email: null == email
+          ? _value.email
+          : email // ignore: cast_nullable_to_non_nullable
+              as String,
+      password: null == password
+          ? _value.password
+          : password // ignore: cast_nullable_to_non_nullable
+              as String,
+    ));
+  }
+}
+
+/// @nodoc
+@JsonSerializable()
+class _$SignInImpl implements _SignIn {
+  const _$SignInImpl({required this.email, required this.password});
+
+  factory _$SignInImpl.fromJson(Map<String, dynamic> json) => _$$SignInImplFromJson(json);
+
+  @override
+  final String email;
+  @override
+  final String password;
+
+  @override
+  String toString() {
+    return 'SignIn(email: $email, password: $password)';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) || (other.runtimeType == runtimeType && other is _$SignInImpl && (identical(other.email, email) || other.email == email) && (identical(other.password, password) || other.password == password));
+  }
+
+  @JsonKey(ignore: true)
+  @override
+  int get hashCode => Object.hash(runtimeType, email, password);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$SignInImplCopyWith<_$SignInImpl> get copyWith => __$$SignInImplCopyWithImpl<_$SignInImpl>(this, _$identity);
+
+  @override
+  Map<String, dynamic> toJson() {
+    return _$$SignInImplToJson(
+      this,
+    );
+  }
+}
+
+abstract class _SignIn implements SignIn {
+  const factory _SignIn({required final String email, required final String password}) = _$SignInImpl;
+
+  factory _SignIn.fromJson(Map<String, dynamic> json) = _$SignInImpl.fromJson;
+
+  @override
+  String get email;
+  @override
+  String get password;
+  @override
+  @JsonKey(ignore: true)
+  _$$SignInImplCopyWith<_$SignInImpl> get copyWith => throw _privateConstructorUsedError;
+}

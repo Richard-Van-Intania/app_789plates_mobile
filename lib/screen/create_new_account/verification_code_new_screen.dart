@@ -15,15 +15,16 @@ class VerificationCodeNewScreen extends StatefulHookConsumerWidget {
 }
 
 class _VerificationCodeNewScreenState extends ConsumerState<VerificationCodeNewScreen> {
-  final GlobalKey<FormState> formKey = GlobalKey<FormState>();
+  final GlobalKey<FormFieldState> key = GlobalKey<FormFieldState>();
 
   @override
   Widget build(BuildContext context) {
     final TextEditingController controller = useTextEditingController();
-    final response = ref.watch(checkVerificationCodeProvider);
+    final bool isLoading = ref.watch(loadingProvider);
     final checkavAilabilityEmailResponse = ref.watch(checkavAilabilityEmailProvider);
+    final checkVerificationCodeResponse = ref.watch(checkVerificationCodeProvider);
     WidgetsBinding.instance.addPostFrameCallback((Duration timeStamp) {
-      switch (response) {
+      switch (checkVerificationCodeResponse) {
         case AsyncValue(:final error?):
           ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(error.toString())));
         case AsyncValue(:final valueOrNull?):
@@ -39,7 +40,7 @@ class _VerificationCodeNewScreenState extends ConsumerState<VerificationCodeNewS
             case 400:
               ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(valueOrNull.statusCode.toString()), behavior: SnackBarBehavior.floating));
             default:
-              ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('Oops, something unexpected happened'), behavior: SnackBarBehavior.floating));
+              print('statusCode: ${valueOrNull.statusCode}');
           }
         default:
       }
@@ -61,33 +62,35 @@ class _VerificationCodeNewScreenState extends ConsumerState<VerificationCodeNewS
                     height: 120,
                   ),
                   Text(VerificationRes.fromJson(jsonDecode(utf8.decode(value.bodyBytes))).reference.toString()),
-                  Form(
-                    key: formKey,
-                    child: TextFormField(
-                      controller: controller,
-                      keyboardType: TextInputType.number,
-                      decoration: InputDecoration(
-                        hintText: 'Verification code',
-                        border: const OutlineInputBorder(),
-                      ),
-                      validator: (String? value) {
-                        if (value == null || value.isEmpty) {
-                          return 'Please enter some Verification code';
-                        }
-                        return null;
-                      },
+                  TextFormField(
+                    key: key,
+                    controller: controller,
+                    keyboardType: TextInputType.number,
+                    decoration: InputDecoration(
+                      hintText: 'Verification code',
+                      border: const OutlineInputBorder(),
                     ),
+                    validator: (String? value) {
+                      if (value == null || value.isEmpty) {
+                        return 'Please enter some Verification code';
+                      } else {
+                        return null;
+                      }
+                    },
                   ),
                   SizedBox(
                     height: 32,
                   ),
                   ElevatedButton(
-                      onPressed: () async {
-                        if (formKey.currentState!.validate()) {
-                          ref.read(checkVerificationCodeProvider.notifier).fetch(int.parse(controller.text.trim()));
-                          FocusScope.of(context).unfocus();
-                        }
-                      },
+                      onPressed: isLoading
+                          ? null
+                          : () {
+                              if (key.currentState!.validate()) {
+                                ref.read(checkVerificationCodeProvider.notifier).fetch(int.parse(controller.text.trim()));
+                                FocusScope.of(context).unfocus();
+                                ref.read(loadingProvider.notifier).toggle(true);
+                              }
+                            },
                       child: Text('Next')),
                 ],
               ),

@@ -7,6 +7,7 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'color_schemes.g.dart';
 import 'initialize.dart';
 import 'provider.dart';
+import 'screen/create_new_account/confirmation_password_screen.dart';
 import 'screen/create_new_account/create_new_account_screen.dart';
 import 'screen/forgot_password/forgot_password_screen.dart';
 import 'screen/forgot_password/new_password_screen.dart';
@@ -46,7 +47,8 @@ class MyApp extends HookConsumerWidget {
       darkTheme: ThemeData(fontFamily: 'Noto Sans Thai', useMaterial3: true, colorScheme: darkColorScheme),
       routerConfig: GoRouter(
         // initialLocation: '/myhomepage',
-        initialLocation: '/signinscreen',
+        initialLocation: '/dev',
+        // initialLocation: '/signinscreen',
         routes: <RouteBase>[
           GoRoute(
             path: '/myhomepage',
@@ -55,6 +57,10 @@ class MyApp extends HookConsumerWidget {
           GoRoute(
             path: '/signinscreen',
             builder: (BuildContext context, GoRouterState state) => const SignInScreen(),
+          ),
+          GoRoute(
+            path: '/dev',
+            builder: (BuildContext context, GoRouterState state) => const ConfirmationPasswordScreen(),
           ),
         ],
       ),

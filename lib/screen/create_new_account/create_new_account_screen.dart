@@ -18,22 +18,22 @@ class CreateNewAccountScreen extends StatefulHookConsumerWidget {
 }
 
 class _CreateNewAccountScreenState extends ConsumerState<CreateNewAccountScreen> {
-  final GlobalKey<FormState> formKey = GlobalKey<FormState>();
+  final GlobalKey<FormFieldState> key = GlobalKey<FormFieldState>();
 
   @override
   Widget build(BuildContext context) {
     final TextEditingController controller = useTextEditingController();
-    final response = ref.watch(checkavAilabilityEmailProvider);
     final bool isLoading = ref.watch(loadingProvider);
+    final checkavAilabilityEmailResponse = ref.watch(checkavAilabilityEmailProvider);
     WidgetsBinding.instance.addPostFrameCallback((Duration timeStamp) {
-      switch (response) {
+      switch (checkavAilabilityEmailResponse) {
         case AsyncValue(:final error?):
           ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(error.toString())));
         case AsyncValue(:final valueOrNull?):
           switch (valueOrNull.statusCode) {
             case 100:
               {}
-            case 200 when !isLoading:
+            case 200:
               Navigator.of(context).push(MaterialPageRoute(builder: (context) => const VerificationCodeNewScreen()));
             case 500:
               ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(valueOrNull.statusCode.toString()), behavior: SnackBarBehavior.floating));
@@ -42,7 +42,7 @@ class _CreateNewAccountScreenState extends ConsumerState<CreateNewAccountScreen>
             case 400:
               ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(valueOrNull.statusCode.toString()), behavior: SnackBarBehavior.floating));
             default:
-              ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('Oops, something unexpected happened'), behavior: SnackBarBehavior.floating));
+              print('statusCode: ${valueOrNull.statusCode}');
           }
       }
     });
@@ -51,7 +51,7 @@ class _CreateNewAccountScreenState extends ConsumerState<CreateNewAccountScreen>
         title: Text('create new account'),
       ),
       resizeToAvoidBottomInset: false,
-      body: switch (response) {
+      body: switch (checkavAilabilityEmailResponse) {
         AsyncData(:final value) => Padding(
             padding: EdgeInsets.symmetric(horizontal: 16.0),
             child: Column(
@@ -59,24 +59,23 @@ class _CreateNewAccountScreenState extends ConsumerState<CreateNewAccountScreen>
                 SizedBox(
                   height: 120,
                 ),
-                Form(
-                  key: formKey,
-                  child: TextFormField(
-                    controller: controller,
-                    keyboardType: TextInputType.emailAddress,
-                    decoration: InputDecoration(
-                      hintText: 'Email',
-                      border: const OutlineInputBorder(),
-                    ),
-                    validator: (String? value) {
-                      if (value == null || value.isEmpty) {
-                        return 'Please enter some emailAddress';
-                      } else if (!EmailValidator.validate(value.trim().toLowerCase())) {
-                        return 'emailAddress not correct';
-                      }
-                      return null;
-                    },
+                TextFormField(
+                  key: key,
+                  controller: controller,
+                  keyboardType: TextInputType.emailAddress,
+                  decoration: InputDecoration(
+                    hintText: 'Email',
+                    border: const OutlineInputBorder(),
                   ),
+                  validator: (String? value) {
+                    if (value == null || value.isEmpty) {
+                      return 'Please enter some emailAddress';
+                    } else if (!EmailValidator.validate(value.trim().toLowerCase())) {
+                      return 'emailAddress not correct';
+                    } else {
+                      return null;
+                    }
+                  },
                 ),
                 SizedBox(
                   height: 32,
@@ -85,7 +84,7 @@ class _CreateNewAccountScreenState extends ConsumerState<CreateNewAccountScreen>
                   onPressed: isLoading
                       ? null
                       : () {
-                          if (formKey.currentState!.validate()) {
+                          if (key.currentState!.validate()) {
                             ref.read(checkavAilabilityEmailProvider.notifier).fetch(controller.text.trim().toLowerCase());
                             FocusScope.of(context).unfocus();
                             ref.read(loadingProvider.notifier).toggle(true);

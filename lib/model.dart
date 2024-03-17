@@ -33,3 +33,26 @@ class VerificationCode with _$VerificationCode {
 
   factory VerificationCode.fromJson(Map<String, Object?> json) => _$VerificationCodeFromJson(json);
 }
+
+@freezed
+class CreateNewAccount with _$CreateNewAccount {
+  const factory CreateNewAccount({
+    required int verification_id,
+    required int reference,
+    required int code,
+    required String email,
+    required String password,
+  }) = _CreateNewAccount;
+
+  factory CreateNewAccount.fromJson(Map<String, Object?> json) => _$CreateNewAccountFromJson(json);
+}
+
+@freezed
+class SignIn with _$SignIn {
+  const factory SignIn({
+    required String email,
+    required String password,
+  }) = _SignIn;
+
+  factory SignIn.fromJson(Map<String, Object?> json) => _$SignInFromJson(json);
+}

@@ -10,3 +10,5 @@ Future<void> initialize() async {
   appDocumentsDir = (await getApplicationDocumentsDirectory()).path;
   tempDir = (await getTemporaryDirectory()).path;
 }
+
+final RegExp regex = RegExp(r'^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9]).{8,}$');

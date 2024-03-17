@@ -37,3 +37,29 @@ Map<String, dynamic> _$$VerificationCodeImplToJson(_$VerificationCodeImpl instan
       'reference': instance.reference,
       'code': instance.code,
     };
+
+_$CreateNewAccountImpl _$$CreateNewAccountImplFromJson(Map<String, dynamic> json) => _$CreateNewAccountImpl(
+      verification_id: json['verification_id'] as int,
+      reference: json['reference'] as int,
+      code: json['code'] as int,
+      email: json['email'] as String,
+      password: json['password'] as String,
+    );
+
+Map<String, dynamic> _$$CreateNewAccountImplToJson(_$CreateNewAccountImpl instance) => <String, dynamic>{
+      'verification_id': instance.verification_id,
+      'reference': instance.reference,
+      'code': instance.code,
+      'email': instance.email,
+      'password': instance.password,
+    };
+
+_$SignInImpl _$$SignInImplFromJson(Map<String, dynamic> json) => _$SignInImpl(
+      email: json['email'] as String,
+      password: json['password'] as String,
+    );
+
+Map<String, dynamic> _$$SignInImplToJson(_$SignInImpl instance) => <String, dynamic>{
+      'email': instance.email,
+      'password': instance.password,
+    };
