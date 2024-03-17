@@ -21,7 +21,7 @@ class _VerificationCodeNewScreenState extends ConsumerState<VerificationCodeNewS
   Widget build(BuildContext context) {
     final TextEditingController controller = useTextEditingController();
     final bool isLoading = ref.watch(loadingProvider);
-    final checkavAilabilityEmailResponse = ref.watch(checkavAilabilityEmailProvider);
+    final checkavAilabilityEmailResponse = ref.watch(checkAvailabilityEmailProvider);
     final checkVerificationCodeResponse = ref.watch(checkVerificationCodeProvider);
     WidgetsBinding.instance.addPostFrameCallback((Duration timeStamp) {
       switch (checkVerificationCodeResponse) {

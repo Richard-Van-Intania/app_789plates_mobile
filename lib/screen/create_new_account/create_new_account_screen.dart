@@ -24,7 +24,7 @@ class _CreateNewAccountScreenState extends ConsumerState<CreateNewAccountScreen>
   Widget build(BuildContext context) {
     final TextEditingController controller = useTextEditingController();
     final bool isLoading = ref.watch(loadingProvider);
-    final checkavAilabilityEmailResponse = ref.watch(checkavAilabilityEmailProvider);
+    final checkavAilabilityEmailResponse = ref.watch(checkAvailabilityEmailProvider);
     WidgetsBinding.instance.addPostFrameCallback((Duration timeStamp) {
       switch (checkavAilabilityEmailResponse) {
         case AsyncValue(:final error?):
@@ -85,7 +85,7 @@ class _CreateNewAccountScreenState extends ConsumerState<CreateNewAccountScreen>
                       ? null
                       : () {
                           if (key.currentState!.validate()) {
-                            ref.read(checkavAilabilityEmailProvider.notifier).fetch(controller.text.trim().toLowerCase());
+                            ref.read(checkAvailabilityEmailProvider.notifier).fetch(controller.text.trim().toLowerCase());
                             FocusScope.of(context).unfocus();
                             ref.read(loadingProvider.notifier).toggle(true);
                           }

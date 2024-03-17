@@ -71,20 +71,20 @@ final themeModeUpdateProvider = AutoDisposeNotifierProvider<ThemeModeUpdate, The
 );
 
 typedef _$ThemeModeUpdate = AutoDisposeNotifier<ThemeMode>;
-String _$checkavAilabilityEmailHash() => r'ff507a98485cae04b9e8a78f2c7e7845d7775762';
+String _$checkAvailabilityEmailHash() => r'2769a74245f2f32afc422bb2014e935ecd3621da';
 
-/// See also [CheckavAilabilityEmail].
-@ProviderFor(CheckavAilabilityEmail)
-final checkavAilabilityEmailProvider = AutoDisposeAsyncNotifierProvider<CheckavAilabilityEmail, Response>.internal(
-  CheckavAilabilityEmail.new,
-  name: r'checkavAilabilityEmailProvider',
-  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product') ? null : _$checkavAilabilityEmailHash,
+/// See also [CheckAvailabilityEmail].
+@ProviderFor(CheckAvailabilityEmail)
+final checkAvailabilityEmailProvider = AutoDisposeAsyncNotifierProvider<CheckAvailabilityEmail, Response>.internal(
+  CheckAvailabilityEmail.new,
+  name: r'checkAvailabilityEmailProvider',
+  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product') ? null : _$checkAvailabilityEmailHash,
   dependencies: null,
   allTransitiveDependencies: null,
 );
 
-typedef _$CheckavAilabilityEmail = AutoDisposeAsyncNotifier<Response>;
-String _$checkVerificationCodeHash() => r'def00681da20973b812f55e2cac2cc0952c285da';
+typedef _$CheckAvailabilityEmail = AutoDisposeAsyncNotifier<Response>;
+String _$checkVerificationCodeHash() => r'546a93cafb72e125f3d31b1e8cb760709232b1c2';
 
 /// See also [CheckVerificationCode].
 @ProviderFor(CheckVerificationCode)
@@ -97,6 +97,19 @@ final checkVerificationCodeProvider = AutoDisposeAsyncNotifierProvider<CheckVeri
 );
 
 typedef _$CheckVerificationCode = AutoDisposeAsyncNotifier<Response>;
+String _$createNewAccountFetchHash() => r'03d7ec3c02cfedf8828805b577535a25576fb4e3';
+
+/// See also [CreateNewAccountFetch].
+@ProviderFor(CreateNewAccountFetch)
+final createNewAccountFetchProvider = AutoDisposeAsyncNotifierProvider<CreateNewAccountFetch, Response>.internal(
+  CreateNewAccountFetch.new,
+  name: r'createNewAccountFetchProvider',
+  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product') ? null : _$createNewAccountFetchHash,
+  dependencies: null,
+  allTransitiveDependencies: null,
+);
+
+typedef _$CreateNewAccountFetch = AutoDisposeAsyncNotifier<Response>;
 String _$testHash() => r'bf6454d3aebf52aa4660bbb66ea86140be41d8c0';
 
 /// See also [Test].
