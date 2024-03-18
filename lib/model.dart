@@ -64,6 +64,7 @@ class Authentication with _$Authentication {
     required int reference,
     required int code,
     required String email,
+    required String secondary_email,
     required String password,
     required String access_token,
     required String refresh_token,
