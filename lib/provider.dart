@@ -180,21 +180,20 @@ class CreateNewAccount extends _$CreateNewAccount {
     return unwrapResponse;
   }
 
-  Future<void> fetch(int code) async {
-    //
-    final checkAvailabilityEmail = await ref.read(checkAvailabilityEmailProvider.future);
-    if (checkAvailabilityEmail.statusCode == 200) {
+  Future<void> fetch(String password) async {
+    final checkVerificationCode = await ref.read(checkVerificationCodeProvider.future);
+    if (checkVerificationCode.statusCode == 200) {
       final Uri uri = Uri(scheme: 'http', host: '10.0.2.2', port: 8700, path: '/createnewaccount');
       final response = await http.post(
         uri,
         headers: <String, String>{'Content-Type': 'application/json; charset=UTF-8'},
         body: jsonEncode(Authentication(
-          verification_id: checkAvailabilityEmail.model.verification_id,
-          reference: checkAvailabilityEmail.model.reference,
-          code: code,
-          email: checkAvailabilityEmail.model.email,
+          verification_id: checkVerificationCode.model.verification_id,
+          reference: checkVerificationCode.model.reference,
+          code: checkVerificationCode.model.code,
+          email: checkVerificationCode.model.email,
           secondary_email: nullAliasString,
-          password: nullAliasString,
+          password: password,
           access_token: nullAliasString,
           refresh_token: nullAliasString,
           users_id: nullAliasInt,
@@ -207,12 +206,12 @@ class CreateNewAccount extends _$CreateNewAccount {
         state = AsyncData(UnwrapResponse<Authentication>(
           statusCode: response.statusCode,
           model: Authentication(
-            verification_id: checkAvailabilityEmail.model.verification_id,
-            reference: checkAvailabilityEmail.model.reference,
-            code: code,
-            email: checkAvailabilityEmail.model.email,
+            verification_id: checkVerificationCode.model.verification_id,
+            reference: checkVerificationCode.model.reference,
+            code: checkVerificationCode.model.code,
+            email: checkVerificationCode.model.email,
             secondary_email: nullAliasString,
-            password: nullAliasString,
+            password: password,
             access_token: nullAliasString,
             refresh_token: nullAliasString,
             users_id: nullAliasInt,
