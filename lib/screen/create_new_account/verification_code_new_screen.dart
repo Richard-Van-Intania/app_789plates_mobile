@@ -61,7 +61,7 @@ class _VerificationCodeNewScreenState extends ConsumerState<VerificationCodeNewS
                   SizedBox(
                     height: 120,
                   ),
-                  Text(VerificationRes.fromJson(jsonDecode(utf8.decode(value.bodyBytes))).reference.toString()),
+                  // Text(VerificationRes.fromJson(jsonDecode(utf8.decode(value.bodyBytes))).reference.toString()),
                   TextFormField(
                     key: key,
                     controller: controller,

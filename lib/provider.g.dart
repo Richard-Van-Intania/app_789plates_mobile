@@ -71,11 +71,11 @@ final themeModeUpdateProvider = AutoDisposeNotifierProvider<ThemeModeUpdate, The
 );
 
 typedef _$ThemeModeUpdate = AutoDisposeNotifier<ThemeMode>;
-String _$checkAvailabilityEmailHash() => r'b87e76aff4df45eb8c0d781a5b4316c85c0bf289';
+String _$checkAvailabilityEmailHash() => r'8fbc6ec67ed0593ff0f906d05323be63d8866dcb';
 
 /// See also [CheckAvailabilityEmail].
 @ProviderFor(CheckAvailabilityEmail)
-final checkAvailabilityEmailProvider = AutoDisposeAsyncNotifierProvider<CheckAvailabilityEmail, Response>.internal(
+final checkAvailabilityEmailProvider = AutoDisposeAsyncNotifierProvider<CheckAvailabilityEmail, UnwrapResponse<Authentication>>.internal(
   CheckAvailabilityEmail.new,
   name: r'checkAvailabilityEmailProvider',
   debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product') ? null : _$checkAvailabilityEmailHash,
@@ -83,7 +83,7 @@ final checkAvailabilityEmailProvider = AutoDisposeAsyncNotifierProvider<CheckAva
   allTransitiveDependencies: null,
 );
 
-typedef _$CheckAvailabilityEmail = AutoDisposeAsyncNotifier<Response>;
+typedef _$CheckAvailabilityEmail = AutoDisposeAsyncNotifier<UnwrapResponse<Authentication>>;
 String _$checkVerificationCodeHash() => r'546a93cafb72e125f3d31b1e8cb760709232b1c2';
 
 /// See also [CheckVerificationCode].
@@ -123,18 +123,5 @@ final testProvider = AutoDisposeAsyncNotifierProvider<Test, String>.internal(
 );
 
 typedef _$Test = AutoDisposeAsyncNotifier<String>;
-String _$checkAvailabilityEmailNewHash() => r'73f12f70767eb842cf896dbd7b149f7eb40d1a34';
-
-/// See also [CheckAvailabilityEmailNew].
-@ProviderFor(CheckAvailabilityEmailNew)
-final checkAvailabilityEmailNewProvider = AutoDisposeNotifierProvider<CheckAvailabilityEmailNew, UnwrapResponse<Authentication>>.internal(
-  CheckAvailabilityEmailNew.new,
-  name: r'checkAvailabilityEmailNewProvider',
-  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product') ? null : _$checkAvailabilityEmailNewHash,
-  dependencies: null,
-  allTransitiveDependencies: null,
-);
-
-typedef _$CheckAvailabilityEmailNew = AutoDisposeNotifier<UnwrapResponse<Authentication>>;
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member

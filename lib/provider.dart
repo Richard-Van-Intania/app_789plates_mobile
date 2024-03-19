@@ -76,20 +76,29 @@ final initResponse = Response('', 100);
 @riverpod
 class CheckAvailabilityEmail extends _$CheckAvailabilityEmail {
   @override
-  Future<Response> build() async {
-    return initResponse;
+  Future<UnwrapResponse<Authentication>> build() async {
+    return UnwrapResponse<Authentication>(
+      statusCode: nullAliasInt,
+      model: const Authentication(verification_id: nullAliasInt, reference: nullAliasInt, code: nullAliasInt, email: nullAliasString, secondary_email: nullAliasString, password: nullAliasString, access_token: nullAliasString, refresh_token: nullAliasString, users_id: nullAliasInt),
+    );
   }
 
   Future<void> fetch(String email) async {
     final Uri uri = Uri(scheme: 'http', host: '10.0.2.2', port: 8700, path: '/checkavailabilityemail');
-    final Response response = await http.post(
+    final response = await http.post(
       uri,
       headers: <String, String>{'Content-Type': 'application/json; charset=UTF-8'},
-      body: jsonEncode(Email(email: email).toJson()),
+      body: jsonEncode(Authentication(verification_id: nullAliasInt, reference: nullAliasInt, code: nullAliasInt, email: email, secondary_email: nullAliasString, password: nullAliasString, access_token: nullAliasString, refresh_token: nullAliasString, users_id: nullAliasInt).toJson()),
     );
-    state = AsyncData(response);
-    ref.read(loadingProvider.notifier).toggle(false);
-    await future;
+    if (response.statusCode == 200) {
+      final Authentication authentication = Authentication.fromJson(jsonDecode(utf8.decode(response.bodyBytes)));
+      state = AsyncData(UnwrapResponse<Authentication>(statusCode: response.statusCode, model: authentication));
+    } else {
+      state = AsyncData(UnwrapResponse<Authentication>(
+        statusCode: response.statusCode,
+        model: Authentication(verification_id: nullAliasInt, reference: nullAliasInt, code: nullAliasInt, email: email, secondary_email: nullAliasString, password: nullAliasString, access_token: nullAliasString, refresh_token: nullAliasString, users_id: nullAliasInt),
+      ));
+    }
   }
 }
 
@@ -101,16 +110,16 @@ class CheckVerificationCode extends _$CheckVerificationCode {
   }
 
   Future<void> fetch(int code) async {
-    final checkavAilabilityEmailResponse = await ref.read(checkAvailabilityEmailProvider.future);
-    final VerificationRes verificationRes = VerificationRes.fromJson(jsonDecode(utf8.decode(checkavAilabilityEmailResponse.bodyBytes)));
-    final Uri uri = Uri(scheme: 'http', host: '10.0.2.2', port: 8700, path: '/checkverificationcode');
-    final Response response = await http.post(
-      uri,
-      headers: <String, String>{'Content-Type': 'application/json; charset=UTF-8'},
-      body: jsonEncode(VerificationCode(verification_id: verificationRes.verification_id, reference: verificationRes.reference, code: code).toJson()),
-    );
-    state = AsyncData(response);
-    ref.read(loadingProvider.notifier).toggle(false);
+    // final checkavAilabilityEmailResponse = await ref.read(checkAvailabilityEmailProvider.future);
+    // final VerificationRes verificationRes = VerificationRes.fromJson(jsonDecode(utf8.decode(checkavAilabilityEmailResponse.bodyBytes)));
+    // final Uri uri = Uri(scheme: 'http', host: '10.0.2.2', port: 8700, path: '/checkverificationcode');
+    // final Response response = await http.post(
+    //   uri,
+    //   headers: <String, String>{'Content-Type': 'application/json; charset=UTF-8'},
+    //   body: jsonEncode(VerificationCode(verification_id: verificationRes.verification_id, reference: verificationRes.reference, code: code).toJson()),
+    // );
+    // state = AsyncData(response);
+    // ref.read(loadingProvider.notifier).toggle(false);
   }
 }
 
@@ -122,16 +131,16 @@ class CreateNewAccountFetch extends _$CreateNewAccountFetch {
   }
 
   Future<void> fetch(String password) async {
-    final checkavAilabilityEmailResponse = await ref.read(checkAvailabilityEmailProvider.future);
-    final VerificationRes verificationRes = VerificationRes.fromJson(jsonDecode(utf8.decode(checkavAilabilityEmailResponse.bodyBytes)));
-    final Uri uri = Uri(scheme: 'http', host: '10.0.2.2', port: 8700, path: '/createnewaccount');
-    final Response response = await http.post(
-      uri,
-      headers: <String, String>{'Content-Type': 'application/json; charset=UTF-8'},
-      // body: jsonEncode(CreateNewAccount(verification_id: verificationRes.verification_id, reference: verificationRes.reference, code: verificationRes.code, email: verificationRes.email, password: password).toJson()),
-    );
-    state = AsyncData(response);
-    ref.read(loadingProvider.notifier).toggle(false);
+    // final checkavAilabilityEmailResponse = await ref.read(checkAvailabilityEmailProvider.future);
+    // final VerificationRes verificationRes = VerificationRes.fromJson(jsonDecode(utf8.decode(checkavAilabilityEmailResponse.bodyBytes)));
+    // final Uri uri = Uri(scheme: 'http', host: '10.0.2.2', port: 8700, path: '/createnewaccount');
+    // final Response response = await http.post(
+    //   uri,
+    //   headers: <String, String>{'Content-Type': 'application/json; charset=UTF-8'},
+    //   // body: jsonEncode(CreateNewAccount(verification_id: verificationRes.verification_id, reference: verificationRes.reference, code: verificationRes.code, email: verificationRes.email, password: password).toJson()),
+    // );
+    // state = AsyncData(response);
+    // ref.read(loadingProvider.notifier).toggle(false);
   }
 }
 
@@ -148,17 +157,4 @@ class Test extends _$Test {
     state = AsyncData(DateTime.now().toIso8601String());
     ref.read(loadingProvider.notifier).toggle(false);
   }
-}
-
-@riverpod
-class CheckAvailabilityEmailNew extends _$CheckAvailabilityEmailNew {
-  @override
-  UnwrapResponse<Authentication> build() {
-    return UnwrapResponse<Authentication>(
-      statusCode: nullAliasInt,
-      model: const Authentication(verification_id: nullAliasInt, reference: nullAliasInt, code: nullAliasInt, email: nullAliasString, secondary_email: nullAliasString, password: nullAliasString, access_token: nullAliasString, refresh_token: nullAliasString, users_id: nullAliasInt),
-    );
-  }
-
-  Future<void> fetch() async {}
 }
