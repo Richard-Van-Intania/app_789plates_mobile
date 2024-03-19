@@ -123,5 +123,18 @@ final testProvider = AutoDisposeAsyncNotifierProvider<Test, String>.internal(
 );
 
 typedef _$Test = AutoDisposeAsyncNotifier<String>;
+String _$checkAvailabilityEmailNewHash() => r'73f12f70767eb842cf896dbd7b149f7eb40d1a34';
+
+/// See also [CheckAvailabilityEmailNew].
+@ProviderFor(CheckAvailabilityEmailNew)
+final checkAvailabilityEmailNewProvider = AutoDisposeNotifierProvider<CheckAvailabilityEmailNew, UnwrapResponse<Authentication>>.internal(
+  CheckAvailabilityEmailNew.new,
+  name: r'checkAvailabilityEmailNewProvider',
+  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product') ? null : _$checkAvailabilityEmailNewHash,
+  dependencies: null,
+  allTransitiveDependencies: null,
+);
+
+typedef _$CheckAvailabilityEmailNew = AutoDisposeNotifier<UnwrapResponse<Authentication>>;
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member

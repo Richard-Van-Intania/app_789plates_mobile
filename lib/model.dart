@@ -1,5 +1,6 @@
 // ignore_for_file: non_constant_identifier_names
 import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:http/http.dart';
 
 part 'model.freezed.dart';
 part 'model.g.dart';
@@ -72,4 +73,10 @@ class Authentication with _$Authentication {
   }) = _Authentication;
 
   factory Authentication.fromJson(Map<String, Object?> json) => _$AuthenticationFromJson(json);
+}
+
+class UnwrapResponse<T extends Object> {
+  UnwrapResponse({required this.statusCode, required this.model});
+  final int statusCode;
+  final T model;
 }

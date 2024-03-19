@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'package:app_789plates_mobile/constants.dart';
 import 'package:app_789plates_mobile/model.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart';
@@ -147,4 +148,17 @@ class Test extends _$Test {
     state = AsyncData(DateTime.now().toIso8601String());
     ref.read(loadingProvider.notifier).toggle(false);
   }
+}
+
+@riverpod
+class CheckAvailabilityEmailNew extends _$CheckAvailabilityEmailNew {
+  @override
+  UnwrapResponse<Authentication> build() {
+    return UnwrapResponse<Authentication>(
+      statusCode: nullAliasInt,
+      model: const Authentication(verification_id: nullAliasInt, reference: nullAliasInt, code: nullAliasInt, email: nullAliasString, secondary_email: nullAliasString, password: nullAliasString, access_token: nullAliasString, refresh_token: nullAliasString, users_id: nullAliasInt),
+    );
+  }
+
+  Future<void> fetch() async {}
 }
