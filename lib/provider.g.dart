@@ -6,19 +6,6 @@ part of 'provider.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$loadingHash() => r'a29c34636172ab36c4d17e6ed5bd6ef99fff16a6';
-
-/// See also [Loading].
-@ProviderFor(Loading)
-final loadingProvider = AutoDisposeNotifierProvider<Loading, bool>.internal(
-  Loading.new,
-  name: r'loadingProvider',
-  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product') ? null : _$loadingHash,
-  dependencies: null,
-  allTransitiveDependencies: null,
-);
-
-typedef _$Loading = AutoDisposeNotifier<bool>;
 String _$localeUpdateHash() => r'ecfb82dc371b6f83400840c8a6a4a1050dbab199';
 
 /// See also [LocaleUpdate].
@@ -71,7 +58,7 @@ final themeModeUpdateProvider = AutoDisposeNotifierProvider<ThemeModeUpdate, The
 );
 
 typedef _$ThemeModeUpdate = AutoDisposeNotifier<ThemeMode>;
-String _$checkAvailabilityEmailHash() => r'8fbc6ec67ed0593ff0f906d05323be63d8866dcb';
+String _$checkAvailabilityEmailHash() => r'42c8e6d932b9a71a9bd62e99ec60564745207298';
 
 /// See also [CheckAvailabilityEmail].
 @ProviderFor(CheckAvailabilityEmail)
@@ -84,11 +71,11 @@ final checkAvailabilityEmailProvider = AutoDisposeAsyncNotifierProvider<CheckAva
 );
 
 typedef _$CheckAvailabilityEmail = AutoDisposeAsyncNotifier<UnwrapResponse<Authentication>>;
-String _$checkVerificationCodeHash() => r'546a93cafb72e125f3d31b1e8cb760709232b1c2';
+String _$checkVerificationCodeHash() => r'037753dcc681781da1bd4b737e07d2a88fab431e';
 
 /// See also [CheckVerificationCode].
 @ProviderFor(CheckVerificationCode)
-final checkVerificationCodeProvider = AutoDisposeAsyncNotifierProvider<CheckVerificationCode, Response>.internal(
+final checkVerificationCodeProvider = AutoDisposeAsyncNotifierProvider<CheckVerificationCode, UnwrapResponse<Authentication>>.internal(
   CheckVerificationCode.new,
   name: r'checkVerificationCodeProvider',
   debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product') ? null : _$checkVerificationCodeHash,
@@ -96,32 +83,6 @@ final checkVerificationCodeProvider = AutoDisposeAsyncNotifierProvider<CheckVeri
   allTransitiveDependencies: null,
 );
 
-typedef _$CheckVerificationCode = AutoDisposeAsyncNotifier<Response>;
-String _$createNewAccountFetchHash() => r'9b168945f3ba7a167debe20a91ac9970e6921104';
-
-/// See also [CreateNewAccountFetch].
-@ProviderFor(CreateNewAccountFetch)
-final createNewAccountFetchProvider = AutoDisposeAsyncNotifierProvider<CreateNewAccountFetch, Response>.internal(
-  CreateNewAccountFetch.new,
-  name: r'createNewAccountFetchProvider',
-  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product') ? null : _$createNewAccountFetchHash,
-  dependencies: null,
-  allTransitiveDependencies: null,
-);
-
-typedef _$CreateNewAccountFetch = AutoDisposeAsyncNotifier<Response>;
-String _$testHash() => r'bf6454d3aebf52aa4660bbb66ea86140be41d8c0';
-
-/// See also [Test].
-@ProviderFor(Test)
-final testProvider = AutoDisposeAsyncNotifierProvider<Test, String>.internal(
-  Test.new,
-  name: r'testProvider',
-  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product') ? null : _$testHash,
-  dependencies: null,
-  allTransitiveDependencies: null,
-);
-
-typedef _$Test = AutoDisposeAsyncNotifier<String>;
+typedef _$CheckVerificationCode = AutoDisposeAsyncNotifier<UnwrapResponse<Authentication>>;
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member

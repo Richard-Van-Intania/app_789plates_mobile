@@ -46,9 +46,9 @@ class MyApp extends HookConsumerWidget {
       theme: ThemeData(fontFamily: 'Noto Sans Thai', useMaterial3: true, colorScheme: lightColorScheme),
       darkTheme: ThemeData(fontFamily: 'Noto Sans Thai', useMaterial3: true, colorScheme: darkColorScheme),
       routerConfig: GoRouter(
-        initialLocation: '/myhomepage',
+        // initialLocation: '/myhomepage',
         // initialLocation: '/dev',
-        // initialLocation: '/signinscreen',
+        initialLocation: '/signinscreen',
         routes: <RouteBase>[
           GoRoute(
             path: '/myhomepage',

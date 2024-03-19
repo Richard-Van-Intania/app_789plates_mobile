@@ -76,7 +76,7 @@ class Authentication with _$Authentication {
 }
 
 class UnwrapResponse<T extends Object> {
-  UnwrapResponse({required this.statusCode, required this.model});
+  const UnwrapResponse({required this.statusCode, required this.model});
   final int statusCode;
   final T model;
 }

@@ -14,7 +14,7 @@ class ExploreTab extends StatefulHookConsumerWidget {
 class _ExploreTabState extends ConsumerState<ExploreTab> {
   @override
   Widget build(BuildContext context) {
-    final AsyncValue<String> test = ref.watch(testProvider);
+    // final AsyncValue<String> test = ref.watch(testProvider);
     // final isLoading = ref.watch(loadingProvider);
 
     final pendingFetch = useState<Future<void>?>(null);
@@ -48,30 +48,30 @@ class _ExploreTabState extends ConsumerState<ExploreTab> {
         actions: [
           IconButton(
             onPressed: () {
-              pendingFetch.value = ref.read(testProvider.notifier).fetch();
+              // pendingFetch.value = ref.read(testProvider.notifier).fetch();
             },
             icon: const Icon(Icons.settings),
           )
         ],
       ),
-      body: test.when(
-        data: (String text) => Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Text(
-              'Text: $text',
-              style: const TextStyle(
-                fontSize: 25.0,
-              ),
-            ),
-            if (snapshot.connectionState == ConnectionState.waiting) CircularProgressIndicator()
-          ],
-        ),
-        error: (e, s) => const Center(
-          child: Text('Uh oh. Something went wrong!'),
-        ),
-        loading: () => const Center(child: CircularProgressIndicator()),
-      ),
+      // body: test.when(
+      //   data: (String text) => Column(
+      //     mainAxisAlignment: MainAxisAlignment.center,
+      //     children: [
+      //       Text(
+      //         'Text: $text',
+      //         style: const TextStyle(
+      //           fontSize: 25.0,
+      //         ),
+      //       ),
+      //       if (snapshot.connectionState == ConnectionState.waiting) CircularProgressIndicator()
+      //     ],
+      //   ),
+      //   error: (e, s) => const Center(
+      //     child: Text('Uh oh. Something went wrong!'),
+      //   ),
+      //   loading: () => const Center(child: CircularProgressIndicator()),
+      // ),
     );
   }
 }

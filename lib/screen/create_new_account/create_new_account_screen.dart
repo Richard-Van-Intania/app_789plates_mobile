@@ -29,12 +29,12 @@ class _CreateNewAccountScreenState extends ConsumerState<CreateNewAccountScreen>
     WidgetsBinding.instance.addPostFrameCallback((Duration timeStamp) {
       switch (checkAvailabilityEmail) {
         case AsyncValue(:final error?):
-          ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(error.toString())));
+          print(error.toString());
         case AsyncValue(:final valueOrNull?):
           if (valueOrNull.statusCode == 200) {
             Navigator.of(context).push(MaterialPageRoute(builder: (context) => const VerificationCodeNewScreen()));
           } else {
-            ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(valueOrNull.statusCode.toString()), behavior: SnackBarBehavior.floating));
+            print(valueOrNull.statusCode);
           }
         default:
       }
@@ -90,9 +90,6 @@ class _CreateNewAccountScreenState extends ConsumerState<CreateNewAccountScreen>
         AsyncError() => Center(child: const Text('Oops, something unexpected happened')),
         _ => Center(child: const CircularProgressIndicator()),
       },
-      floatingActionButton: FloatingActionButton(
-        onPressed: () async {},
-      ),
     );
   }
 }

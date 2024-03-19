@@ -2,19 +2,11 @@ import 'dart:convert';
 import 'package:app_789plates_mobile/constants.dart';
 import 'package:app_789plates_mobile/model.dart';
 import 'package:flutter/material.dart';
-import 'package:http/http.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'initialize.dart';
 import 'package:http/http.dart' as http;
 
 part 'provider.g.dart';
-
-@riverpod
-class Loading extends _$Loading {
-  @override
-  bool build() => false;
-  void toggle(bool isLoading) => state = isLoading;
-}
 
 @riverpod
 class LocaleUpdate extends _$LocaleUpdate {
@@ -71,16 +63,26 @@ class ThemeModeUpdate extends _$ThemeModeUpdate {
   }
 }
 
-final initResponse = Response('', 100);
+const unwrapResponse = UnwrapResponse<Authentication>(
+  statusCode: nullAliasInt,
+  model: Authentication(
+    verification_id: nullAliasInt,
+    reference: nullAliasInt,
+    code: nullAliasInt,
+    email: nullAliasString,
+    secondary_email: nullAliasString,
+    password: nullAliasString,
+    access_token: nullAliasString,
+    refresh_token: nullAliasString,
+    users_id: nullAliasInt,
+  ),
+);
 
 @riverpod
 class CheckAvailabilityEmail extends _$CheckAvailabilityEmail {
   @override
   Future<UnwrapResponse<Authentication>> build() async {
-    return UnwrapResponse<Authentication>(
-      statusCode: nullAliasInt,
-      model: const Authentication(verification_id: nullAliasInt, reference: nullAliasInt, code: nullAliasInt, email: nullAliasString, secondary_email: nullAliasString, password: nullAliasString, access_token: nullAliasString, refresh_token: nullAliasString, users_id: nullAliasInt),
-    );
+    return unwrapResponse;
   }
 
   Future<void> fetch(String email) async {
@@ -88,7 +90,17 @@ class CheckAvailabilityEmail extends _$CheckAvailabilityEmail {
     final response = await http.post(
       uri,
       headers: <String, String>{'Content-Type': 'application/json; charset=UTF-8'},
-      body: jsonEncode(Authentication(verification_id: nullAliasInt, reference: nullAliasInt, code: nullAliasInt, email: email, secondary_email: nullAliasString, password: nullAliasString, access_token: nullAliasString, refresh_token: nullAliasString, users_id: nullAliasInt).toJson()),
+      body: jsonEncode(Authentication(
+        verification_id: nullAliasInt,
+        reference: nullAliasInt,
+        code: nullAliasInt,
+        email: email,
+        secondary_email: nullAliasString,
+        password: nullAliasString,
+        access_token: nullAliasString,
+        refresh_token: nullAliasString,
+        users_id: nullAliasInt,
+      ).toJson()),
     );
     if (response.statusCode == 200) {
       final Authentication authentication = Authentication.fromJson(jsonDecode(utf8.decode(response.bodyBytes)));
@@ -96,7 +108,17 @@ class CheckAvailabilityEmail extends _$CheckAvailabilityEmail {
     } else {
       state = AsyncData(UnwrapResponse<Authentication>(
         statusCode: response.statusCode,
-        model: Authentication(verification_id: nullAliasInt, reference: nullAliasInt, code: nullAliasInt, email: email, secondary_email: nullAliasString, password: nullAliasString, access_token: nullAliasString, refresh_token: nullAliasString, users_id: nullAliasInt),
+        model: Authentication(
+          verification_id: nullAliasInt,
+          reference: nullAliasInt,
+          code: nullAliasInt,
+          email: email,
+          secondary_email: nullAliasString,
+          password: nullAliasString,
+          access_token: nullAliasString,
+          refresh_token: nullAliasString,
+          users_id: nullAliasInt,
+        ),
       ));
     }
   }
@@ -105,56 +127,48 @@ class CheckAvailabilityEmail extends _$CheckAvailabilityEmail {
 @riverpod
 class CheckVerificationCode extends _$CheckVerificationCode {
   @override
-  Future<Response> build() async {
-    return initResponse;
+  Future<UnwrapResponse<Authentication>> build() async {
+    return unwrapResponse;
   }
 
   Future<void> fetch(int code) async {
-    // final checkavAilabilityEmailResponse = await ref.read(checkAvailabilityEmailProvider.future);
-    // final VerificationRes verificationRes = VerificationRes.fromJson(jsonDecode(utf8.decode(checkavAilabilityEmailResponse.bodyBytes)));
-    // final Uri uri = Uri(scheme: 'http', host: '10.0.2.2', port: 8700, path: '/checkverificationcode');
-    // final Response response = await http.post(
-    //   uri,
-    //   headers: <String, String>{'Content-Type': 'application/json; charset=UTF-8'},
-    //   body: jsonEncode(VerificationCode(verification_id: verificationRes.verification_id, reference: verificationRes.reference, code: code).toJson()),
-    // );
-    // state = AsyncData(response);
-    // ref.read(loadingProvider.notifier).toggle(false);
-  }
-}
-
-@riverpod
-class CreateNewAccountFetch extends _$CreateNewAccountFetch {
-  @override
-  Future<Response> build() async {
-    return initResponse;
-  }
-
-  Future<void> fetch(String password) async {
-    // final checkavAilabilityEmailResponse = await ref.read(checkAvailabilityEmailProvider.future);
-    // final VerificationRes verificationRes = VerificationRes.fromJson(jsonDecode(utf8.decode(checkavAilabilityEmailResponse.bodyBytes)));
-    // final Uri uri = Uri(scheme: 'http', host: '10.0.2.2', port: 8700, path: '/createnewaccount');
-    // final Response response = await http.post(
-    //   uri,
-    //   headers: <String, String>{'Content-Type': 'application/json; charset=UTF-8'},
-    //   // body: jsonEncode(CreateNewAccount(verification_id: verificationRes.verification_id, reference: verificationRes.reference, code: verificationRes.code, email: verificationRes.email, password: password).toJson()),
-    // );
-    // state = AsyncData(response);
-    // ref.read(loadingProvider.notifier).toggle(false);
-  }
-}
-
-@riverpod
-class Test extends _$Test {
-  @override
-  Future<String> build() async {
-    await Future.delayed(const Duration(seconds: 5));
-    return 'hello';
-  }
-
-  Future<void> fetch() async {
-    await Future.delayed(const Duration(seconds: 5));
-    state = AsyncData(DateTime.now().toIso8601String());
-    ref.read(loadingProvider.notifier).toggle(false);
+    final checkAvailabilityEmail = await ref.read(checkAvailabilityEmailProvider.future);
+    if (checkAvailabilityEmail.statusCode == 200) {
+      final Uri uri = Uri(scheme: 'http', host: '10.0.2.2', port: 8700, path: '/checkverificationcode');
+      final response = await http.post(
+        uri,
+        headers: <String, String>{'Content-Type': 'application/json; charset=UTF-8'},
+        body: jsonEncode(Authentication(
+          verification_id: checkAvailabilityEmail.model.verification_id,
+          reference: checkAvailabilityEmail.model.reference,
+          code: code,
+          email: checkAvailabilityEmail.model.email,
+          secondary_email: nullAliasString,
+          password: nullAliasString,
+          access_token: nullAliasString,
+          refresh_token: nullAliasString,
+          users_id: nullAliasInt,
+        ).toJson()),
+      );
+      if (response.statusCode == 200) {
+        final Authentication authentication = Authentication.fromJson(jsonDecode(utf8.decode(response.bodyBytes)));
+        state = AsyncData(UnwrapResponse<Authentication>(statusCode: response.statusCode, model: authentication));
+      } else {
+        state = AsyncData(UnwrapResponse<Authentication>(
+          statusCode: response.statusCode,
+          model: Authentication(
+            verification_id: checkAvailabilityEmail.model.verification_id,
+            reference: checkAvailabilityEmail.model.reference,
+            code: code,
+            email: checkAvailabilityEmail.model.email,
+            secondary_email: nullAliasString,
+            password: nullAliasString,
+            access_token: nullAliasString,
+            refresh_token: nullAliasString,
+            users_id: nullAliasInt,
+          ),
+        ));
+      }
+    }
   }
 }

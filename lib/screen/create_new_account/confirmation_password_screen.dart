@@ -18,10 +18,10 @@ class _ConfirmationPasswordScreenState extends ConsumerState<ConfirmationPasswor
   Widget build(BuildContext context) {
     final TextEditingController controller1 = useTextEditingController();
     final TextEditingController controller2 = useTextEditingController();
-    final bool isLoading = ref.watch(loadingProvider);
-    final createNewAccountFetchResponse = ref.watch(createNewAccountFetchProvider);
+    // final bool isLoading = ref.watch(loadingProvider);
+    // final createNewAccountFetchResponse = ref.watch(createNewAccountFetchProvider);
     WidgetsBinding.instance.addPostFrameCallback((Duration timeStamp) {
-      print(createNewAccountFetchResponse.valueOrNull?.statusCode);
+      // print(createNewAccountFetchResponse.valueOrNull?.statusCode);
       // switch (createNewAccountFetchResponse) {
       //   case AsyncValue(:final valueOrNull?):
       //     if (valueOrNull.statusCode == 200) {
@@ -106,17 +106,17 @@ class _ConfirmationPasswordScreenState extends ConsumerState<ConfirmationPasswor
               SizedBox(
                 height: 32,
               ),
-              ElevatedButton(
-                  onPressed: isLoading
-                      ? null
-                      : () {
-                          if (key.currentState!.validate() && (controller1.text.trim() == controller2.text.trim())) {
-                            ref.read(createNewAccountFetchProvider.notifier).fetch(controller1.text.trim());
-                            FocusScope.of(context).unfocus();
-                            ref.read(loadingProvider.notifier).toggle(true);
-                          }
-                        },
-                  child: Text('Ok')),
+              // ElevatedButton(
+              //     onPressed: isLoading
+              //         ? null
+              //         : () {
+              //             if (key.currentState!.validate() && (controller1.text.trim() == controller2.text.trim())) {
+              //               ref.read(createNewAccountFetchProvider.notifier).fetch(controller1.text.trim());
+              //               FocusScope.of(context).unfocus();
+              //               ref.read(loadingProvider.notifier).toggle(true);
+              //             }
+              //           },
+              //     child: Text('Ok')),
             ],
           ),
         ),

@@ -19,28 +19,21 @@ class _VerificationCodeNewScreenState extends ConsumerState<VerificationCodeNewS
 
   @override
   Widget build(BuildContext context) {
-    final TextEditingController controller = useTextEditingController();
-    final bool isLoading = ref.watch(loadingProvider);
-    final checkavAilabilityEmailResponse = ref.watch(checkAvailabilityEmailProvider);
-    final checkVerificationCodeResponse = ref.watch(checkVerificationCodeProvider);
+    final checkAvailabilityEmail = ref.watch(checkAvailabilityEmailProvider);
+    final checkVerificationCode = ref.watch(checkVerificationCodeProvider);
+    final controller = useTextEditingController();
+    final pendingFetch = useState<Future<void>?>(null);
+    final snapshot = useFuture(pendingFetch.value);
+    final isErrored = snapshot.hasError && snapshot.connectionState != ConnectionState.waiting;
     WidgetsBinding.instance.addPostFrameCallback((Duration timeStamp) {
-      switch (checkVerificationCodeResponse) {
+      switch (checkVerificationCode) {
         case AsyncValue(:final error?):
-          ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(error.toString())));
+          print(error.toString());
         case AsyncValue(:final valueOrNull?):
-          switch (valueOrNull.statusCode) {
-            case 100:
-              {}
-            case 200:
-              Navigator.of(context).push(MaterialPageRoute(builder: (context) => const ConfirmationPasswordScreen()));
-            case 500:
-              ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(valueOrNull.statusCode.toString()), behavior: SnackBarBehavior.floating));
-            case 409:
-              ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(valueOrNull.statusCode.toString()), behavior: SnackBarBehavior.floating));
-            case 400:
-              ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(valueOrNull.statusCode.toString()), behavior: SnackBarBehavior.floating));
-            default:
-              print('statusCode: ${valueOrNull.statusCode}');
+          if (valueOrNull.statusCode == 200) {
+            Navigator.of(context).push(MaterialPageRoute(builder: (context) => const ConfirmationPasswordScreen()));
+          } else {
+            print(valueOrNull.statusCode);
           }
         default:
       }
@@ -53,7 +46,7 @@ class _VerificationCodeNewScreenState extends ConsumerState<VerificationCodeNewS
           title: Text('Verification code'),
         ),
         resizeToAvoidBottomInset: false,
-        body: switch (checkavAilabilityEmailResponse) {
+        body: switch (checkAvailabilityEmail) {
           AsyncData(:final value) => Padding(
               padding: EdgeInsets.symmetric(horizontal: 16.0),
               child: Column(
@@ -61,7 +54,7 @@ class _VerificationCodeNewScreenState extends ConsumerState<VerificationCodeNewS
                   SizedBox(
                     height: 120,
                   ),
-                  // Text(VerificationRes.fromJson(jsonDecode(utf8.decode(value.bodyBytes))).reference.toString()),
+                  Text(value.model.reference.toString()),
                   TextFormField(
                     key: key,
                     controller: controller,
@@ -82,13 +75,12 @@ class _VerificationCodeNewScreenState extends ConsumerState<VerificationCodeNewS
                     height: 32,
                   ),
                   ElevatedButton(
-                      onPressed: isLoading
+                      onPressed: (snapshot.connectionState == ConnectionState.waiting)
                           ? null
                           : () {
                               if (key.currentState!.validate()) {
-                                ref.read(checkVerificationCodeProvider.notifier).fetch(int.parse(controller.text.trim()));
+                                pendingFetch.value = ref.read(checkVerificationCodeProvider.notifier).fetch(int.parse(controller.text.trim()));
                                 FocusScope.of(context).unfocus();
-                                ref.read(loadingProvider.notifier).toggle(true);
                               }
                             },
                       child: Text('Next')),
