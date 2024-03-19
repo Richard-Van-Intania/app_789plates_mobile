@@ -84,5 +84,18 @@ final checkVerificationCodeProvider = AutoDisposeAsyncNotifierProvider<CheckVeri
 );
 
 typedef _$CheckVerificationCode = AutoDisposeAsyncNotifier<UnwrapResponse<Authentication>>;
+String _$createNewAccountHash() => r'3586f9eb6d3fb3b0f4fdac5859844da947ff2ffe';
+
+/// See also [CreateNewAccount].
+@ProviderFor(CreateNewAccount)
+final createNewAccountProvider = AutoDisposeAsyncNotifierProvider<CreateNewAccount, UnwrapResponse<Authentication>>.internal(
+  CreateNewAccount.new,
+  name: r'createNewAccountProvider',
+  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product') ? null : _$createNewAccountHash,
+  dependencies: null,
+  allTransitiveDependencies: null,
+);
+
+typedef _$CreateNewAccount = AutoDisposeAsyncNotifier<UnwrapResponse<Authentication>>;
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member

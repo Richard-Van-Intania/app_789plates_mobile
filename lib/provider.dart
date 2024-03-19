@@ -172,3 +172,53 @@ class CheckVerificationCode extends _$CheckVerificationCode {
     }
   }
 }
+
+@riverpod
+class CreateNewAccount extends _$CreateNewAccount {
+  @override
+  Future<UnwrapResponse<Authentication>> build() async {
+    return unwrapResponse;
+  }
+
+  Future<void> fetch(int code) async {
+    //
+    final checkAvailabilityEmail = await ref.read(checkAvailabilityEmailProvider.future);
+    if (checkAvailabilityEmail.statusCode == 200) {
+      final Uri uri = Uri(scheme: 'http', host: '10.0.2.2', port: 8700, path: '/createnewaccount');
+      final response = await http.post(
+        uri,
+        headers: <String, String>{'Content-Type': 'application/json; charset=UTF-8'},
+        body: jsonEncode(Authentication(
+          verification_id: checkAvailabilityEmail.model.verification_id,
+          reference: checkAvailabilityEmail.model.reference,
+          code: code,
+          email: checkAvailabilityEmail.model.email,
+          secondary_email: nullAliasString,
+          password: nullAliasString,
+          access_token: nullAliasString,
+          refresh_token: nullAliasString,
+          users_id: nullAliasInt,
+        ).toJson()),
+      );
+      if (response.statusCode == 200) {
+        final Authentication authentication = Authentication.fromJson(jsonDecode(utf8.decode(response.bodyBytes)));
+        state = AsyncData(UnwrapResponse<Authentication>(statusCode: response.statusCode, model: authentication));
+      } else {
+        state = AsyncData(UnwrapResponse<Authentication>(
+          statusCode: response.statusCode,
+          model: Authentication(
+            verification_id: checkAvailabilityEmail.model.verification_id,
+            reference: checkAvailabilityEmail.model.reference,
+            code: code,
+            email: checkAvailabilityEmail.model.email,
+            secondary_email: nullAliasString,
+            password: nullAliasString,
+            access_token: nullAliasString,
+            refresh_token: nullAliasString,
+            users_id: nullAliasInt,
+          ),
+        ));
+      }
+    }
+  }
+}
