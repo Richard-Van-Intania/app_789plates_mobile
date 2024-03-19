@@ -68,6 +68,7 @@ class Authentication with _$Authentication {
     required String password,
     required String access_token,
     required String refresh_token,
+    required int users_id,
   }) = _Authentication;
 
   factory Authentication.fromJson(Map<String, Object?> json) => _$AuthenticationFromJson(json);

@@ -1,2 +1,2 @@
-const int nullInt = 0;
-const String nullString = 'null';
+const int nullAliasInt = 0;
+const String nullAliasString = 'null';
