@@ -6,6 +6,19 @@ part of 'provider.dart';
 // RiverpodGenerator
 // **************************************************************************
 
+String _$credentialHash() => r'1da44a6c25f0cecaa6042c717fd9f1c507c8ae15';
+
+/// See also [credential].
+@ProviderFor(credential)
+final credentialProvider = FutureProvider<Map<String, String>>.internal(
+  credential,
+  name: r'credentialProvider',
+  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product') ? null : _$credentialHash,
+  dependencies: null,
+  allTransitiveDependencies: null,
+);
+
+typedef CredentialRef = FutureProviderRef<Map<String, String>>;
 String _$localeUpdateHash() => r'ecfb82dc371b6f83400840c8a6a4a1050dbab199';
 
 /// See also [LocaleUpdate].
@@ -84,7 +97,7 @@ final checkVerificationCodeProvider = AutoDisposeAsyncNotifierProvider<CheckVeri
 );
 
 typedef _$CheckVerificationCode = AutoDisposeAsyncNotifier<UnwrapResponse<Authentication>>;
-String _$createNewAccountHash() => r'ea147d93c99a41783bb9bbd723a272e0358ff8ff';
+String _$createNewAccountHash() => r'2e3801a3263b8169c7146e6a98e8eaeb24649284';
 
 /// See also [CreateNewAccount].
 @ProviderFor(CreateNewAccount)

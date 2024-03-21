@@ -225,3 +225,8 @@ class CreateNewAccount extends _$CreateNewAccount {
     }
   }
 }
+
+@Riverpod(keepAlive: true)
+Future<Map<String, String>> credential(CredentialRef ref) async {
+  return await flutterSecureStorage.readAll();
+}
