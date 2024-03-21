@@ -16,25 +16,24 @@ class _ConfirmationPasswordScreenState extends ConsumerState<ConfirmationPasswor
   final GlobalKey<FormState> key = GlobalKey<FormState>();
   @override
   Widget build(BuildContext context) {
-    final TextEditingController controller1 = useTextEditingController();
-    final TextEditingController controller2 = useTextEditingController();
-    // final bool isLoading = ref.watch(loadingProvider);
-    // final createNewAccountFetchResponse = ref.watch(createNewAccountFetchProvider);
+    final createNewAccount = ref.watch(createNewAccountProvider);
+    final controller1 = useTextEditingController();
+    final controller2 = useTextEditingController();
+    final pendingFetch = useState<Future<void>?>(null);
+    final snapshot = useFuture(pendingFetch.value);
+    final isErrored = snapshot.hasError && snapshot.connectionState != ConnectionState.waiting;
     WidgetsBinding.instance.addPostFrameCallback((Duration timeStamp) {
-      // print(createNewAccountFetchResponse.valueOrNull?.statusCode);
-      // switch (createNewAccountFetchResponse) {
-      //   case AsyncValue(:final valueOrNull?):
-      //     if (valueOrNull.statusCode == 200) {
-      //       // store token in secret
-      //       context.go('/myhomepage');
-      //     } else {
-      //       print(valueOrNull.statusCode);
-      //     }
-      //   case AsyncValue(:final error?):
-      //     {}
-      //   default:
-      //     {}
-      // }
+      switch (createNewAccount) {
+        case AsyncValue(:final error?):
+          print(error.toString());
+        case AsyncValue(:final valueOrNull?):
+          if (valueOrNull.statusCode == 200) {
+            context.go('/myhomepage');
+          } else {
+            print(valueOrNull.statusCode);
+          }
+        default:
+      }
     });
     return PopScope(
       canPop: false,
@@ -106,17 +105,16 @@ class _ConfirmationPasswordScreenState extends ConsumerState<ConfirmationPasswor
               SizedBox(
                 height: 32,
               ),
-              // ElevatedButton(
-              //     onPressed: isLoading
-              //         ? null
-              //         : () {
-              //             if (key.currentState!.validate() && (controller1.text.trim() == controller2.text.trim())) {
-              //               ref.read(createNewAccountFetchProvider.notifier).fetch(controller1.text.trim());
-              //               FocusScope.of(context).unfocus();
-              //               ref.read(loadingProvider.notifier).toggle(true);
-              //             }
-              //           },
-              //     child: Text('Ok')),
+              ElevatedButton(
+                  onPressed: (snapshot.connectionState == ConnectionState.waiting)
+                      ? null
+                      : () {
+                          if (key.currentState!.validate() && (controller1.text.trim() == controller2.text.trim())) {
+                            pendingFetch.value = ref.read(createNewAccountProvider.notifier).fetch(controller1.text.trim());
+                            FocusScope.of(context).unfocus();
+                          }
+                        },
+                  child: Text('Ok')),
             ],
           ),
         ),

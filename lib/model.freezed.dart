@@ -11,8 +11,7 @@ part of 'model.dart';
 
 T _$identity<T>(T value) => value;
 
-final _privateConstructorUsedError = UnsupportedError(
-    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models');
+final _privateConstructorUsedError = UnsupportedError('It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models');
 
 Email _$EmailFromJson(Map<String, dynamic> json) {
   return _Email.fromJson(json);
@@ -29,15 +28,13 @@ mixin _$Email {
 
 /// @nodoc
 abstract class $EmailCopyWith<$Res> {
-  factory $EmailCopyWith(Email value, $Res Function(Email) then) =
-      _$EmailCopyWithImpl<$Res, Email>;
+  factory $EmailCopyWith(Email value, $Res Function(Email) then) = _$EmailCopyWithImpl<$Res, Email>;
   @useResult
   $Res call({String email});
 }
 
 /// @nodoc
-class _$EmailCopyWithImpl<$Res, $Val extends Email>
-    implements $EmailCopyWith<$Res> {
+class _$EmailCopyWithImpl<$Res, $Val extends Email> implements $EmailCopyWith<$Res> {
   _$EmailCopyWithImpl(this._value, this._then);
 
   // ignore: unused_field
@@ -61,21 +58,15 @@ class _$EmailCopyWithImpl<$Res, $Val extends Email>
 
 /// @nodoc
 abstract class _$$EmailImplCopyWith<$Res> implements $EmailCopyWith<$Res> {
-  factory _$$EmailImplCopyWith(
-          _$EmailImpl value, $Res Function(_$EmailImpl) then) =
-      __$$EmailImplCopyWithImpl<$Res>;
+  factory _$$EmailImplCopyWith(_$EmailImpl value, $Res Function(_$EmailImpl) then) = __$$EmailImplCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call({String email});
 }
 
 /// @nodoc
-class __$$EmailImplCopyWithImpl<$Res>
-    extends _$EmailCopyWithImpl<$Res, _$EmailImpl>
-    implements _$$EmailImplCopyWith<$Res> {
-  __$$EmailImplCopyWithImpl(
-      _$EmailImpl _value, $Res Function(_$EmailImpl) _then)
-      : super(_value, _then);
+class __$$EmailImplCopyWithImpl<$Res> extends _$EmailCopyWithImpl<$Res, _$EmailImpl> implements _$$EmailImplCopyWith<$Res> {
+  __$$EmailImplCopyWithImpl(_$EmailImpl _value, $Res Function(_$EmailImpl) _then) : super(_value, _then);
 
   @pragma('vm:prefer-inline')
   @override
@@ -96,8 +87,7 @@ class __$$EmailImplCopyWithImpl<$Res>
 class _$EmailImpl implements _Email {
   const _$EmailImpl({required this.email});
 
-  factory _$EmailImpl.fromJson(Map<String, dynamic> json) =>
-      _$$EmailImplFromJson(json);
+  factory _$EmailImpl.fromJson(Map<String, dynamic> json) => _$$EmailImplFromJson(json);
 
   @override
   final String email;
@@ -109,10 +99,7 @@ class _$EmailImpl implements _Email {
 
   @override
   bool operator ==(Object other) {
-    return identical(this, other) ||
-        (other.runtimeType == runtimeType &&
-            other is _$EmailImpl &&
-            (identical(other.email, email) || other.email == email));
+    return identical(this, other) || (other.runtimeType == runtimeType && other is _$EmailImpl && (identical(other.email, email) || other.email == email));
   }
 
   @JsonKey(ignore: true)
@@ -122,8 +109,7 @@ class _$EmailImpl implements _Email {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$EmailImplCopyWith<_$EmailImpl> get copyWith =>
-      __$$EmailImplCopyWithImpl<_$EmailImpl>(this, _$identity);
+  _$$EmailImplCopyWith<_$EmailImpl> get copyWith => __$$EmailImplCopyWithImpl<_$EmailImpl>(this, _$identity);
 
   @override
   Map<String, dynamic> toJson() {
@@ -142,8 +128,7 @@ abstract class _Email implements Email {
   String get email;
   @override
   @JsonKey(ignore: true)
-  _$$EmailImplCopyWith<_$EmailImpl> get copyWith =>
-      throw _privateConstructorUsedError;
+  _$$EmailImplCopyWith<_$EmailImpl> get copyWith => throw _privateConstructorUsedError;
 }
 
 VerificationRes _$VerificationResFromJson(Map<String, dynamic> json) {
@@ -158,22 +143,18 @@ mixin _$VerificationRes {
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
-  $VerificationResCopyWith<VerificationRes> get copyWith =>
-      throw _privateConstructorUsedError;
+  $VerificationResCopyWith<VerificationRes> get copyWith => throw _privateConstructorUsedError;
 }
 
 /// @nodoc
 abstract class $VerificationResCopyWith<$Res> {
-  factory $VerificationResCopyWith(
-          VerificationRes value, $Res Function(VerificationRes) then) =
-      _$VerificationResCopyWithImpl<$Res, VerificationRes>;
+  factory $VerificationResCopyWith(VerificationRes value, $Res Function(VerificationRes) then) = _$VerificationResCopyWithImpl<$Res, VerificationRes>;
   @useResult
   $Res call({int verification_id, String email, int reference});
 }
 
 /// @nodoc
-class _$VerificationResCopyWithImpl<$Res, $Val extends VerificationRes>
-    implements $VerificationResCopyWith<$Res> {
+class _$VerificationResCopyWithImpl<$Res, $Val extends VerificationRes> implements $VerificationResCopyWith<$Res> {
   _$VerificationResCopyWithImpl(this._value, this._then);
 
   // ignore: unused_field
@@ -206,23 +187,16 @@ class _$VerificationResCopyWithImpl<$Res, $Val extends VerificationRes>
 }
 
 /// @nodoc
-abstract class _$$VerificationResImplCopyWith<$Res>
-    implements $VerificationResCopyWith<$Res> {
-  factory _$$VerificationResImplCopyWith(_$VerificationResImpl value,
-          $Res Function(_$VerificationResImpl) then) =
-      __$$VerificationResImplCopyWithImpl<$Res>;
+abstract class _$$VerificationResImplCopyWith<$Res> implements $VerificationResCopyWith<$Res> {
+  factory _$$VerificationResImplCopyWith(_$VerificationResImpl value, $Res Function(_$VerificationResImpl) then) = __$$VerificationResImplCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call({int verification_id, String email, int reference});
 }
 
 /// @nodoc
-class __$$VerificationResImplCopyWithImpl<$Res>
-    extends _$VerificationResCopyWithImpl<$Res, _$VerificationResImpl>
-    implements _$$VerificationResImplCopyWith<$Res> {
-  __$$VerificationResImplCopyWithImpl(
-      _$VerificationResImpl _value, $Res Function(_$VerificationResImpl) _then)
-      : super(_value, _then);
+class __$$VerificationResImplCopyWithImpl<$Res> extends _$VerificationResCopyWithImpl<$Res, _$VerificationResImpl> implements _$$VerificationResImplCopyWith<$Res> {
+  __$$VerificationResImplCopyWithImpl(_$VerificationResImpl _value, $Res Function(_$VerificationResImpl) _then) : super(_value, _then);
 
   @pragma('vm:prefer-inline')
   @override
@@ -251,13 +225,9 @@ class __$$VerificationResImplCopyWithImpl<$Res>
 /// @nodoc
 @JsonSerializable()
 class _$VerificationResImpl implements _VerificationRes {
-  const _$VerificationResImpl(
-      {required this.verification_id,
-      required this.email,
-      required this.reference});
+  const _$VerificationResImpl({required this.verification_id, required this.email, required this.reference});
 
-  factory _$VerificationResImpl.fromJson(Map<String, dynamic> json) =>
-      _$$VerificationResImplFromJson(json);
+  factory _$VerificationResImpl.fromJson(Map<String, dynamic> json) => _$$VerificationResImplFromJson(json);
 
   @override
   final int verification_id;
@@ -273,27 +243,17 @@ class _$VerificationResImpl implements _VerificationRes {
 
   @override
   bool operator ==(Object other) {
-    return identical(this, other) ||
-        (other.runtimeType == runtimeType &&
-            other is _$VerificationResImpl &&
-            (identical(other.verification_id, verification_id) ||
-                other.verification_id == verification_id) &&
-            (identical(other.email, email) || other.email == email) &&
-            (identical(other.reference, reference) ||
-                other.reference == reference));
+    return identical(this, other) || (other.runtimeType == runtimeType && other is _$VerificationResImpl && (identical(other.verification_id, verification_id) || other.verification_id == verification_id) && (identical(other.email, email) || other.email == email) && (identical(other.reference, reference) || other.reference == reference));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode =>
-      Object.hash(runtimeType, verification_id, email, reference);
+  int get hashCode => Object.hash(runtimeType, verification_id, email, reference);
 
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$VerificationResImplCopyWith<_$VerificationResImpl> get copyWith =>
-      __$$VerificationResImplCopyWithImpl<_$VerificationResImpl>(
-          this, _$identity);
+  _$$VerificationResImplCopyWith<_$VerificationResImpl> get copyWith => __$$VerificationResImplCopyWithImpl<_$VerificationResImpl>(this, _$identity);
 
   @override
   Map<String, dynamic> toJson() {
@@ -304,13 +264,9 @@ class _$VerificationResImpl implements _VerificationRes {
 }
 
 abstract class _VerificationRes implements VerificationRes {
-  const factory _VerificationRes(
-      {required final int verification_id,
-      required final String email,
-      required final int reference}) = _$VerificationResImpl;
+  const factory _VerificationRes({required final int verification_id, required final String email, required final int reference}) = _$VerificationResImpl;
 
-  factory _VerificationRes.fromJson(Map<String, dynamic> json) =
-      _$VerificationResImpl.fromJson;
+  factory _VerificationRes.fromJson(Map<String, dynamic> json) = _$VerificationResImpl.fromJson;
 
   @override
   int get verification_id;
@@ -320,8 +276,7 @@ abstract class _VerificationRes implements VerificationRes {
   int get reference;
   @override
   @JsonKey(ignore: true)
-  _$$VerificationResImplCopyWith<_$VerificationResImpl> get copyWith =>
-      throw _privateConstructorUsedError;
+  _$$VerificationResImplCopyWith<_$VerificationResImpl> get copyWith => throw _privateConstructorUsedError;
 }
 
 VerificationCode _$VerificationCodeFromJson(Map<String, dynamic> json) {
@@ -336,22 +291,18 @@ mixin _$VerificationCode {
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
-  $VerificationCodeCopyWith<VerificationCode> get copyWith =>
-      throw _privateConstructorUsedError;
+  $VerificationCodeCopyWith<VerificationCode> get copyWith => throw _privateConstructorUsedError;
 }
 
 /// @nodoc
 abstract class $VerificationCodeCopyWith<$Res> {
-  factory $VerificationCodeCopyWith(
-          VerificationCode value, $Res Function(VerificationCode) then) =
-      _$VerificationCodeCopyWithImpl<$Res, VerificationCode>;
+  factory $VerificationCodeCopyWith(VerificationCode value, $Res Function(VerificationCode) then) = _$VerificationCodeCopyWithImpl<$Res, VerificationCode>;
   @useResult
   $Res call({int verification_id, int reference, int code});
 }
 
 /// @nodoc
-class _$VerificationCodeCopyWithImpl<$Res, $Val extends VerificationCode>
-    implements $VerificationCodeCopyWith<$Res> {
+class _$VerificationCodeCopyWithImpl<$Res, $Val extends VerificationCode> implements $VerificationCodeCopyWith<$Res> {
   _$VerificationCodeCopyWithImpl(this._value, this._then);
 
   // ignore: unused_field
@@ -384,23 +335,16 @@ class _$VerificationCodeCopyWithImpl<$Res, $Val extends VerificationCode>
 }
 
 /// @nodoc
-abstract class _$$VerificationCodeImplCopyWith<$Res>
-    implements $VerificationCodeCopyWith<$Res> {
-  factory _$$VerificationCodeImplCopyWith(_$VerificationCodeImpl value,
-          $Res Function(_$VerificationCodeImpl) then) =
-      __$$VerificationCodeImplCopyWithImpl<$Res>;
+abstract class _$$VerificationCodeImplCopyWith<$Res> implements $VerificationCodeCopyWith<$Res> {
+  factory _$$VerificationCodeImplCopyWith(_$VerificationCodeImpl value, $Res Function(_$VerificationCodeImpl) then) = __$$VerificationCodeImplCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call({int verification_id, int reference, int code});
 }
 
 /// @nodoc
-class __$$VerificationCodeImplCopyWithImpl<$Res>
-    extends _$VerificationCodeCopyWithImpl<$Res, _$VerificationCodeImpl>
-    implements _$$VerificationCodeImplCopyWith<$Res> {
-  __$$VerificationCodeImplCopyWithImpl(_$VerificationCodeImpl _value,
-      $Res Function(_$VerificationCodeImpl) _then)
-      : super(_value, _then);
+class __$$VerificationCodeImplCopyWithImpl<$Res> extends _$VerificationCodeCopyWithImpl<$Res, _$VerificationCodeImpl> implements _$$VerificationCodeImplCopyWith<$Res> {
+  __$$VerificationCodeImplCopyWithImpl(_$VerificationCodeImpl _value, $Res Function(_$VerificationCodeImpl) _then) : super(_value, _then);
 
   @pragma('vm:prefer-inline')
   @override
@@ -429,13 +373,9 @@ class __$$VerificationCodeImplCopyWithImpl<$Res>
 /// @nodoc
 @JsonSerializable()
 class _$VerificationCodeImpl implements _VerificationCode {
-  const _$VerificationCodeImpl(
-      {required this.verification_id,
-      required this.reference,
-      required this.code});
+  const _$VerificationCodeImpl({required this.verification_id, required this.reference, required this.code});
 
-  factory _$VerificationCodeImpl.fromJson(Map<String, dynamic> json) =>
-      _$$VerificationCodeImplFromJson(json);
+  factory _$VerificationCodeImpl.fromJson(Map<String, dynamic> json) => _$$VerificationCodeImplFromJson(json);
 
   @override
   final int verification_id;
@@ -451,27 +391,17 @@ class _$VerificationCodeImpl implements _VerificationCode {
 
   @override
   bool operator ==(Object other) {
-    return identical(this, other) ||
-        (other.runtimeType == runtimeType &&
-            other is _$VerificationCodeImpl &&
-            (identical(other.verification_id, verification_id) ||
-                other.verification_id == verification_id) &&
-            (identical(other.reference, reference) ||
-                other.reference == reference) &&
-            (identical(other.code, code) || other.code == code));
+    return identical(this, other) || (other.runtimeType == runtimeType && other is _$VerificationCodeImpl && (identical(other.verification_id, verification_id) || other.verification_id == verification_id) && (identical(other.reference, reference) || other.reference == reference) && (identical(other.code, code) || other.code == code));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode =>
-      Object.hash(runtimeType, verification_id, reference, code);
+  int get hashCode => Object.hash(runtimeType, verification_id, reference, code);
 
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$VerificationCodeImplCopyWith<_$VerificationCodeImpl> get copyWith =>
-      __$$VerificationCodeImplCopyWithImpl<_$VerificationCodeImpl>(
-          this, _$identity);
+  _$$VerificationCodeImplCopyWith<_$VerificationCodeImpl> get copyWith => __$$VerificationCodeImplCopyWithImpl<_$VerificationCodeImpl>(this, _$identity);
 
   @override
   Map<String, dynamic> toJson() {
@@ -482,13 +412,9 @@ class _$VerificationCodeImpl implements _VerificationCode {
 }
 
 abstract class _VerificationCode implements VerificationCode {
-  const factory _VerificationCode(
-      {required final int verification_id,
-      required final int reference,
-      required final int code}) = _$VerificationCodeImpl;
+  const factory _VerificationCode({required final int verification_id, required final int reference, required final int code}) = _$VerificationCodeImpl;
 
-  factory _VerificationCode.fromJson(Map<String, dynamic> json) =
-      _$VerificationCodeImpl.fromJson;
+  factory _VerificationCode.fromJson(Map<String, dynamic> json) = _$VerificationCodeImpl.fromJson;
 
   @override
   int get verification_id;
@@ -498,8 +424,7 @@ abstract class _VerificationCode implements VerificationCode {
   int get code;
   @override
   @JsonKey(ignore: true)
-  _$$VerificationCodeImplCopyWith<_$VerificationCodeImpl> get copyWith =>
-      throw _privateConstructorUsedError;
+  _$$VerificationCodeImplCopyWith<_$VerificationCodeImpl> get copyWith => throw _privateConstructorUsedError;
 }
 
 CreateNewAccount _$CreateNewAccountFromJson(Map<String, dynamic> json) {
@@ -516,27 +441,18 @@ mixin _$CreateNewAccount {
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
-  $CreateNewAccountCopyWith<CreateNewAccount> get copyWith =>
-      throw _privateConstructorUsedError;
+  $CreateNewAccountCopyWith<CreateNewAccount> get copyWith => throw _privateConstructorUsedError;
 }
 
 /// @nodoc
 abstract class $CreateNewAccountCopyWith<$Res> {
-  factory $CreateNewAccountCopyWith(
-          CreateNewAccount value, $Res Function(CreateNewAccount) then) =
-      _$CreateNewAccountCopyWithImpl<$Res, CreateNewAccount>;
+  factory $CreateNewAccountCopyWith(CreateNewAccount value, $Res Function(CreateNewAccount) then) = _$CreateNewAccountCopyWithImpl<$Res, CreateNewAccount>;
   @useResult
-  $Res call(
-      {int verification_id,
-      int reference,
-      int code,
-      String email,
-      String password});
+  $Res call({int verification_id, int reference, int code, String email, String password});
 }
 
 /// @nodoc
-class _$CreateNewAccountCopyWithImpl<$Res, $Val extends CreateNewAccount>
-    implements $CreateNewAccountCopyWith<$Res> {
+class _$CreateNewAccountCopyWithImpl<$Res, $Val extends CreateNewAccount> implements $CreateNewAccountCopyWith<$Res> {
   _$CreateNewAccountCopyWithImpl(this._value, this._then);
 
   // ignore: unused_field
@@ -579,28 +495,16 @@ class _$CreateNewAccountCopyWithImpl<$Res, $Val extends CreateNewAccount>
 }
 
 /// @nodoc
-abstract class _$$CreateNewAccountImplCopyWith<$Res>
-    implements $CreateNewAccountCopyWith<$Res> {
-  factory _$$CreateNewAccountImplCopyWith(_$CreateNewAccountImpl value,
-          $Res Function(_$CreateNewAccountImpl) then) =
-      __$$CreateNewAccountImplCopyWithImpl<$Res>;
+abstract class _$$CreateNewAccountImplCopyWith<$Res> implements $CreateNewAccountCopyWith<$Res> {
+  factory _$$CreateNewAccountImplCopyWith(_$CreateNewAccountImpl value, $Res Function(_$CreateNewAccountImpl) then) = __$$CreateNewAccountImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call(
-      {int verification_id,
-      int reference,
-      int code,
-      String email,
-      String password});
+  $Res call({int verification_id, int reference, int code, String email, String password});
 }
 
 /// @nodoc
-class __$$CreateNewAccountImplCopyWithImpl<$Res>
-    extends _$CreateNewAccountCopyWithImpl<$Res, _$CreateNewAccountImpl>
-    implements _$$CreateNewAccountImplCopyWith<$Res> {
-  __$$CreateNewAccountImplCopyWithImpl(_$CreateNewAccountImpl _value,
-      $Res Function(_$CreateNewAccountImpl) _then)
-      : super(_value, _then);
+class __$$CreateNewAccountImplCopyWithImpl<$Res> extends _$CreateNewAccountCopyWithImpl<$Res, _$CreateNewAccountImpl> implements _$$CreateNewAccountImplCopyWith<$Res> {
+  __$$CreateNewAccountImplCopyWithImpl(_$CreateNewAccountImpl _value, $Res Function(_$CreateNewAccountImpl) _then) : super(_value, _then);
 
   @pragma('vm:prefer-inline')
   @override
@@ -639,15 +543,9 @@ class __$$CreateNewAccountImplCopyWithImpl<$Res>
 /// @nodoc
 @JsonSerializable()
 class _$CreateNewAccountImpl implements _CreateNewAccount {
-  const _$CreateNewAccountImpl(
-      {required this.verification_id,
-      required this.reference,
-      required this.code,
-      required this.email,
-      required this.password});
+  const _$CreateNewAccountImpl({required this.verification_id, required this.reference, required this.code, required this.email, required this.password});
 
-  factory _$CreateNewAccountImpl.fromJson(Map<String, dynamic> json) =>
-      _$$CreateNewAccountImplFromJson(json);
+  factory _$CreateNewAccountImpl.fromJson(Map<String, dynamic> json) => _$$CreateNewAccountImplFromJson(json);
 
   @override
   final int verification_id;
@@ -670,27 +568,21 @@ class _$CreateNewAccountImpl implements _CreateNewAccount {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$CreateNewAccountImpl &&
-            (identical(other.verification_id, verification_id) ||
-                other.verification_id == verification_id) &&
-            (identical(other.reference, reference) ||
-                other.reference == reference) &&
+            (identical(other.verification_id, verification_id) || other.verification_id == verification_id) &&
+            (identical(other.reference, reference) || other.reference == reference) &&
             (identical(other.code, code) || other.code == code) &&
             (identical(other.email, email) || other.email == email) &&
-            (identical(other.password, password) ||
-                other.password == password));
+            (identical(other.password, password) || other.password == password));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(
-      runtimeType, verification_id, reference, code, email, password);
+  int get hashCode => Object.hash(runtimeType, verification_id, reference, code, email, password);
 
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$CreateNewAccountImplCopyWith<_$CreateNewAccountImpl> get copyWith =>
-      __$$CreateNewAccountImplCopyWithImpl<_$CreateNewAccountImpl>(
-          this, _$identity);
+  _$$CreateNewAccountImplCopyWith<_$CreateNewAccountImpl> get copyWith => __$$CreateNewAccountImplCopyWithImpl<_$CreateNewAccountImpl>(this, _$identity);
 
   @override
   Map<String, dynamic> toJson() {
@@ -701,15 +593,9 @@ class _$CreateNewAccountImpl implements _CreateNewAccount {
 }
 
 abstract class _CreateNewAccount implements CreateNewAccount {
-  const factory _CreateNewAccount(
-      {required final int verification_id,
-      required final int reference,
-      required final int code,
-      required final String email,
-      required final String password}) = _$CreateNewAccountImpl;
+  const factory _CreateNewAccount({required final int verification_id, required final int reference, required final int code, required final String email, required final String password}) = _$CreateNewAccountImpl;
 
-  factory _CreateNewAccount.fromJson(Map<String, dynamic> json) =
-      _$CreateNewAccountImpl.fromJson;
+  factory _CreateNewAccount.fromJson(Map<String, dynamic> json) = _$CreateNewAccountImpl.fromJson;
 
   @override
   int get verification_id;
@@ -723,8 +609,7 @@ abstract class _CreateNewAccount implements CreateNewAccount {
   String get password;
   @override
   @JsonKey(ignore: true)
-  _$$CreateNewAccountImplCopyWith<_$CreateNewAccountImpl> get copyWith =>
-      throw _privateConstructorUsedError;
+  _$$CreateNewAccountImplCopyWith<_$CreateNewAccountImpl> get copyWith => throw _privateConstructorUsedError;
 }
 
 SignIn _$SignInFromJson(Map<String, dynamic> json) {
@@ -743,15 +628,13 @@ mixin _$SignIn {
 
 /// @nodoc
 abstract class $SignInCopyWith<$Res> {
-  factory $SignInCopyWith(SignIn value, $Res Function(SignIn) then) =
-      _$SignInCopyWithImpl<$Res, SignIn>;
+  factory $SignInCopyWith(SignIn value, $Res Function(SignIn) then) = _$SignInCopyWithImpl<$Res, SignIn>;
   @useResult
   $Res call({String email, String password});
 }
 
 /// @nodoc
-class _$SignInCopyWithImpl<$Res, $Val extends SignIn>
-    implements $SignInCopyWith<$Res> {
+class _$SignInCopyWithImpl<$Res, $Val extends SignIn> implements $SignInCopyWith<$Res> {
   _$SignInCopyWithImpl(this._value, this._then);
 
   // ignore: unused_field
@@ -780,21 +663,15 @@ class _$SignInCopyWithImpl<$Res, $Val extends SignIn>
 
 /// @nodoc
 abstract class _$$SignInImplCopyWith<$Res> implements $SignInCopyWith<$Res> {
-  factory _$$SignInImplCopyWith(
-          _$SignInImpl value, $Res Function(_$SignInImpl) then) =
-      __$$SignInImplCopyWithImpl<$Res>;
+  factory _$$SignInImplCopyWith(_$SignInImpl value, $Res Function(_$SignInImpl) then) = __$$SignInImplCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call({String email, String password});
 }
 
 /// @nodoc
-class __$$SignInImplCopyWithImpl<$Res>
-    extends _$SignInCopyWithImpl<$Res, _$SignInImpl>
-    implements _$$SignInImplCopyWith<$Res> {
-  __$$SignInImplCopyWithImpl(
-      _$SignInImpl _value, $Res Function(_$SignInImpl) _then)
-      : super(_value, _then);
+class __$$SignInImplCopyWithImpl<$Res> extends _$SignInCopyWithImpl<$Res, _$SignInImpl> implements _$$SignInImplCopyWith<$Res> {
+  __$$SignInImplCopyWithImpl(_$SignInImpl _value, $Res Function(_$SignInImpl) _then) : super(_value, _then);
 
   @pragma('vm:prefer-inline')
   @override
@@ -820,8 +697,7 @@ class __$$SignInImplCopyWithImpl<$Res>
 class _$SignInImpl implements _SignIn {
   const _$SignInImpl({required this.email, required this.password});
 
-  factory _$SignInImpl.fromJson(Map<String, dynamic> json) =>
-      _$$SignInImplFromJson(json);
+  factory _$SignInImpl.fromJson(Map<String, dynamic> json) => _$$SignInImplFromJson(json);
 
   @override
   final String email;
@@ -835,12 +711,7 @@ class _$SignInImpl implements _SignIn {
 
   @override
   bool operator ==(Object other) {
-    return identical(this, other) ||
-        (other.runtimeType == runtimeType &&
-            other is _$SignInImpl &&
-            (identical(other.email, email) || other.email == email) &&
-            (identical(other.password, password) ||
-                other.password == password));
+    return identical(this, other) || (other.runtimeType == runtimeType && other is _$SignInImpl && (identical(other.email, email) || other.email == email) && (identical(other.password, password) || other.password == password));
   }
 
   @JsonKey(ignore: true)
@@ -850,8 +721,7 @@ class _$SignInImpl implements _SignIn {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$SignInImplCopyWith<_$SignInImpl> get copyWith =>
-      __$$SignInImplCopyWithImpl<_$SignInImpl>(this, _$identity);
+  _$$SignInImplCopyWith<_$SignInImpl> get copyWith => __$$SignInImplCopyWithImpl<_$SignInImpl>(this, _$identity);
 
   @override
   Map<String, dynamic> toJson() {
@@ -862,9 +732,7 @@ class _$SignInImpl implements _SignIn {
 }
 
 abstract class _SignIn implements SignIn {
-  const factory _SignIn(
-      {required final String email,
-      required final String password}) = _$SignInImpl;
+  const factory _SignIn({required final String email, required final String password}) = _$SignInImpl;
 
   factory _SignIn.fromJson(Map<String, dynamic> json) = _$SignInImpl.fromJson;
 
@@ -874,8 +742,7 @@ abstract class _SignIn implements SignIn {
   String get password;
   @override
   @JsonKey(ignore: true)
-  _$$SignInImplCopyWith<_$SignInImpl> get copyWith =>
-      throw _privateConstructorUsedError;
+  _$$SignInImplCopyWith<_$SignInImpl> get copyWith => throw _privateConstructorUsedError;
 }
 
 Authentication _$AuthenticationFromJson(Map<String, dynamic> json) {
@@ -896,31 +763,18 @@ mixin _$Authentication {
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
-  $AuthenticationCopyWith<Authentication> get copyWith =>
-      throw _privateConstructorUsedError;
+  $AuthenticationCopyWith<Authentication> get copyWith => throw _privateConstructorUsedError;
 }
 
 /// @nodoc
 abstract class $AuthenticationCopyWith<$Res> {
-  factory $AuthenticationCopyWith(
-          Authentication value, $Res Function(Authentication) then) =
-      _$AuthenticationCopyWithImpl<$Res, Authentication>;
+  factory $AuthenticationCopyWith(Authentication value, $Res Function(Authentication) then) = _$AuthenticationCopyWithImpl<$Res, Authentication>;
   @useResult
-  $Res call(
-      {int verification_id,
-      int reference,
-      int code,
-      String email,
-      String secondary_email,
-      String password,
-      String access_token,
-      String refresh_token,
-      int users_id});
+  $Res call({int verification_id, int reference, int code, String email, String secondary_email, String password, String access_token, String refresh_token, int users_id});
 }
 
 /// @nodoc
-class _$AuthenticationCopyWithImpl<$Res, $Val extends Authentication>
-    implements $AuthenticationCopyWith<$Res> {
+class _$AuthenticationCopyWithImpl<$Res, $Val extends Authentication> implements $AuthenticationCopyWith<$Res> {
   _$AuthenticationCopyWithImpl(this._value, this._then);
 
   // ignore: unused_field
@@ -983,32 +837,16 @@ class _$AuthenticationCopyWithImpl<$Res, $Val extends Authentication>
 }
 
 /// @nodoc
-abstract class _$$AuthenticationImplCopyWith<$Res>
-    implements $AuthenticationCopyWith<$Res> {
-  factory _$$AuthenticationImplCopyWith(_$AuthenticationImpl value,
-          $Res Function(_$AuthenticationImpl) then) =
-      __$$AuthenticationImplCopyWithImpl<$Res>;
+abstract class _$$AuthenticationImplCopyWith<$Res> implements $AuthenticationCopyWith<$Res> {
+  factory _$$AuthenticationImplCopyWith(_$AuthenticationImpl value, $Res Function(_$AuthenticationImpl) then) = __$$AuthenticationImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call(
-      {int verification_id,
-      int reference,
-      int code,
-      String email,
-      String secondary_email,
-      String password,
-      String access_token,
-      String refresh_token,
-      int users_id});
+  $Res call({int verification_id, int reference, int code, String email, String secondary_email, String password, String access_token, String refresh_token, int users_id});
 }
 
 /// @nodoc
-class __$$AuthenticationImplCopyWithImpl<$Res>
-    extends _$AuthenticationCopyWithImpl<$Res, _$AuthenticationImpl>
-    implements _$$AuthenticationImplCopyWith<$Res> {
-  __$$AuthenticationImplCopyWithImpl(
-      _$AuthenticationImpl _value, $Res Function(_$AuthenticationImpl) _then)
-      : super(_value, _then);
+class __$$AuthenticationImplCopyWithImpl<$Res> extends _$AuthenticationCopyWithImpl<$Res, _$AuthenticationImpl> implements _$$AuthenticationImplCopyWith<$Res> {
+  __$$AuthenticationImplCopyWithImpl(_$AuthenticationImpl _value, $Res Function(_$AuthenticationImpl) _then) : super(_value, _then);
 
   @pragma('vm:prefer-inline')
   @override
@@ -1067,19 +905,9 @@ class __$$AuthenticationImplCopyWithImpl<$Res>
 /// @nodoc
 @JsonSerializable()
 class _$AuthenticationImpl implements _Authentication {
-  const _$AuthenticationImpl(
-      {required this.verification_id,
-      required this.reference,
-      required this.code,
-      required this.email,
-      required this.secondary_email,
-      required this.password,
-      required this.access_token,
-      required this.refresh_token,
-      required this.users_id});
+  const _$AuthenticationImpl({required this.verification_id, required this.reference, required this.code, required this.email, required this.secondary_email, required this.password, required this.access_token, required this.refresh_token, required this.users_id});
 
-  factory _$AuthenticationImpl.fromJson(Map<String, dynamic> json) =>
-      _$$AuthenticationImplFromJson(json);
+  factory _$AuthenticationImpl.fromJson(Map<String, dynamic> json) => _$$AuthenticationImplFromJson(json);
 
   @override
   final int verification_id;
@@ -1110,35 +938,25 @@ class _$AuthenticationImpl implements _Authentication {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$AuthenticationImpl &&
-            (identical(other.verification_id, verification_id) ||
-                other.verification_id == verification_id) &&
-            (identical(other.reference, reference) ||
-                other.reference == reference) &&
+            (identical(other.verification_id, verification_id) || other.verification_id == verification_id) &&
+            (identical(other.reference, reference) || other.reference == reference) &&
             (identical(other.code, code) || other.code == code) &&
             (identical(other.email, email) || other.email == email) &&
-            (identical(other.secondary_email, secondary_email) ||
-                other.secondary_email == secondary_email) &&
-            (identical(other.password, password) ||
-                other.password == password) &&
-            (identical(other.access_token, access_token) ||
-                other.access_token == access_token) &&
-            (identical(other.refresh_token, refresh_token) ||
-                other.refresh_token == refresh_token) &&
-            (identical(other.users_id, users_id) ||
-                other.users_id == users_id));
+            (identical(other.secondary_email, secondary_email) || other.secondary_email == secondary_email) &&
+            (identical(other.password, password) || other.password == password) &&
+            (identical(other.access_token, access_token) || other.access_token == access_token) &&
+            (identical(other.refresh_token, refresh_token) || other.refresh_token == refresh_token) &&
+            (identical(other.users_id, users_id) || other.users_id == users_id));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(runtimeType, verification_id, reference, code,
-      email, secondary_email, password, access_token, refresh_token, users_id);
+  int get hashCode => Object.hash(runtimeType, verification_id, reference, code, email, secondary_email, password, access_token, refresh_token, users_id);
 
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$AuthenticationImplCopyWith<_$AuthenticationImpl> get copyWith =>
-      __$$AuthenticationImplCopyWithImpl<_$AuthenticationImpl>(
-          this, _$identity);
+  _$$AuthenticationImplCopyWith<_$AuthenticationImpl> get copyWith => __$$AuthenticationImplCopyWithImpl<_$AuthenticationImpl>(this, _$identity);
 
   @override
   Map<String, dynamic> toJson() {
@@ -1149,19 +967,9 @@ class _$AuthenticationImpl implements _Authentication {
 }
 
 abstract class _Authentication implements Authentication {
-  const factory _Authentication(
-      {required final int verification_id,
-      required final int reference,
-      required final int code,
-      required final String email,
-      required final String secondary_email,
-      required final String password,
-      required final String access_token,
-      required final String refresh_token,
-      required final int users_id}) = _$AuthenticationImpl;
+  const factory _Authentication({required final int verification_id, required final int reference, required final int code, required final String email, required final String secondary_email, required final String password, required final String access_token, required final String refresh_token, required final int users_id}) = _$AuthenticationImpl;
 
-  factory _Authentication.fromJson(Map<String, dynamic> json) =
-      _$AuthenticationImpl.fromJson;
+  factory _Authentication.fromJson(Map<String, dynamic> json) = _$AuthenticationImpl.fromJson;
 
   @override
   int get verification_id;
@@ -1183,6 +991,5 @@ abstract class _Authentication implements Authentication {
   int get users_id;
   @override
   @JsonKey(ignore: true)
-  _$$AuthenticationImplCopyWith<_$AuthenticationImpl> get copyWith =>
-      throw _privateConstructorUsedError;
+  _$$AuthenticationImplCopyWith<_$AuthenticationImpl> get copyWith => throw _privateConstructorUsedError;
 }
