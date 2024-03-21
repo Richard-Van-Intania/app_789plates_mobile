@@ -38,34 +38,38 @@ class MyApp extends HookConsumerWidget {
     final Locale locale = ref.watch(localeUpdateProvider);
     final ThemeMode themeMode = ref.watch(themeModeUpdateProvider);
     final AsyncValue<Map<String, String>> credential = ref.watch(credentialProvider);
-    return MaterialApp.router(
-      title: '789plates',
-      localizationsDelegates: AppLocalizations.localizationsDelegates,
-      supportedLocales: AppLocalizations.supportedLocales,
-      locale: locale,
-      themeMode: themeMode,
-      theme: ThemeData(fontFamily: 'Noto Sans Thai', useMaterial3: true, colorScheme: lightColorScheme),
-      darkTheme: ThemeData(fontFamily: 'Noto Sans Thai', useMaterial3: true, colorScheme: darkColorScheme),
-      routerConfig: GoRouter(
-        initialLocation: '/myhomepage',
-        // initialLocation: '/dev',
-        // initialLocation: '/signinscreen',
-        routes: <RouteBase>[
-          GoRoute(
-            path: '/myhomepage',
-            builder: (BuildContext context, GoRouterState state) => const MyHomePage(),
+    return switch (credential) {
+      AsyncData(:final value) => MaterialApp.router(
+          title: '789plates',
+          localizationsDelegates: AppLocalizations.localizationsDelegates,
+          supportedLocales: AppLocalizations.supportedLocales,
+          locale: locale,
+          themeMode: themeMode,
+          theme: ThemeData(fontFamily: 'Noto Sans Thai', useMaterial3: true, colorScheme: lightColorScheme),
+          darkTheme: ThemeData(fontFamily: 'Noto Sans Thai', useMaterial3: true, colorScheme: darkColorScheme),
+          routerConfig: GoRouter(
+            initialLocation: '/myhomepage',
+            // initialLocation: '/dev',
+            // initialLocation: '/signinscreen',
+            routes: <RouteBase>[
+              GoRoute(
+                path: '/myhomepage',
+                builder: (BuildContext context, GoRouterState state) => const MyHomePage(),
+              ),
+              GoRoute(
+                path: '/signinscreen',
+                builder: (BuildContext context, GoRouterState state) => const SignInScreen(),
+              ),
+              GoRoute(
+                path: '/dev',
+                builder: (BuildContext context, GoRouterState state) => const ConfirmationPasswordScreen(),
+              ),
+            ],
           ),
-          GoRoute(
-            path: '/signinscreen',
-            builder: (BuildContext context, GoRouterState state) => const SignInScreen(),
-          ),
-          GoRoute(
-            path: '/dev',
-            builder: (BuildContext context, GoRouterState state) => const ConfirmationPasswordScreen(),
-          ),
-        ],
-      ),
-    );
+        ),
+      AsyncError() => const Center(child: Text('Oops, something unexpected happened')),
+      _ => const Center(child: CircularProgressIndicator()),
+    };
   }
 }
 
