@@ -16,6 +16,7 @@ class ExploreTab extends StatefulHookConsumerWidget {
 class _ExploreTabState extends ConsumerState<ExploreTab> {
   @override
   Widget build(BuildContext context) {
+    final credential = ref.watch(credentialProvider);
     final pendingFetch = useState<Future<void>?>(null);
     final snapshot = useFuture(pendingFetch.value);
     final isErrored = snapshot.hasError && snapshot.connectionState != ConnectionState.waiting;
@@ -48,35 +49,32 @@ class _ExploreTabState extends ConsumerState<ExploreTab> {
           IconButton(
             onPressed: () async {
               // pendingFetch.value = ref.read(testProvider.notifier).fetch();
-              final users_id = await flutterSecureStorage.read(key: 'users_id');
-              print(users_id);
+              // final users_id = await flutterSecureStorage.read(key: 'users_id');
+              // print(users_id);
             },
             icon: const Icon(Icons.settings),
           )
         ],
       ),
-      // body: test.when(
-      //   data: (String text) => Column(
-      //     mainAxisAlignment: MainAxisAlignment.center,
-      //     children: [
-      //       Text(
-      //         'Text: $text',
-      //         style: const TextStyle(
-      //           fontSize: 25.0,
-      //         ),
-      //       ),
-      //       if (snapshot.connectionState == ConnectionState.waiting) CircularProgressIndicator()
-      //     ],
-      //   ),
-      //   error: (e, s) => const Center(
-      //     child: Text('Uh oh. Something went wrong!'),
-      //   ),
-      //   loading: () => const Center(child: CircularProgressIndicator()),
-      // ),
-      floatingActionButton: FloatingActionButton(onPressed: () async {
-        final Map<String, String> allValues = await flutterSecureStorage.readAll();
-        print(allValues);
-      }),
+      body: credential.when(
+        data: (Map<String, String> value) => Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Text(
+              value.toString(),
+              style: const TextStyle(
+                fontSize: 25.0,
+              ),
+            ),
+            if (snapshot.connectionState == ConnectionState.waiting) CircularProgressIndicator()
+          ],
+        ),
+        error: (e, s) => const Center(
+          child: Text('Uh oh. Something went wrong!'),
+        ),
+        loading: () => const Center(child: CircularProgressIndicator()),
+      ),
+      floatingActionButton: FloatingActionButton(onPressed: () async {}),
     );
   }
 }
