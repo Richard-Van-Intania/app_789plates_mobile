@@ -201,6 +201,10 @@ class CreateNewAccount extends _$CreateNewAccount {
       );
       if (response.statusCode == 200) {
         final Authentication authentication = Authentication.fromJson(jsonDecode(utf8.decode(response.bodyBytes)));
+        await flutterSecureStorage.write(key: 'email', value: authentication.email);
+        await flutterSecureStorage.write(key: 'access_token', value: authentication.access_token);
+        await flutterSecureStorage.write(key: 'refresh_token', value: authentication.refresh_token);
+        await flutterSecureStorage.write(key: 'users_id', value: authentication.users_id.toString());
         state = AsyncData(UnwrapResponse<Authentication>(statusCode: response.statusCode, model: authentication));
       } else {
         state = AsyncData(UnwrapResponse<Authentication>(

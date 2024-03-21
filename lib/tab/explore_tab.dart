@@ -1,6 +1,8 @@
+import 'package:app_789plates_mobile/constants.dart';
 import 'package:app_789plates_mobile/provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
@@ -14,9 +16,6 @@ class ExploreTab extends StatefulHookConsumerWidget {
 class _ExploreTabState extends ConsumerState<ExploreTab> {
   @override
   Widget build(BuildContext context) {
-    // final AsyncValue<String> test = ref.watch(testProvider);
-    // final isLoading = ref.watch(loadingProvider);
-
     final pendingFetch = useState<Future<void>?>(null);
     final snapshot = useFuture(pendingFetch.value);
     final isErrored = snapshot.hasError && snapshot.connectionState != ConnectionState.waiting;
@@ -47,8 +46,10 @@ class _ExploreTabState extends ConsumerState<ExploreTab> {
         ),
         actions: [
           IconButton(
-            onPressed: () {
+            onPressed: () async {
               // pendingFetch.value = ref.read(testProvider.notifier).fetch();
+              final users_id = await flutterSecureStorage.read(key: 'users_id');
+              print(users_id);
             },
             icon: const Icon(Icons.settings),
           )
@@ -72,6 +73,10 @@ class _ExploreTabState extends ConsumerState<ExploreTab> {
       //   ),
       //   loading: () => const Center(child: CircularProgressIndicator()),
       // ),
+      floatingActionButton: FloatingActionButton(onPressed: () async {
+        final Map<String, String> allValues = await flutterSecureStorage.readAll();
+        print(allValues);
+      }),
     );
   }
 }
