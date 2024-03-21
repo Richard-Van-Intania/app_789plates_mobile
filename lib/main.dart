@@ -48,7 +48,7 @@ class MyApp extends HookConsumerWidget {
           theme: ThemeData(fontFamily: 'Noto Sans Thai', useMaterial3: true, colorScheme: lightColorScheme),
           darkTheme: ThemeData(fontFamily: 'Noto Sans Thai', useMaterial3: true, colorScheme: darkColorScheme),
           routerConfig: GoRouter(
-            initialLocation: '/myhomepage',
+            initialLocation: value['access_token'] == null ? '/signinscreen' : '/myhomepage',
             // initialLocation: '/dev',
             // initialLocation: '/signinscreen',
             routes: <RouteBase>[
@@ -67,8 +67,8 @@ class MyApp extends HookConsumerWidget {
             ],
           ),
         ),
-      AsyncError() => const Center(child: Text('Oops, something unexpected happened')),
-      _ => const Center(child: CircularProgressIndicator()),
+      AsyncError() => Container(alignment: Alignment.center, color: lightColorScheme.background, child: const Text('Oops, something unexpected happened')),
+      _ => Container(alignment: Alignment.center, color: lightColorScheme.background),
     };
   }
 }
@@ -86,89 +86,92 @@ class _MyHomePageState extends ConsumerState<MyHomePage> {
   @override
   Widget build(BuildContext context) {
     final int tabIndex = ref.watch(tabIndexProvider);
-    return Scaffold(
-        body: IndexedStack(
-          index: tabIndex,
-          children: [
-            Navigator(
-                key: _tabNavigatorKeys[0],
-                onGenerateRoute: (RouteSettings settings) {
-                  return MaterialPageRoute<void>(
-                      settings: settings,
-                      builder: (BuildContext context) {
-                        return const HomeTab();
-                      });
-                }),
-            Navigator(
-                key: _tabNavigatorKeys[1],
-                onGenerateRoute: (RouteSettings settings) {
-                  return MaterialPageRoute<void>(
-                      settings: settings,
-                      builder: (BuildContext context) {
-                        return const ExploreTab();
-                      });
-                }),
-            Navigator(
-                key: _tabNavigatorKeys[2],
-                onGenerateRoute: (RouteSettings settings) {
-                  return MaterialPageRoute<void>(
-                      settings: settings,
-                      builder: (BuildContext context) {
-                        return const SavedTab();
-                      });
-                }),
-            Navigator(
-                key: _tabNavigatorKeys[3],
-                onGenerateRoute: (RouteSettings settings) {
-                  return MaterialPageRoute<void>(
-                      settings: settings,
-                      builder: (BuildContext context) {
-                        return const ChatTab();
-                      });
-                }),
-            Navigator(
-                key: _tabNavigatorKeys[4],
-                onGenerateRoute: (RouteSettings settings) {
-                  return MaterialPageRoute<void>(
-                      settings: settings,
-                      builder: (BuildContext context) {
-                        return const StoreTab();
-                      });
-                })
-          ],
-        ),
-        bottomNavigationBar: NavigationBar(
-          selectedIndex: tabIndex,
-          onDestinationSelected: (int index) {
-            ref.read(tabIndexProvider.notifier).updateTabIndex(index);
-          },
-          destinations: <Widget>[
-            NavigationDestination(
-              icon: const Icon(Icons.home_outlined),
-              selectedIcon: const Icon(Icons.home),
-              label: AppLocalizations.of(context)!.home,
-            ),
-            NavigationDestination(
-              icon: const Icon(Icons.explore_outlined),
-              selectedIcon: const Icon(Icons.explore),
-              label: AppLocalizations.of(context)!.explore,
-            ),
-            NavigationDestination(
-              icon: const Icon(Icons.bookmark_border_outlined),
-              selectedIcon: const Icon(Icons.bookmark_outlined),
-              label: AppLocalizations.of(context)!.saved,
-            ),
-            NavigationDestination(
-              icon: const Icon(Icons.chat_outlined),
-              selectedIcon: const Icon(Icons.chat),
-              label: AppLocalizations.of(context)!.chats,
-            ),
-            NavigationDestination(
-              icon: const Icon(Icons.store_outlined),
-              selectedIcon: const Icon(Icons.store),
-              label: AppLocalizations.of(context)!.store,
-            ),
-          ],
-        ));
+    return PopScope(
+      canPop: false,
+      child: Scaffold(
+          body: IndexedStack(
+            index: tabIndex,
+            children: [
+              Navigator(
+                  key: _tabNavigatorKeys[0],
+                  onGenerateRoute: (RouteSettings settings) {
+                    return MaterialPageRoute<void>(
+                        settings: settings,
+                        builder: (BuildContext context) {
+                          return const HomeTab();
+                        });
+                  }),
+              Navigator(
+                  key: _tabNavigatorKeys[1],
+                  onGenerateRoute: (RouteSettings settings) {
+                    return MaterialPageRoute<void>(
+                        settings: settings,
+                        builder: (BuildContext context) {
+                          return const ExploreTab();
+                        });
+                  }),
+              Navigator(
+                  key: _tabNavigatorKeys[2],
+                  onGenerateRoute: (RouteSettings settings) {
+                    return MaterialPageRoute<void>(
+                        settings: settings,
+                        builder: (BuildContext context) {
+                          return const SavedTab();
+                        });
+                  }),
+              Navigator(
+                  key: _tabNavigatorKeys[3],
+                  onGenerateRoute: (RouteSettings settings) {
+                    return MaterialPageRoute<void>(
+                        settings: settings,
+                        builder: (BuildContext context) {
+                          return const ChatTab();
+                        });
+                  }),
+              Navigator(
+                  key: _tabNavigatorKeys[4],
+                  onGenerateRoute: (RouteSettings settings) {
+                    return MaterialPageRoute<void>(
+                        settings: settings,
+                        builder: (BuildContext context) {
+                          return const StoreTab();
+                        });
+                  })
+            ],
+          ),
+          bottomNavigationBar: NavigationBar(
+            selectedIndex: tabIndex,
+            onDestinationSelected: (int index) {
+              ref.read(tabIndexProvider.notifier).updateTabIndex(index);
+            },
+            destinations: <Widget>[
+              NavigationDestination(
+                icon: const Icon(Icons.home_outlined),
+                selectedIcon: const Icon(Icons.home),
+                label: AppLocalizations.of(context)!.home,
+              ),
+              NavigationDestination(
+                icon: const Icon(Icons.explore_outlined),
+                selectedIcon: const Icon(Icons.explore),
+                label: AppLocalizations.of(context)!.explore,
+              ),
+              NavigationDestination(
+                icon: const Icon(Icons.bookmark_border_outlined),
+                selectedIcon: const Icon(Icons.bookmark_outlined),
+                label: AppLocalizations.of(context)!.saved,
+              ),
+              NavigationDestination(
+                icon: const Icon(Icons.chat_outlined),
+                selectedIcon: const Icon(Icons.chat),
+                label: AppLocalizations.of(context)!.chats,
+              ),
+              NavigationDestination(
+                icon: const Icon(Icons.store_outlined),
+                selectedIcon: const Icon(Icons.store),
+                label: AppLocalizations.of(context)!.store,
+              ),
+            ],
+          )),
+    );
   }
 }
