@@ -14,6 +14,7 @@ class ConfirmationPasswordScreen extends StatefulHookConsumerWidget {
 
 class _ConfirmationPasswordScreenState extends ConsumerState<ConfirmationPasswordScreen> {
   final GlobalKey<FormState> key = GlobalKey<FormState>();
+
   @override
   Widget build(BuildContext context) {
     final createNewAccount = ref.watch(createNewAccountProvider);

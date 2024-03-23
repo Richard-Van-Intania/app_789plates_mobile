@@ -129,9 +129,9 @@ class _StoreTabState extends ConsumerState<StoreTab> {
             padding: const EdgeInsets.all(16.0),
             child: TextButton.icon(
               onPressed: () {
-                Navigator.pop(context);
                 // pop up confirm
-                // if ok clear stage
+                Navigator.pop(context);
+                ref.read(credentialProvider.notifier).deleteAll();
                 context.go('/signinscreen');
               },
               icon: const Icon(Icons.logout_outlined),
