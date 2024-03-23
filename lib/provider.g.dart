@@ -58,6 +58,19 @@ final themeModeUpdateProvider = AutoDisposeNotifierProvider<ThemeModeUpdate, The
 );
 
 typedef _$ThemeModeUpdate = AutoDisposeNotifier<ThemeMode>;
+String _$credentialHash() => r'e854265711a1daa49bd386c436ec0f8536098be2';
+
+/// See also [Credential].
+@ProviderFor(Credential)
+final credentialProvider = AsyncNotifierProvider<Credential, Map<String, String>>.internal(
+  Credential.new,
+  name: r'credentialProvider',
+  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product') ? null : _$credentialHash,
+  dependencies: null,
+  allTransitiveDependencies: null,
+);
+
+typedef _$Credential = AsyncNotifier<Map<String, String>>;
 String _$checkAvailabilityEmailHash() => r'42c8e6d932b9a71a9bd62e99ec60564745207298';
 
 /// See also [CheckAvailabilityEmail].
@@ -97,18 +110,18 @@ final createNewAccountProvider = AutoDisposeAsyncNotifierProvider<CreateNewAccou
 );
 
 typedef _$CreateNewAccount = AutoDisposeAsyncNotifier<UnwrapResponse<Authentication>>;
-String _$credentialHash() => r'e854265711a1daa49bd386c436ec0f8536098be2';
+String _$signInHash() => r'78fee32387a06d3c17b394bf6b6f2ade87e94d14';
 
-/// See also [Credential].
-@ProviderFor(Credential)
-final credentialProvider = AsyncNotifierProvider<Credential, Map<String, String>>.internal(
-  Credential.new,
-  name: r'credentialProvider',
-  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product') ? null : _$credentialHash,
+/// See also [SignIn].
+@ProviderFor(SignIn)
+final signInProvider = AutoDisposeAsyncNotifierProvider<SignIn, UnwrapResponse<Authentication>>.internal(
+  SignIn.new,
+  name: r'signInProvider',
+  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product') ? null : _$signInHash,
   dependencies: null,
   allTransitiveDependencies: null,
 );
 
-typedef _$Credential = AsyncNotifier<Map<String, String>>;
+typedef _$SignIn = AutoDisposeAsyncNotifier<UnwrapResponse<Authentication>>;
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member

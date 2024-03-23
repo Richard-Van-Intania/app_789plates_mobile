@@ -1,5 +1,4 @@
 // ignore_for_file: non_constant_identifier_names
-
 import 'dart:convert';
 import 'package:app_789plates_mobile/constants.dart';
 import 'package:app_789plates_mobile/model.dart';
@@ -62,6 +61,40 @@ class ThemeModeUpdate extends _$ThemeModeUpdate {
   void updateThemeMode(ThemeMode themeMode) {
     prefs.setString('themeMode', themeMode.name);
     state = themeMode;
+  }
+}
+
+@Riverpod(keepAlive: true)
+class Credential extends _$Credential {
+  @override
+  Future<Map<String, String>> build() async {
+    return await flutterSecureStorage.readAll();
+  }
+
+  Future<void> write({
+    required String? email,
+    required String? access_token,
+    required String? refresh_token,
+    required int? users_id,
+  }) async {
+    if (email != null) {
+      await flutterSecureStorage.write(key: 'email', value: email);
+    }
+    if (access_token != null) {
+      await flutterSecureStorage.write(key: 'access_token', value: access_token);
+    }
+    if (refresh_token != null) {
+      await flutterSecureStorage.write(key: 'refresh_token', value: refresh_token);
+    }
+    if (users_id != null) {
+      await flutterSecureStorage.write(key: 'users_id', value: users_id.toString());
+    }
+    state = AsyncData(await flutterSecureStorage.readAll());
+  }
+
+  Future<void> deleteAll() async {
+    await flutterSecureStorage.deleteAll();
+    state = const AsyncData(<String, String>{});
   }
 }
 
@@ -226,36 +259,50 @@ class CreateNewAccount extends _$CreateNewAccount {
   }
 }
 
-@Riverpod(keepAlive: true)
-class Credential extends _$Credential {
+@riverpod
+class SignIn extends _$SignIn {
   @override
-  Future<Map<String, String>> build() async {
-    return await flutterSecureStorage.readAll();
+  Future<UnwrapResponse<Authentication>> build() async {
+    return unwrapResponse;
   }
 
-  Future<void> write({
-    required String? email,
-    required String? access_token,
-    required String? refresh_token,
-    required int? users_id,
-  }) async {
-    if (email != null) {
-      await flutterSecureStorage.write(key: 'email', value: email);
+  Future<void> fetch(String email, String password) async {
+    final Uri uri = Uri(scheme: 'http', host: '10.0.2.2', port: 8700, path: '/signin');
+    final response = await http.post(
+      uri,
+      headers: <String, String>{'Content-Type': 'application/json; charset=UTF-8'},
+      body: jsonEncode(Authentication(
+        verification_id: nullAliasInt,
+        reference: nullAliasInt,
+        code: nullAliasInt,
+        email: email,
+        secondary_email: nullAliasString,
+        password: password,
+        access_token: nullAliasString,
+        refresh_token: nullAliasString,
+        users_id: nullAliasInt,
+      ).toJson()),
+    );
+    if (response.statusCode == 200) {
+      final Authentication authentication = Authentication.fromJson(jsonDecode(utf8.decode(response.bodyBytes)));
+      await ref.read(credentialProvider.notifier).deleteAll();
+      await ref.read(credentialProvider.notifier).write(email: authentication.email, access_token: authentication.access_token, refresh_token: authentication.refresh_token, users_id: authentication.users_id);
+      state = AsyncData(UnwrapResponse<Authentication>(statusCode: response.statusCode, model: authentication));
+    } else {
+      state = AsyncData(UnwrapResponse<Authentication>(
+        statusCode: response.statusCode,
+        model: Authentication(
+          verification_id: nullAliasInt,
+          reference: nullAliasInt,
+          code: nullAliasInt,
+          email: email,
+          secondary_email: nullAliasString,
+          password: password,
+          access_token: nullAliasString,
+          refresh_token: nullAliasString,
+          users_id: nullAliasInt,
+        ),
+      ));
     }
-    if (access_token != null) {
-      await flutterSecureStorage.write(key: 'access_token', value: access_token);
-    }
-    if (refresh_token != null) {
-      await flutterSecureStorage.write(key: 'refresh_token', value: refresh_token);
-    }
-    if (users_id != null) {
-      await flutterSecureStorage.write(key: 'users_id', value: users_id.toString());
-    }
-    state = AsyncData(await flutterSecureStorage.readAll());
-  }
-
-  Future<void> deleteAll() async {
-    await flutterSecureStorage.deleteAll();
-    state = const AsyncData(<String, String>{});
   }
 }
