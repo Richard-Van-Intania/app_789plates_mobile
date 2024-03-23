@@ -227,6 +227,14 @@ class CreateNewAccount extends _$CreateNewAccount {
 }
 
 @Riverpod(keepAlive: true)
-Future<Map<String, String>> credential(CredentialRef ref) async {
-  return await flutterSecureStorage.readAll();
+class Credential extends _$Credential {
+  @override
+  Future<Map<String, String>> build() async {
+    return await flutterSecureStorage.readAll();
+  }
+
+  Future<void> deleteAll() async {
+    await flutterSecureStorage.deleteAll();
+    state = const AsyncData(<String, String>{});
+  }
 }

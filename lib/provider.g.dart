@@ -6,19 +6,6 @@ part of 'provider.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$credentialHash() => r'1da44a6c25f0cecaa6042c717fd9f1c507c8ae15';
-
-/// See also [credential].
-@ProviderFor(credential)
-final credentialProvider = FutureProvider<Map<String, String>>.internal(
-  credential,
-  name: r'credentialProvider',
-  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product') ? null : _$credentialHash,
-  dependencies: null,
-  allTransitiveDependencies: null,
-);
-
-typedef CredentialRef = FutureProviderRef<Map<String, String>>;
 String _$localeUpdateHash() => r'ecfb82dc371b6f83400840c8a6a4a1050dbab199';
 
 /// See also [LocaleUpdate].
@@ -110,5 +97,18 @@ final createNewAccountProvider = AutoDisposeAsyncNotifierProvider<CreateNewAccou
 );
 
 typedef _$CreateNewAccount = AutoDisposeAsyncNotifier<UnwrapResponse<Authentication>>;
+String _$credentialHash() => r'71bd3585385e09f084058952ba37d53b05ad563c';
+
+/// See also [Credential].
+@ProviderFor(Credential)
+final credentialProvider = AsyncNotifierProvider<Credential, Map<String, String>>.internal(
+  Credential.new,
+  name: r'credentialProvider',
+  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product') ? null : _$credentialHash,
+  dependencies: null,
+  allTransitiveDependencies: null,
+);
+
+typedef _$Credential = AsyncNotifier<Map<String, String>>;
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member
