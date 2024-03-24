@@ -452,3 +452,13 @@ class ResetPassword extends _$ResetPassword {
     }
   }
 }
+
+@riverpod
+class Search extends _$Search {
+  @override
+  Future<String> build() async {
+    return '';
+  }
+
+  Future<void> fetch(String query) async {}
+}
