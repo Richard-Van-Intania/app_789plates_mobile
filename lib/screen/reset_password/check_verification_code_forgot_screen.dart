@@ -13,7 +13,8 @@ class CheckVerificationCodeForgotScreen extends StatefulHookConsumerWidget {
 }
 
 class _CheckVerificationCodeForgotScreenState extends ConsumerState<CheckVerificationCodeForgotScreen> {
-  final GlobalKey<FormFieldState> key = GlobalKey<FormFieldState>();
+  final _formFieldKey = GlobalKey<FormFieldState>();
+
   @override
   Widget build(BuildContext context) {
     final checkVerificationCodeForgot = ref.watch(checkVerificationCodeForgotProvider);
@@ -36,15 +37,15 @@ class _CheckVerificationCodeForgotScreenState extends ConsumerState<CheckVerific
     });
     return Scaffold(
       body: checkVerificationCodeForgot.when(
-        data: (value) {
+        data: (data) {
           return Column(
             children: [
               SizedBox(
                 height: 120,
               ),
-              Text(value.model.reference.toString()),
+              Text(data.model.reference.toString()),
               TextFormField(
-                key: key,
+                key: _formFieldKey,
                 controller: controller,
                 keyboardType: TextInputType.number,
                 decoration: InputDecoration(
@@ -66,7 +67,7 @@ class _CheckVerificationCodeForgotScreenState extends ConsumerState<CheckVerific
                   onPressed: (snapshot.connectionState == ConnectionState.waiting)
                       ? null
                       : () {
-                          if (key.currentState!.validate()) {
+                          if (_formFieldKey.currentState!.validate()) {
                             pendingFetch.value = ref.read(checkVerificationCodeForgotProvider.notifier).fetch(int.parse(controller.text.trim()));
                             FocusScope.of(context).unfocus();
                           }

@@ -14,7 +14,8 @@ class ForgotPasswordScreen extends StatefulHookConsumerWidget {
 }
 
 class _ForgotPasswordScreenState extends ConsumerState<ForgotPasswordScreen> {
-  final GlobalKey<FormFieldState> key = GlobalKey<FormFieldState>();
+  final _formFieldKey = GlobalKey<FormFieldState>();
+
   @override
   Widget build(BuildContext context) {
     final forgotPassword = ref.watch(forgotPasswordProvider);
@@ -38,7 +39,7 @@ class _ForgotPasswordScreenState extends ConsumerState<ForgotPasswordScreen> {
     return Scaffold(
       resizeToAvoidBottomInset: false,
       body: forgotPassword.when(
-        data: (value) {
+        data: (data) {
           return Padding(
             padding: EdgeInsets.symmetric(horizontal: 16.0),
             child: Column(
@@ -48,7 +49,7 @@ class _ForgotPasswordScreenState extends ConsumerState<ForgotPasswordScreen> {
                 ),
                 Text('ForgotPasswordScreen'),
                 TextFormField(
-                  key: key,
+                  key: _formFieldKey,
                   controller: controller,
                   keyboardType: TextInputType.emailAddress,
                   decoration: InputDecoration(
@@ -72,7 +73,7 @@ class _ForgotPasswordScreenState extends ConsumerState<ForgotPasswordScreen> {
                   onPressed: (snapshot.connectionState == ConnectionState.waiting)
                       ? null
                       : () {
-                          if (key.currentState!.validate()) {
+                          if (_formFieldKey.currentState!.validate()) {
                             pendingFetch.value = ref.read(forgotPasswordProvider.notifier).fetch(controller.text.trim().toLowerCase());
                             FocusScope.of(context).unfocus();
                           }

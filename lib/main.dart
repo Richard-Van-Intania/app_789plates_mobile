@@ -11,6 +11,7 @@ import 'screen/create_new_account/create_new_account_screen.dart';
 import 'screen/create_new_account/check_availability_email_screen.dart';
 import 'screen/reset_password/forgot_password_screen.dart';
 
+import 'screen/reset_password/reset_password_screen.dart';
 import 'screen/sign_in_screen.dart';
 
 import 'tab/chat_tab.dart';
@@ -49,7 +50,7 @@ class MyApp extends HookConsumerWidget {
           routerConfig: GoRouter(
             initialLocation: value['access_token'] == null ? '/signinscreen' : '/myhomepage',
             // initialLocation: '/dev',
-            // initialLocation: '/signinscreen',
+            // // initialLocation: '/signinscreen',
             routes: <RouteBase>[
               GoRoute(
                 path: '/myhomepage',
@@ -61,7 +62,7 @@ class MyApp extends HookConsumerWidget {
               ),
               GoRoute(
                 path: '/dev',
-                builder: (BuildContext context, GoRouterState state) => const CreateNewAccountScreen(),
+                builder: (BuildContext context, GoRouterState state) => const ResetPasswordScreen(),
               ),
             ],
           ),

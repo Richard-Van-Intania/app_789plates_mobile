@@ -401,3 +401,54 @@ class CheckVerificationCodeForgot extends _$CheckVerificationCodeForgot {
     }
   }
 }
+
+@riverpod
+class ResetPassword extends _$ResetPassword {
+  @override
+  Future<UnwrapResponse<Authentication>> build() async {
+    return unwrapResponse;
+  }
+
+  Future<void> fetch(String password) async {
+    final checkVerificationCodeForgot = await ref.read(checkVerificationCodeForgotProvider.future);
+    if (checkVerificationCodeForgot.statusCode == 200) {
+      final Uri uri = Uri(scheme: 'http', host: '10.0.2.2', port: 8700, path: '/resetpassword');
+      final response = await http.put(
+        uri,
+        headers: <String, String>{'Content-Type': 'application/json; charset=UTF-8'},
+        body: jsonEncode(Authentication(
+          verification_id: checkVerificationCodeForgot.model.verification_id,
+          reference: checkVerificationCodeForgot.model.reference,
+          code: checkVerificationCodeForgot.model.code,
+          email: checkVerificationCodeForgot.model.email,
+          secondary_email: nullAliasString,
+          password: password,
+          access_token: nullAliasString,
+          refresh_token: nullAliasString,
+          users_id: nullAliasInt,
+        ).toJson()),
+      );
+      if (response.statusCode == 200) {
+        final Authentication authentication = Authentication.fromJson(jsonDecode(utf8.decode(response.bodyBytes)));
+        await ref.read(credentialProvider.notifier).deleteAll();
+        await ref.read(credentialProvider.notifier).write(email: authentication.email, access_token: authentication.access_token, refresh_token: authentication.refresh_token, users_id: authentication.users_id);
+        state = AsyncData(UnwrapResponse<Authentication>(statusCode: response.statusCode, model: authentication));
+      } else {
+        state = AsyncData(UnwrapResponse<Authentication>(
+          statusCode: response.statusCode,
+          model: Authentication(
+            verification_id: checkVerificationCodeForgot.model.verification_id,
+            reference: checkVerificationCodeForgot.model.reference,
+            code: checkVerificationCodeForgot.model.code,
+            email: checkVerificationCodeForgot.model.email,
+            secondary_email: nullAliasString,
+            password: password,
+            access_token: nullAliasString,
+            refresh_token: nullAliasString,
+            users_id: nullAliasInt,
+          ),
+        ));
+      }
+    }
+  }
+}

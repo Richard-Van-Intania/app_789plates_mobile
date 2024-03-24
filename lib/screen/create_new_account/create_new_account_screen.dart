@@ -13,7 +13,7 @@ class CreateNewAccountScreen extends StatefulHookConsumerWidget {
 }
 
 class _CreateNewAccountScreenState extends ConsumerState<CreateNewAccountScreen> {
-  final GlobalKey<FormState> key = GlobalKey<FormState>();
+  final _formKey = GlobalKey<FormState>();
 
   @override
   Widget build(BuildContext context) {
@@ -52,7 +52,7 @@ class _CreateNewAccountScreenState extends ConsumerState<CreateNewAccountScreen>
                 height: 96,
               ),
               Form(
-                key: key,
+                key: _formKey,
                 child: Column(
                   children: [
                     TextFormField(
@@ -110,7 +110,7 @@ class _CreateNewAccountScreenState extends ConsumerState<CreateNewAccountScreen>
                   onPressed: (snapshot.connectionState == ConnectionState.waiting)
                       ? null
                       : () {
-                          if (key.currentState!.validate() && (controller1.text.trim() == controller2.text.trim())) {
+                          if (_formKey.currentState!.validate() && (controller1.text.trim() == controller2.text.trim())) {
                             pendingFetch.value = ref.read(createNewAccountProvider.notifier).fetch(controller1.text.trim());
                             FocusScope.of(context).unfocus();
                           }

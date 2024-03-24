@@ -40,7 +40,7 @@ class _SignInScreenState extends ConsumerState<SignInScreen> {
       }
     });
     return signIn.when(
-      data: (value) {
+      data: (data) {
         return Scaffold(
           resizeToAvoidBottomInset: false,
           body: Padding(

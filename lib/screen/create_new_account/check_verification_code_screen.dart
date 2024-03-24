@@ -15,7 +15,7 @@ class CheckVerificationCodeScreen extends StatefulHookConsumerWidget {
 }
 
 class _CheckVerificationCodeScreenState extends ConsumerState<CheckVerificationCodeScreen> {
-  final GlobalKey<FormFieldState> key = GlobalKey<FormFieldState>();
+  final _formFieldKey = GlobalKey<FormFieldState>();
 
   @override
   Widget build(BuildContext context) {
@@ -56,7 +56,7 @@ class _CheckVerificationCodeScreenState extends ConsumerState<CheckVerificationC
                   ),
                   Text(value.model.reference.toString()),
                   TextFormField(
-                    key: key,
+                    key: _formFieldKey,
                     controller: controller,
                     keyboardType: TextInputType.number,
                     decoration: InputDecoration(
@@ -78,7 +78,7 @@ class _CheckVerificationCodeScreenState extends ConsumerState<CheckVerificationC
                       onPressed: (snapshot.connectionState == ConnectionState.waiting)
                           ? null
                           : () {
-                              if (key.currentState!.validate()) {
+                              if (_formFieldKey.currentState!.validate()) {
                                 pendingFetch.value = ref.read(checkVerificationCodeProvider.notifier).fetch(int.parse(controller.text.trim()));
                                 FocusScope.of(context).unfocus();
                               }

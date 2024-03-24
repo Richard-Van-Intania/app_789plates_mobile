@@ -57,11 +57,11 @@ class _ExploreTabState extends ConsumerState<ExploreTab> {
         ],
       ),
       body: credential.when(
-        data: (Map<String, String> value) => Column(
+        data: (data) => Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Text(
-              value.toString(),
+              data.toString(),
               style: const TextStyle(
                 fontSize: 25.0,
               ),

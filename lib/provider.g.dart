@@ -149,5 +149,18 @@ final checkVerificationCodeForgotProvider = AutoDisposeAsyncNotifierProvider<Che
 );
 
 typedef _$CheckVerificationCodeForgot = AutoDisposeAsyncNotifier<UnwrapResponse<Authentication>>;
+String _$resetPasswordHash() => r'a804a4581b6ed6348c009c94d883146589e5919f';
+
+/// See also [ResetPassword].
+@ProviderFor(ResetPassword)
+final resetPasswordProvider = AutoDisposeAsyncNotifierProvider<ResetPassword, UnwrapResponse<Authentication>>.internal(
+  ResetPassword.new,
+  name: r'resetPasswordProvider',
+  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product') ? null : _$resetPasswordHash,
+  dependencies: null,
+  allTransitiveDependencies: null,
+);
+
+typedef _$ResetPassword = AutoDisposeAsyncNotifier<UnwrapResponse<Authentication>>;
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member
