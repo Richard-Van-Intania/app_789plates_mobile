@@ -48,7 +48,7 @@ class MyApp extends HookConsumerWidget {
           theme: ThemeData(fontFamily: 'Noto Sans Thai', useMaterial3: true, colorScheme: lightColorScheme),
           darkTheme: ThemeData(fontFamily: 'Noto Sans Thai', useMaterial3: true, colorScheme: darkColorScheme),
           routerConfig: GoRouter(
-            initialLocation: value['access_token'] == null ? '/signinscreen' : '/myhomepage',
+            initialLocation: (value['access_token'] == null || value['refresh_token'] == null) ? '/signinscreen' : '/myhomepage',
             // initialLocation: '/dev',
             // // initialLocation: '/signinscreen',
             routes: <RouteBase>[

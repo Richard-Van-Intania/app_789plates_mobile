@@ -58,7 +58,7 @@ final themeModeUpdateProvider = AutoDisposeNotifierProvider<ThemeModeUpdate, The
 );
 
 typedef _$ThemeModeUpdate = AutoDisposeNotifier<ThemeMode>;
-String _$credentialHash() => r'ae3afc09001a39c191ad763c151a961e15ead54e';
+String _$credentialHash() => r'4af8b2d5e2a27c582826e386b50db4f0192ccaed';
 
 /// See also [Credential].
 @ProviderFor(Credential)
@@ -162,7 +162,7 @@ final resetPasswordProvider = AutoDisposeAsyncNotifierProvider<ResetPassword, Un
 );
 
 typedef _$ResetPassword = AutoDisposeAsyncNotifier<UnwrapResponse<Authentication>>;
-String _$searchHash() => r'5497765ebb462b0d297e09489877f15ab7a28a35';
+String _$searchHash() => r'548b7bb8fd4b21a08d724fe5c9a968b7f05b1955';
 
 /// See also [Search].
 @ProviderFor(Search)

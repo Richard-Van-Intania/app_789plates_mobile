@@ -1,5 +1,6 @@
 // ignore_for_file: non_constant_identifier_names
 import 'dart:convert';
+import 'dart:io';
 import 'package:app_789plates_mobile/constants.dart';
 import 'package:app_789plates_mobile/model.dart';
 import 'package:flutter/material.dart';
@@ -95,6 +96,35 @@ class Credential extends _$Credential {
       await flutterSecureStorage.write(key: 'users_id', value: users_id.toString());
     }
     state = AsyncData(await flutterSecureStorage.readAll());
+  }
+
+  Future<void> renewToken() async {
+    final access_token = await flutterSecureStorage.read(key: 'access_token');
+    final refresh_token = await flutterSecureStorage.read(key: 'refresh_token');
+    if (access_token != null && refresh_token != null) {
+      final Uri uri = Uri(scheme: 'http', host: '10.0.2.2', port: 8700, path: '/renewtoken');
+      final response = await http.post(
+        uri,
+        headers: <String, String>{'Content-Type': 'application/json; charset=UTF-8'},
+        body: jsonEncode(Authentication(
+          verification_id: nullAliasInt,
+          reference: nullAliasInt,
+          code: nullAliasInt,
+          email: nullAliasString,
+          secondary_email: nullAliasString,
+          password: nullAliasString,
+          access_token: access_token,
+          refresh_token: refresh_token,
+          users_id: nullAliasInt,
+        ).toJson()),
+      );
+      if (response.statusCode == 200) {
+        final Authentication authentication = Authentication.fromJson(jsonDecode(utf8.decode(response.bodyBytes)));
+        await flutterSecureStorage.write(key: 'access_token', value: authentication.access_token);
+        await flutterSecureStorage.write(key: 'refresh_token', value: authentication.refresh_token);
+        state = AsyncData(await flutterSecureStorage.readAll());
+      }
+    }
   }
 }
 
@@ -457,8 +487,36 @@ class ResetPassword extends _$ResetPassword {
 class Search extends _$Search {
   @override
   Future<String> build() async {
-    return '';
+    return 'start';
   }
 
-  Future<void> fetch(String query) async {}
+  Future<void> fetch(String query) async {
+    final credential = await ref.read(credentialProvider.future);
+    if (credential['access_token'] != null && credential['refresh_token'] != null) {
+      final Uri uri = Uri(
+        scheme: 'http',
+        host: '10.0.2.2',
+        port: 8700,
+        path: '/search',
+        queryParameters: {'query': query, 'limit': '10'},
+      );
+      final response = await http.get(
+        uri,
+        headers: <String, String>{
+          'Content-Type': 'application/json; charset=UTF-8',
+          HttpHeaders.authorizationHeader: 'Bearer ${credential['access_token']}',
+        },
+      );
+      if (response.statusCode == 401) {
+        await ref.read(credentialProvider.notifier).renewToken();
+        state = AsyncData('make ui refresh');
+      } else if (response.statusCode == 200) {
+        state = AsyncData(response.body);
+      } else {
+        state = AsyncData('internal server error');
+      }
+    } else {
+      state = AsyncData('go to sign in');
+    }
+  }
 }

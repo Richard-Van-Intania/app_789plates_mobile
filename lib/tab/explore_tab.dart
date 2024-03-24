@@ -74,7 +74,9 @@ class _ExploreTabState extends ConsumerState<ExploreTab> {
         ),
         loading: () => const Center(child: CircularProgressIndicator()),
       ),
-      floatingActionButton: FloatingActionButton(onPressed: () async {}),
+      floatingActionButton: FloatingActionButton(onPressed: () async {
+        ref.read(searchProvider.notifier).fetch('holaaaa');
+      }),
     );
   }
 }
