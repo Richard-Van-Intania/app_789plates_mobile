@@ -71,6 +71,11 @@ class Credential extends _$Credential {
     return await flutterSecureStorage.readAll();
   }
 
+  Future<void> deleteAll() async {
+    await flutterSecureStorage.deleteAll();
+    state = const AsyncData(<String, String>{});
+  }
+
   Future<void> write({
     required String? email,
     required String? access_token,
@@ -90,11 +95,6 @@ class Credential extends _$Credential {
       await flutterSecureStorage.write(key: 'users_id', value: users_id.toString());
     }
     state = AsyncData(await flutterSecureStorage.readAll());
-  }
-
-  Future<void> deleteAll() async {
-    await flutterSecureStorage.deleteAll();
-    state = const AsyncData(<String, String>{});
   }
 }
 

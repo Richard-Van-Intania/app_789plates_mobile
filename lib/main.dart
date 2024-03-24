@@ -67,8 +67,26 @@ class MyApp extends HookConsumerWidget {
             ],
           ),
         ),
-      AsyncError() => Container(alignment: Alignment.center, color: lightColorScheme.background, child: const Text('Oops, something unexpected happened')),
-      _ => Container(alignment: Alignment.center, color: lightColorScheme.background),
+      AsyncError() => MaterialApp(
+          title: '789plates',
+          localizationsDelegates: AppLocalizations.localizationsDelegates,
+          supportedLocales: AppLocalizations.supportedLocales,
+          locale: locale,
+          themeMode: themeMode,
+          theme: ThemeData(fontFamily: 'Noto Sans Thai', useMaterial3: true, colorScheme: lightColorScheme),
+          darkTheme: ThemeData(fontFamily: 'Noto Sans Thai', useMaterial3: true, colorScheme: darkColorScheme),
+          home: const Scaffold(body: Center(child: Text('Oops, something unexpected happened'))),
+        ),
+      _ => MaterialApp(
+          title: '789plates',
+          localizationsDelegates: AppLocalizations.localizationsDelegates,
+          supportedLocales: AppLocalizations.supportedLocales,
+          locale: locale,
+          themeMode: themeMode,
+          theme: ThemeData(fontFamily: 'Noto Sans Thai', useMaterial3: true, colorScheme: lightColorScheme),
+          darkTheme: ThemeData(fontFamily: 'Noto Sans Thai', useMaterial3: true, colorScheme: darkColorScheme),
+          home: const Scaffold(body: Center(child: CircularProgressIndicator())),
+        ),
     };
   }
 }

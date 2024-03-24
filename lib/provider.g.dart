@@ -58,7 +58,7 @@ final themeModeUpdateProvider = AutoDisposeNotifierProvider<ThemeModeUpdate, The
 );
 
 typedef _$ThemeModeUpdate = AutoDisposeNotifier<ThemeMode>;
-String _$credentialHash() => r'e854265711a1daa49bd386c436ec0f8536098be2';
+String _$credentialHash() => r'ae3afc09001a39c191ad763c151a961e15ead54e';
 
 /// See also [Credential].
 @ProviderFor(Credential)
