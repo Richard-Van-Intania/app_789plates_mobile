@@ -16,7 +16,7 @@ class ExploreTab extends StatefulHookConsumerWidget {
 class _ExploreTabState extends ConsumerState<ExploreTab> {
   @override
   Widget build(BuildContext context) {
-    final credential = ref.watch(credentialProvider);
+    final search = ref.watch(searchProvider);
     final pendingFetch = useState<Future<void>?>(null);
     final snapshot = useFuture(pendingFetch.value);
     final isErrored = snapshot.hasError && snapshot.connectionState != ConnectionState.waiting;
@@ -56,22 +56,16 @@ class _ExploreTabState extends ConsumerState<ExploreTab> {
           )
         ],
       ),
-      body: credential.when(
-        data: (data) => Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Text(
-              data.toString(),
-              style: const TextStyle(
-                fontSize: 25.0,
-              ),
+      body: search.when(
+        data: (data) => Center(
+          child: Text(
+            data,
+            style: const TextStyle(
+              fontSize: 25.0,
             ),
-            if (snapshot.connectionState == ConnectionState.waiting) CircularProgressIndicator()
-          ],
+          ),
         ),
-        error: (e, s) => const Center(
-          child: Text('Uh oh. Something went wrong!'),
-        ),
+        error: (e, s) => const Center(child: Text('Uh oh. Something went wrong!')),
         loading: () => const Center(child: CircularProgressIndicator()),
       ),
       floatingActionButton: FloatingActionButton(onPressed: () async {
