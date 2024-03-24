@@ -123,5 +123,31 @@ final signInProvider = AutoDisposeAsyncNotifierProvider<SignIn, UnwrapResponse<A
 );
 
 typedef _$SignIn = AutoDisposeAsyncNotifier<UnwrapResponse<Authentication>>;
+String _$forgotPasswordHash() => r'd31f1c367e310fa59ec5bf4d9b2e2b4df008d297';
+
+/// See also [ForgotPassword].
+@ProviderFor(ForgotPassword)
+final forgotPasswordProvider = AutoDisposeAsyncNotifierProvider<ForgotPassword, UnwrapResponse<Authentication>>.internal(
+  ForgotPassword.new,
+  name: r'forgotPasswordProvider',
+  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product') ? null : _$forgotPasswordHash,
+  dependencies: null,
+  allTransitiveDependencies: null,
+);
+
+typedef _$ForgotPassword = AutoDisposeAsyncNotifier<UnwrapResponse<Authentication>>;
+String _$checkVerificationCodeForgotHash() => r'68b2733afbd079ea77a5df74ae81c636be046eb9';
+
+/// See also [CheckVerificationCodeForgot].
+@ProviderFor(CheckVerificationCodeForgot)
+final checkVerificationCodeForgotProvider = AutoDisposeAsyncNotifierProvider<CheckVerificationCodeForgot, UnwrapResponse<Authentication>>.internal(
+  CheckVerificationCodeForgot.new,
+  name: r'checkVerificationCodeForgotProvider',
+  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product') ? null : _$checkVerificationCodeForgotHash,
+  dependencies: null,
+  allTransitiveDependencies: null,
+);
+
+typedef _$CheckVerificationCodeForgot = AutoDisposeAsyncNotifier<UnwrapResponse<Authentication>>;
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member
