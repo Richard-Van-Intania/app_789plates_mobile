@@ -1,13 +1,9 @@
-import 'dart:convert';
-import 'package:app_789plates_mobile/model.dart';
-import 'package:app_789plates_mobile/provider.dart';
-import 'package:email_validator/email_validator.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
+import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-
-import 'confirmation_password_screen.dart';
-import 'verification_code_new_screen.dart';
+import '../../initialize.dart';
+import '../../provider.dart';
 
 class CreateNewAccountScreen extends StatefulHookConsumerWidget {
   const CreateNewAccountScreen({super.key});
@@ -17,79 +13,113 @@ class CreateNewAccountScreen extends StatefulHookConsumerWidget {
 }
 
 class _CreateNewAccountScreenState extends ConsumerState<CreateNewAccountScreen> {
-  final GlobalKey<FormFieldState> key = GlobalKey<FormFieldState>();
+  final GlobalKey<FormState> key = GlobalKey<FormState>();
 
   @override
   Widget build(BuildContext context) {
-    final checkAvailabilityEmail = ref.watch(checkAvailabilityEmailProvider);
-    final controller = useTextEditingController();
+    final createNewAccount = ref.watch(createNewAccountProvider);
+    final controller1 = useTextEditingController();
+    final controller2 = useTextEditingController();
     final pendingFetch = useState<Future<void>?>(null);
     final snapshot = useFuture(pendingFetch.value);
     final isErrored = snapshot.hasError && snapshot.connectionState != ConnectionState.waiting;
     WidgetsBinding.instance.addPostFrameCallback((Duration timeStamp) {
-      switch (checkAvailabilityEmail) {
+      switch (createNewAccount) {
         case AsyncValue(:final error?):
           print(error.toString());
         case AsyncValue(:final valueOrNull?):
           if (valueOrNull.statusCode == 200) {
-            Navigator.of(context).push(MaterialPageRoute(builder: (context) => const VerificationCodeNewScreen()));
+            context.go('/myhomepage');
           } else {
             print(valueOrNull.statusCode);
           }
         default:
       }
     });
-    return Scaffold(
-      appBar: AppBar(
-        title: Text('create new account'),
-      ),
-      resizeToAvoidBottomInset: false,
-      body: switch (checkAvailabilityEmail) {
-        AsyncData(:final value) => Padding(
-            padding: EdgeInsets.symmetric(horizontal: 16.0),
-            child: Column(
-              children: [
-                SizedBox(
-                  height: 120,
+    return PopScope(
+      canPop: false,
+      child: Scaffold(
+        appBar: AppBar(
+          automaticallyImplyLeading: false,
+          title: Text('Password'),
+        ),
+        resizeToAvoidBottomInset: false,
+        body: Padding(
+          padding: EdgeInsets.symmetric(horizontal: 16.0),
+          child: Column(
+            children: [
+              SizedBox(
+                height: 96,
+              ),
+              Form(
+                key: key,
+                child: Column(
+                  children: [
+                    TextFormField(
+                      maxLength: 32,
+                      obscureText: true,
+                      controller: controller1,
+                      decoration: InputDecoration(
+                        errorMaxLines: 5,
+                        hintText: 'Password',
+                        border: const OutlineInputBorder(),
+                      ),
+                      validator: (String? value) {
+                        if (value == null || value.isEmpty) {
+                          return 'Please enter some password';
+                        } else if (!regex.hasMatch(value)) {
+                          return 'password should contain at least one upper case, one lower case, one digit, 8 characters in length';
+                        } else if (controller1.text.trim() != controller2.text.trim()) {
+                          return 'password not match';
+                        } else {
+                          return null;
+                        }
+                      },
+                    ),
+                    SizedBox(
+                      height: 24,
+                    ),
+                    TextFormField(
+                      maxLength: 32,
+                      obscureText: true,
+                      controller: controller2,
+                      decoration: InputDecoration(
+                        errorMaxLines: 5,
+                        hintText: 'Confirm password',
+                        border: const OutlineInputBorder(),
+                      ),
+                      validator: (String? value) {
+                        if (value == null || value.isEmpty) {
+                          return 'Please enter some password';
+                        } else if (!regex.hasMatch(value)) {
+                          return 'password should contain at least one upper case, one lower case, one digit, 8 characters in length';
+                        } else if (controller1.text.trim() != controller2.text.trim()) {
+                          return 'password not match';
+                        } else {
+                          return null;
+                        }
+                      },
+                    ),
+                  ],
                 ),
-                TextFormField(
-                  key: key,
-                  controller: controller,
-                  keyboardType: TextInputType.emailAddress,
-                  decoration: InputDecoration(
-                    hintText: 'Email',
-                    border: const OutlineInputBorder(),
-                  ),
-                  validator: (String? value) {
-                    if (value == null || value.isEmpty) {
-                      return 'Please enter some emailAddress';
-                    } else if (!EmailValidator.validate(value.trim().toLowerCase())) {
-                      return 'emailAddress not correct';
-                    } else {
-                      return null;
-                    }
-                  },
-                ),
-                SizedBox(
-                  height: 32,
-                ),
-                ElevatedButton(
+              ),
+              SizedBox(
+                height: 32,
+              ),
+              ElevatedButton(
                   onPressed: (snapshot.connectionState == ConnectionState.waiting)
                       ? null
                       : () {
-                          if (key.currentState!.validate()) {
-                            pendingFetch.value = ref.read(checkAvailabilityEmailProvider.notifier).fetch(controller.text.trim().toLowerCase());
+                          if (key.currentState!.validate() && (controller1.text.trim() == controller2.text.trim())) {
+                            pendingFetch.value = ref.read(createNewAccountProvider.notifier).fetch(controller1.text.trim());
                             FocusScope.of(context).unfocus();
                           }
                         },
-                  child: Text('Next'),
-                ),
-              ],
-            ),
+                  child: Text('Ok')),
+            ],
           ),
-        AsyncError() => Center(child: const Text('Oops, something unexpected happened')),
-        _ => Center(child: const CircularProgressIndicator()),
-      },
+        ),
+      ),
     );
   }
 }

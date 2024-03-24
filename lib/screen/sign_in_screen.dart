@@ -5,8 +5,8 @@ import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import '../initialize.dart';
-import 'create_new_account/create_new_account_screen.dart';
-import 'forgot_password/forgot_password_screen.dart';
+import 'create_new_account/check_availability_email_screen.dart';
+import 'reset_password/forgot_password_screen.dart';
 
 class SignInScreen extends StatefulHookConsumerWidget {
   const SignInScreen({super.key});
@@ -133,7 +133,7 @@ class _SignInScreenState extends ConsumerState<SignInScreen> {
                 ),
                 ElevatedButton(
                   onPressed: () {
-                    Navigator.of(context).push(MaterialPageRoute(builder: (context) => const ForgotPasswordScreen()));
+                    Navigator.of(context).push(MaterialPageRoute(builder: (context) => ForgotPasswordScreen()));
                   },
                   child: Text('forgot password'),
                 ),
@@ -142,7 +142,7 @@ class _SignInScreenState extends ConsumerState<SignInScreen> {
                 ),
                 ElevatedButton(
                   onPressed: () {
-                    Navigator.of(context).push(MaterialPageRoute(builder: (context) => const CreateNewAccountScreen()));
+                    Navigator.of(context).push(MaterialPageRoute(builder: (context) => const CheckAvailabilityEmailScreen()));
                   },
                   child: Text('create new account'),
                 ),

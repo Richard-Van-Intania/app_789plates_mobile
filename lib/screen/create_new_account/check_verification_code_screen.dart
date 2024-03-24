@@ -4,17 +4,17 @@ import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import '../../model.dart';
-import 'confirmation_password_screen.dart';
+import 'create_new_account_screen.dart';
 import 'package:http/http.dart' as http;
 
-class VerificationCodeNewScreen extends StatefulHookConsumerWidget {
-  const VerificationCodeNewScreen({super.key});
+class CheckVerificationCodeScreen extends StatefulHookConsumerWidget {
+  const CheckVerificationCodeScreen({super.key});
 
   @override
-  ConsumerState<ConsumerStatefulWidget> createState() => _VerificationCodeNewScreenState();
+  ConsumerState<ConsumerStatefulWidget> createState() => _CheckVerificationCodeScreenState();
 }
 
-class _VerificationCodeNewScreenState extends ConsumerState<VerificationCodeNewScreen> {
+class _CheckVerificationCodeScreenState extends ConsumerState<CheckVerificationCodeScreen> {
   final GlobalKey<FormFieldState> key = GlobalKey<FormFieldState>();
 
   @override
@@ -31,7 +31,7 @@ class _VerificationCodeNewScreenState extends ConsumerState<VerificationCodeNewS
           print(error.toString());
         case AsyncValue(:final valueOrNull?):
           if (valueOrNull.statusCode == 200) {
-            Navigator.of(context).push(MaterialPageRoute(builder: (context) => const ConfirmationPasswordScreen()));
+            Navigator.of(context).push(MaterialPageRoute(builder: (context) => const CreateNewAccountScreen()));
           } else {
             print(valueOrNull.statusCode);
           }
