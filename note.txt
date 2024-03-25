@@ -39,3 +39,5 @@ provider name
 
 route name same as provider name
 
+design how to stay login and keep secure
+

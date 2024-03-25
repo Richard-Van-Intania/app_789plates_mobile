@@ -58,7 +58,7 @@ final themeModeUpdateProvider = AutoDisposeNotifierProvider<ThemeModeUpdate, The
 );
 
 typedef _$ThemeModeUpdate = AutoDisposeNotifier<ThemeMode>;
-String _$credentialHash() => r'4af8b2d5e2a27c582826e386b50db4f0192ccaed';
+String _$credentialHash() => r'6ca6b84d3be06c2eaa0fb1c0e92c093facd1df5d';
 
 /// See also [Credential].
 @ProviderFor(Credential)
@@ -97,7 +97,7 @@ final checkVerificationCodeProvider = AutoDisposeAsyncNotifierProvider<CheckVeri
 );
 
 typedef _$CheckVerificationCode = AutoDisposeAsyncNotifier<UnwrapResponse<Authentication>>;
-String _$createNewAccountHash() => r'fbf009d0b725389bb1326da0ef4f3b11b6ab1c35';
+String _$createNewAccountHash() => r'8ec4bbd74eb61b59c14aa1f59bc574fb120af878';
 
 /// See also [CreateNewAccount].
 @ProviderFor(CreateNewAccount)
@@ -110,7 +110,7 @@ final createNewAccountProvider = AutoDisposeAsyncNotifierProvider<CreateNewAccou
 );
 
 typedef _$CreateNewAccount = AutoDisposeAsyncNotifier<UnwrapResponse<Authentication>>;
-String _$signInHash() => r'78fee32387a06d3c17b394bf6b6f2ade87e94d14';
+String _$signInHash() => r'079a7d81a690992de1da3146e3b540bfe9465656';
 
 /// See also [SignIn].
 @ProviderFor(SignIn)
@@ -149,7 +149,7 @@ final checkVerificationCodeForgotProvider = AutoDisposeAsyncNotifierProvider<Che
 );
 
 typedef _$CheckVerificationCodeForgot = AutoDisposeAsyncNotifier<UnwrapResponse<Authentication>>;
-String _$resetPasswordHash() => r'a804a4581b6ed6348c009c94d883146589e5919f';
+String _$resetPasswordHash() => r'4a29d6f59cebe8b10940aa94034ebba81d6b5f5c';
 
 /// See also [ResetPassword].
 @ProviderFor(ResetPassword)
@@ -162,7 +162,7 @@ final resetPasswordProvider = AutoDisposeAsyncNotifierProvider<ResetPassword, Un
 );
 
 typedef _$ResetPassword = AutoDisposeAsyncNotifier<UnwrapResponse<Authentication>>;
-String _$searchHash() => r'548b7bb8fd4b21a08d724fe5c9a968b7f05b1955';
+String _$searchHash() => r'a3fa55dc350979a470dadb93d2e309b0e7738f15';
 
 /// See also [Search].
 @ProviderFor(Search)
