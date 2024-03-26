@@ -469,7 +469,7 @@ class RenewToken extends _$RenewToken {
     return unwrapResponse;
   }
 
-  Future<void> renewToken() async {
+  Future<void> fetch() async {
     final credential = await ref.read(credentialProvider.future);
     final Uri uri = Uri(scheme: 'http', host: '10.0.2.2', port: 8700, path: '/renewtoken');
     final response = await http.post(
@@ -514,6 +514,7 @@ class RenewToken extends _$RenewToken {
         await ref.read(credentialProvider.notifier).write(authentication: authentication);
         state = AsyncData(UnwrapResponse<Authentication>(statusCode: response.statusCode, model: authentication));
       } else {
+        await ref.read(credentialProvider.notifier).deleteAll();
         state = AsyncData(UnwrapResponse<Authentication>(
           statusCode: response.statusCode,
           model: Authentication(
@@ -542,5 +543,31 @@ class Search extends _$Search {
     return 'start';
   }
 
-  Future<void> fetch(String query) async {}
+  Future<void> fetch(String query) async {
+    final credential = await ref.read(credentialProvider.future);
+    if (credential.access_token != nullAliasString) {
+      final Uri uri = Uri(
+        scheme: 'http',
+        host: '10.0.2.2',
+        port: 8700,
+        path: '/search',
+        queryParameters: {'query': query, 'limit': '10'},
+      );
+      final response = await http.get(
+        uri,
+        headers: <String, String>{
+          'Content-Type': 'application/json; charset=UTF-8',
+          HttpHeaders.authorizationHeader: 'Bearer ${credential.access_token}',
+        },
+      );
+      if (response.statusCode == 200) {
+        state = AsyncData(response.body);
+      } else if (response.statusCode == 401) {
+        await ref.read(renewTokenProvider.notifier).fetch();
+        ref.read(searchProvider.notifier).fetch(query);
+      } else {
+        state = const AsyncData('sign out');
+      }
+    }
+  }
 }
