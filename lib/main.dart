@@ -1,3 +1,4 @@
+import 'package:app_789plates_mobile/constants.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -37,7 +38,7 @@ class MyApp extends HookConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final Locale locale = ref.watch(localeUpdateProvider);
     final ThemeMode themeMode = ref.watch(themeModeUpdateProvider);
-    final AsyncValue<Map<String, String>> credential = ref.watch(credentialProvider);
+    final credential = ref.watch(credentialProvider);
     return switch (credential) {
       AsyncData(:final value) => MaterialApp.router(
           title: '789plates',
@@ -48,7 +49,7 @@ class MyApp extends HookConsumerWidget {
           theme: ThemeData(fontFamily: 'Noto Sans Thai', useMaterial3: true, colorScheme: lightColorScheme),
           darkTheme: ThemeData(fontFamily: 'Noto Sans Thai', useMaterial3: true, colorScheme: darkColorScheme),
           routerConfig: GoRouter(
-            initialLocation: (value['access_token'] == null || value['refresh_token'] == null) ? '/signinscreen' : '/myhomepage',
+            initialLocation: (value.access_token == nullAliasString || value.refresh_token == nullAliasString) ? '/signinscreen' : '/myhomepage',
             // initialLocation: '/dev',
             // // initialLocation: '/signinscreen',
             routes: <RouteBase>[

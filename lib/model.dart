@@ -1,6 +1,8 @@
 // ignore_for_file: non_constant_identifier_names
 import 'package:freezed_annotation/freezed_annotation.dart';
 
+import 'constants.dart';
+
 part 'model.freezed.dart';
 part 'model.g.dart';
 
@@ -26,3 +28,20 @@ class UnwrapResponse<M extends Object> {
   final int statusCode;
   final M model;
 }
+
+const unwrapResponse = UnwrapResponse<Authentication>(
+  statusCode: nullAliasInt,
+  model: authentication,
+);
+
+const authentication = Authentication(
+  verification_id: nullAliasInt,
+  reference: nullAliasInt,
+  code: nullAliasInt,
+  email: nullAliasString,
+  secondary_email: nullAliasString,
+  password: nullAliasString,
+  access_token: nullAliasString,
+  refresh_token: nullAliasString,
+  users_id: nullAliasInt,
+);

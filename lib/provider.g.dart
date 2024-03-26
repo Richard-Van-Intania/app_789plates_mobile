@@ -58,11 +58,11 @@ final themeModeUpdateProvider = AutoDisposeNotifierProvider<ThemeModeUpdate, The
 );
 
 typedef _$ThemeModeUpdate = AutoDisposeNotifier<ThemeMode>;
-String _$credentialHash() => r'6ca6b84d3be06c2eaa0fb1c0e92c093facd1df5d';
+String _$credentialHash() => r'c28d721fc6df56cdd8478fde02600bf0babb1b22';
 
 /// See also [Credential].
 @ProviderFor(Credential)
-final credentialProvider = AsyncNotifierProvider<Credential, Map<String, String>>.internal(
+final credentialProvider = AsyncNotifierProvider<Credential, Authentication>.internal(
   Credential.new,
   name: r'credentialProvider',
   debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product') ? null : _$credentialHash,
@@ -70,7 +70,7 @@ final credentialProvider = AsyncNotifierProvider<Credential, Map<String, String>
   allTransitiveDependencies: null,
 );
 
-typedef _$Credential = AsyncNotifier<Map<String, String>>;
+typedef _$Credential = AsyncNotifier<Authentication>;
 String _$checkAvailabilityEmailHash() => r'42c8e6d932b9a71a9bd62e99ec60564745207298';
 
 /// See also [CheckAvailabilityEmail].
@@ -97,7 +97,7 @@ final checkVerificationCodeProvider = AutoDisposeAsyncNotifierProvider<CheckVeri
 );
 
 typedef _$CheckVerificationCode = AutoDisposeAsyncNotifier<UnwrapResponse<Authentication>>;
-String _$createNewAccountHash() => r'8ec4bbd74eb61b59c14aa1f59bc574fb120af878';
+String _$createNewAccountHash() => r'2bc889803434359938c55cbabd473d14db7b965a';
 
 /// See also [CreateNewAccount].
 @ProviderFor(CreateNewAccount)
@@ -110,7 +110,7 @@ final createNewAccountProvider = AutoDisposeAsyncNotifierProvider<CreateNewAccou
 );
 
 typedef _$CreateNewAccount = AutoDisposeAsyncNotifier<UnwrapResponse<Authentication>>;
-String _$signInHash() => r'079a7d81a690992de1da3146e3b540bfe9465656';
+String _$signInHash() => r'fd45aea2acd91426389782a95b9b13df6cc61d97';
 
 /// See also [SignIn].
 @ProviderFor(SignIn)
@@ -149,7 +149,7 @@ final checkVerificationCodeForgotProvider = AutoDisposeAsyncNotifierProvider<Che
 );
 
 typedef _$CheckVerificationCodeForgot = AutoDisposeAsyncNotifier<UnwrapResponse<Authentication>>;
-String _$resetPasswordHash() => r'4a29d6f59cebe8b10940aa94034ebba81d6b5f5c';
+String _$resetPasswordHash() => r'59483782dd9a20f0ad6fdbc23e81d80756f8e26b';
 
 /// See also [ResetPassword].
 @ProviderFor(ResetPassword)
@@ -162,7 +162,20 @@ final resetPasswordProvider = AutoDisposeAsyncNotifierProvider<ResetPassword, Un
 );
 
 typedef _$ResetPassword = AutoDisposeAsyncNotifier<UnwrapResponse<Authentication>>;
-String _$searchHash() => r'a3fa55dc350979a470dadb93d2e309b0e7738f15';
+String _$renewTokenHash() => r'dc732d561c59c653e91ae846022161b5afa030e7';
+
+/// See also [RenewToken].
+@ProviderFor(RenewToken)
+final renewTokenProvider = AutoDisposeAsyncNotifierProvider<RenewToken, UnwrapResponse<Authentication>>.internal(
+  RenewToken.new,
+  name: r'renewTokenProvider',
+  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product') ? null : _$renewTokenHash,
+  dependencies: null,
+  allTransitiveDependencies: null,
+);
+
+typedef _$RenewToken = AutoDisposeAsyncNotifier<UnwrapResponse<Authentication>>;
+String _$searchHash() => r'de03622f38c89d98a96a991a6e3df898e3f5f55f';
 
 /// See also [Search].
 @ProviderFor(Search)
