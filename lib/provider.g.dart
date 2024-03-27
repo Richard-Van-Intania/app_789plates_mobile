@@ -6,7 +6,7 @@ part of 'provider.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$autoSignInHash() => r'd70071a52ba75c64912d6ebdb513b35596019ac6';
+String _$autoSignInHash() => r'7aa05794bd1ff2a9e7d4280c5e26a5e57d1e62e8';
 
 /// See also [autoSignIn].
 @ProviderFor(autoSignIn)

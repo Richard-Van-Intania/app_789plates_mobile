@@ -38,8 +38,8 @@ class MyApp extends HookConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final Locale locale = ref.watch(localeUpdateProvider);
     final ThemeMode themeMode = ref.watch(themeModeUpdateProvider);
-    final credential = ref.watch(credentialProvider);
-    return switch (credential) {
+    final autoSignIn = ref.watch(autoSignInProvider); // here
+    return switch (autoSignIn) {
       AsyncData(:final value) => MaterialApp.router(
           title: '789plates',
           localizationsDelegates: AppLocalizations.localizationsDelegates,
@@ -49,7 +49,7 @@ class MyApp extends HookConsumerWidget {
           theme: ThemeData(fontFamily: 'Noto Sans Thai', useMaterial3: true, colorScheme: lightColorScheme),
           darkTheme: ThemeData(fontFamily: 'Noto Sans Thai', useMaterial3: true, colorScheme: darkColorScheme),
           routerConfig: GoRouter(
-            initialLocation: (value['access_token'] == null) ? '/signinscreen' : '/myhomepage',
+            initialLocation: (value.statusCode == 200) ? '/myhomepage' : '/signinscreen',
             // initialLocation: '/dev',
             // // initialLocation: '/signinscreen',
             routes: <RouteBase>[
