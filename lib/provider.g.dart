@@ -6,6 +6,19 @@ part of 'provider.dart';
 // RiverpodGenerator
 // **************************************************************************
 
+String _$autoSignInHash() => r'd70071a52ba75c64912d6ebdb513b35596019ac6';
+
+/// See also [autoSignIn].
+@ProviderFor(autoSignIn)
+final autoSignInProvider = AutoDisposeFutureProvider<UnwrapResponse<Authentication>>.internal(
+  autoSignIn,
+  name: r'autoSignInProvider',
+  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product') ? null : _$autoSignInHash,
+  dependencies: null,
+  allTransitiveDependencies: null,
+);
+
+typedef AutoSignInRef = AutoDisposeFutureProviderRef<UnwrapResponse<Authentication>>;
 String _$localeUpdateHash() => r'ecfb82dc371b6f83400840c8a6a4a1050dbab199';
 
 /// See also [LocaleUpdate].
@@ -58,11 +71,11 @@ final themeModeUpdateProvider = AutoDisposeNotifierProvider<ThemeModeUpdate, The
 );
 
 typedef _$ThemeModeUpdate = AutoDisposeNotifier<ThemeMode>;
-String _$credentialHash() => r'c28d721fc6df56cdd8478fde02600bf0babb1b22';
+String _$credentialHash() => r'672b4a56a3c1d8d2be46a7b44f46635dc36ac2f5';
 
 /// See also [Credential].
 @ProviderFor(Credential)
-final credentialProvider = AsyncNotifierProvider<Credential, Authentication>.internal(
+final credentialProvider = AsyncNotifierProvider<Credential, Map<String, String>>.internal(
   Credential.new,
   name: r'credentialProvider',
   debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product') ? null : _$credentialHash,
@@ -70,7 +83,7 @@ final credentialProvider = AsyncNotifierProvider<Credential, Authentication>.int
   allTransitiveDependencies: null,
 );
 
-typedef _$Credential = AsyncNotifier<Authentication>;
+typedef _$Credential = AsyncNotifier<Map<String, String>>;
 String _$checkAvailabilityEmailHash() => r'42c8e6d932b9a71a9bd62e99ec60564745207298';
 
 /// See also [CheckAvailabilityEmail].
@@ -97,7 +110,7 @@ final checkVerificationCodeProvider = AutoDisposeAsyncNotifierProvider<CheckVeri
 );
 
 typedef _$CheckVerificationCode = AutoDisposeAsyncNotifier<UnwrapResponse<Authentication>>;
-String _$createNewAccountHash() => r'2bc889803434359938c55cbabd473d14db7b965a';
+String _$createNewAccountHash() => r'3d6ea99667bd923269a8c6de293fc9ecba1feb5f';
 
 /// See also [CreateNewAccount].
 @ProviderFor(CreateNewAccount)
@@ -110,7 +123,7 @@ final createNewAccountProvider = AutoDisposeAsyncNotifierProvider<CreateNewAccou
 );
 
 typedef _$CreateNewAccount = AutoDisposeAsyncNotifier<UnwrapResponse<Authentication>>;
-String _$signInHash() => r'fd45aea2acd91426389782a95b9b13df6cc61d97';
+String _$signInHash() => r'2efe8ab6ac536babefe38b8ff3f53782731acc2b';
 
 /// See also [SignIn].
 @ProviderFor(SignIn)
@@ -149,7 +162,7 @@ final checkVerificationCodeForgotProvider = AutoDisposeAsyncNotifierProvider<Che
 );
 
 typedef _$CheckVerificationCodeForgot = AutoDisposeAsyncNotifier<UnwrapResponse<Authentication>>;
-String _$resetPasswordHash() => r'59483782dd9a20f0ad6fdbc23e81d80756f8e26b';
+String _$resetPasswordHash() => r'2d0b43b7321dfb0dd6a414c1c5320a505a9e0940';
 
 /// See also [ResetPassword].
 @ProviderFor(ResetPassword)
@@ -162,7 +175,7 @@ final resetPasswordProvider = AutoDisposeAsyncNotifierProvider<ResetPassword, Un
 );
 
 typedef _$ResetPassword = AutoDisposeAsyncNotifier<UnwrapResponse<Authentication>>;
-String _$renewTokenHash() => r'e8a1e3ceb95fe1c707a0ec73caeeb325b0841013';
+String _$renewTokenHash() => r'5a6ac2e4354707507cc5ec41f9b83838d6dd527b';
 
 /// See also [RenewToken].
 @ProviderFor(RenewToken)
@@ -175,7 +188,7 @@ final renewTokenProvider = AutoDisposeAsyncNotifierProvider<RenewToken, UnwrapRe
 );
 
 typedef _$RenewToken = AutoDisposeAsyncNotifier<UnwrapResponse<Authentication>>;
-String _$searchHash() => r'a35c2c6fb178907b57d087fdc5b649fb6096b90e';
+String _$searchHash() => r'33bc6246b1eb28a23b48332fc3bfcb8f43b0e92c';
 
 /// See also [Search].
 @ProviderFor(Search)

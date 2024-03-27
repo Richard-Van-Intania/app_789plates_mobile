@@ -31,17 +31,15 @@ class UnwrapResponse<M extends Object> {
 
 const unwrapResponse = UnwrapResponse<Authentication>(
   statusCode: nullAliasInt,
-  model: authentication,
-);
-
-const authentication = Authentication(
-  verification_id: nullAliasInt,
-  reference: nullAliasInt,
-  code: nullAliasInt,
-  email: nullAliasString,
-  secondary_email: nullAliasString,
-  password: nullAliasString,
-  access_token: nullAliasString,
-  refresh_token: nullAliasString,
-  users_id: nullAliasInt,
+  model: Authentication(
+    verification_id: nullAliasInt,
+    reference: nullAliasInt,
+    code: nullAliasInt,
+    email: nullAliasString,
+    secondary_email: nullAliasString,
+    password: nullAliasString,
+    access_token: nullAliasString,
+    refresh_token: nullAliasString,
+    users_id: nullAliasInt,
+  ),
 );

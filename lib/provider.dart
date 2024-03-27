@@ -68,57 +68,38 @@ class ThemeModeUpdate extends _$ThemeModeUpdate {
 @Riverpod(keepAlive: true)
 class Credential extends _$Credential {
   @override
-  Future<Authentication> build() async {
-    final secureStorage = await flutterSecureStorage.readAll();
-    return Authentication(
-      verification_id: nullAliasInt,
-      reference: nullAliasInt,
-      code: nullAliasInt,
-      email: secureStorage['email'] ?? nullAliasString,
-      secondary_email: secureStorage['secondary_email'] ?? nullAliasString,
-      password: secureStorage['password'] ?? nullAliasString,
-      access_token: secureStorage['access_token'] ?? nullAliasString,
-      refresh_token: secureStorage['refresh_token'] ?? nullAliasString,
-      users_id: secureStorage['users_id'] == null ? nullAliasInt : int.parse(secureStorage['users_id']!),
-    );
+  Future<Map<String, String>> build() async {
+    return await flutterSecureStorage.readAll();
   }
 
   Future<void> deleteAll() async {
     await flutterSecureStorage.deleteAll();
-    state = const AsyncData(authentication);
+    state = const AsyncData(<String, String>{});
   }
 
-  Future<void> write({required Authentication authentication}) async {
-    if (authentication.email != nullAliasString) {
-      await flutterSecureStorage.write(key: 'email', value: authentication.email);
+  Future<void> write({
+    required String? email,
+    required String? password,
+    required String? access_token,
+    required String? refresh_token,
+    required int? users_id,
+  }) async {
+    if (email != null) {
+      await flutterSecureStorage.write(key: 'email', value: email);
     }
-    if (authentication.secondary_email != nullAliasString) {
-      await flutterSecureStorage.write(key: 'secondary_email', value: authentication.secondary_email);
+    if (password != null) {
+      await flutterSecureStorage.write(key: 'password', value: password);
     }
-    if (authentication.password != nullAliasString) {
-      await flutterSecureStorage.write(key: 'password', value: authentication.password);
+    if (access_token != null) {
+      await flutterSecureStorage.write(key: 'access_token', value: access_token);
     }
-    if (authentication.access_token != nullAliasString) {
-      await flutterSecureStorage.write(key: 'access_token', value: authentication.access_token);
+    if (refresh_token != null) {
+      await flutterSecureStorage.write(key: 'refresh_token', value: refresh_token);
     }
-    if (authentication.refresh_token != nullAliasString) {
-      await flutterSecureStorage.write(key: 'refresh_token', value: authentication.refresh_token);
+    if (users_id != null) {
+      await flutterSecureStorage.write(key: 'users_id', value: users_id.toString());
     }
-    if (authentication.users_id != nullAliasInt) {
-      await flutterSecureStorage.write(key: 'users_id', value: authentication.users_id.toString());
-    }
-    final secureStorage = await flutterSecureStorage.readAll();
-    state = AsyncData(Authentication(
-      verification_id: nullAliasInt,
-      reference: nullAliasInt,
-      code: nullAliasInt,
-      email: secureStorage['email'] ?? nullAliasString,
-      secondary_email: secureStorage['secondary_email'] ?? nullAliasString,
-      password: secureStorage['password'] ?? nullAliasString,
-      access_token: secureStorage['access_token'] ?? nullAliasString,
-      refresh_token: secureStorage['refresh_token'] ?? nullAliasString,
-      users_id: secureStorage['users_id'] == null ? nullAliasInt : int.parse(secureStorage['users_id']!),
-    ));
+    state = AsyncData(await flutterSecureStorage.readAll());
   }
 }
 
@@ -246,9 +227,10 @@ class CreateNewAccount extends _$CreateNewAccount {
       if (response.statusCode == 200) {
         final Authentication authentication = Authentication.fromJson(jsonDecode(utf8.decode(response.bodyBytes)));
         await ref.read(credentialProvider.notifier).deleteAll();
-        await ref.read(credentialProvider.notifier).write(authentication: authentication);
+        await ref.read(credentialProvider.notifier).write(email: authentication.email, password: authentication.password, access_token: authentication.access_token, refresh_token: authentication.refresh_token, users_id: authentication.users_id);
         state = AsyncData(UnwrapResponse<Authentication>(statusCode: response.statusCode, model: authentication));
       } else {
+        await ref.read(credentialProvider.notifier).deleteAll();
         state = AsyncData(UnwrapResponse<Authentication>(
           statusCode: response.statusCode,
           model: Authentication(
@@ -295,9 +277,10 @@ class SignIn extends _$SignIn {
     if (response.statusCode == 200) {
       final Authentication authentication = Authentication.fromJson(jsonDecode(utf8.decode(response.bodyBytes)));
       await ref.read(credentialProvider.notifier).deleteAll();
-      await ref.read(credentialProvider.notifier).write(authentication: authentication);
+      await ref.read(credentialProvider.notifier).write(email: authentication.email, password: authentication.password, access_token: authentication.access_token, refresh_token: authentication.refresh_token, users_id: authentication.users_id);
       state = AsyncData(UnwrapResponse<Authentication>(statusCode: response.statusCode, model: authentication));
     } else {
+      await ref.read(credentialProvider.notifier).deleteAll();
       state = AsyncData(UnwrapResponse<Authentication>(
         statusCode: response.statusCode,
         model: Authentication(
@@ -440,9 +423,10 @@ class ResetPassword extends _$ResetPassword {
       if (response.statusCode == 200) {
         final Authentication authentication = Authentication.fromJson(jsonDecode(utf8.decode(response.bodyBytes)));
         await ref.read(credentialProvider.notifier).deleteAll();
-        await ref.read(credentialProvider.notifier).write(authentication: authentication);
+        await ref.read(credentialProvider.notifier).write(email: authentication.email, password: authentication.password, access_token: authentication.access_token, refresh_token: authentication.refresh_token, users_id: authentication.users_id);
         state = AsyncData(UnwrapResponse<Authentication>(statusCode: response.statusCode, model: authentication));
       } else {
+        await ref.read(credentialProvider.notifier).deleteAll();
         state = AsyncData(UnwrapResponse<Authentication>(
           statusCode: response.statusCode,
           model: Authentication(
@@ -471,28 +455,10 @@ class RenewToken extends _$RenewToken {
 
   Future<void> fetch() async {
     final credential = await ref.read(credentialProvider.future);
-    final Uri uri = Uri(scheme: 'http', host: '10.0.2.2', port: 8700, path: '/renewtoken');
-    final response = await http.post(
-      uri,
-      headers: <String, String>{'Content-Type': 'application/json; charset=UTF-8'},
-      body: jsonEncode(Authentication(
-        verification_id: nullAliasInt,
-        reference: nullAliasInt,
-        code: nullAliasInt,
-        email: nullAliasString,
-        secondary_email: nullAliasString,
-        password: nullAliasString,
-        access_token: credential.access_token,
-        refresh_token: credential.refresh_token,
-        users_id: nullAliasInt,
-      ).toJson()),
-    );
-    if (response.statusCode == 200) {
-      final Authentication authentication = Authentication.fromJson(jsonDecode(utf8.decode(response.bodyBytes)));
-      await ref.read(credentialProvider.notifier).write(authentication: authentication);
-      state = AsyncData(UnwrapResponse<Authentication>(statusCode: response.statusCode, model: authentication));
-    } else if (response.statusCode == 401) {
-      final Uri uri = Uri(scheme: 'http', host: '10.0.2.2', port: 8700, path: '/signin');
+    final access_token = credential['access_token'];
+    final refresh_token = credential['refresh_token'];
+    if (access_token != null && refresh_token != null) {
+      final Uri uri = Uri(scheme: 'http', host: '10.0.2.2', port: 8700, path: '/renewtoken');
       final response = await http.post(
         uri,
         headers: <String, String>{'Content-Type': 'application/json; charset=UTF-8'},
@@ -500,39 +466,122 @@ class RenewToken extends _$RenewToken {
           verification_id: nullAliasInt,
           reference: nullAliasInt,
           code: nullAliasInt,
-          email: credential.email,
+          email: nullAliasString,
           secondary_email: nullAliasString,
-          password: credential.password,
-          access_token: nullAliasString,
-          refresh_token: nullAliasString,
+          password: nullAliasString,
+          access_token: access_token,
+          refresh_token: refresh_token,
           users_id: nullAliasInt,
         ).toJson()),
       );
       if (response.statusCode == 200) {
         final Authentication authentication = Authentication.fromJson(jsonDecode(utf8.decode(response.bodyBytes)));
-        await ref.read(credentialProvider.notifier).deleteAll();
-        await ref.read(credentialProvider.notifier).write(authentication: authentication);
+        await ref.read(credentialProvider.notifier).write(email: null, password: null, access_token: authentication.access_token, refresh_token: authentication.refresh_token, users_id: null);
         state = AsyncData(UnwrapResponse<Authentication>(statusCode: response.statusCode, model: authentication));
+      } else if (response.statusCode == 401) {
+        final email = credential['email'];
+        final password = credential['password'];
+        if (email != null && password != null) {
+          final Uri uri = Uri(scheme: 'http', host: '10.0.2.2', port: 8700, path: '/signin');
+          final response = await http.post(
+            uri,
+            headers: <String, String>{'Content-Type': 'application/json; charset=UTF-8'},
+            body: jsonEncode(Authentication(
+              verification_id: nullAliasInt,
+              reference: nullAliasInt,
+              code: nullAliasInt,
+              email: email,
+              secondary_email: nullAliasString,
+              password: password,
+              access_token: nullAliasString,
+              refresh_token: nullAliasString,
+              users_id: nullAliasInt,
+            ).toJson()),
+          );
+          if (response.statusCode == 200) {
+            final Authentication authentication = Authentication.fromJson(jsonDecode(utf8.decode(response.bodyBytes)));
+            await ref.read(credentialProvider.notifier).deleteAll();
+            await ref.read(credentialProvider.notifier).write(email: authentication.email, password: authentication.password, access_token: authentication.access_token, refresh_token: authentication.refresh_token, users_id: authentication.users_id);
+            state = AsyncData(UnwrapResponse<Authentication>(statusCode: response.statusCode, model: authentication));
+          } else {
+            await ref.read(credentialProvider.notifier).deleteAll();
+            state = AsyncData(UnwrapResponse<Authentication>(
+              statusCode: response.statusCode,
+              model: Authentication(
+                verification_id: nullAliasInt,
+                reference: nullAliasInt,
+                code: nullAliasInt,
+                email: email,
+                secondary_email: nullAliasString,
+                password: password,
+                access_token: nullAliasString,
+                refresh_token: nullAliasString,
+                users_id: nullAliasInt,
+              ),
+            ));
+          }
+        } else {
+          await ref.read(credentialProvider.notifier).deleteAll();
+          state = const AsyncData(unwrapResponse);
+        }
       } else {
         await ref.read(credentialProvider.notifier).deleteAll();
-        state = AsyncData(UnwrapResponse<Authentication>(
-          statusCode: response.statusCode,
-          model: Authentication(
-            verification_id: nullAliasInt,
-            reference: nullAliasInt,
-            code: nullAliasInt,
-            email: credential.email,
-            secondary_email: nullAliasString,
-            password: credential.password,
-            access_token: nullAliasString,
-            refresh_token: nullAliasString,
-            users_id: nullAliasInt,
-          ),
-        ));
+        state = const AsyncData(unwrapResponse);
       }
     } else {
+      await ref.read(credentialProvider.notifier).deleteAll();
       state = const AsyncData(unwrapResponse);
     }
+  }
+}
+
+@riverpod
+Future<UnwrapResponse<Authentication>> autoSignIn(AutoSignInRef ref) async {
+  final credential = await ref.watch(credentialProvider.future);
+  final email = credential['email'];
+  final password = credential['password'];
+  if (email != null && password != null) {
+    final Uri uri = Uri(scheme: 'http', host: '10.0.2.2', port: 8700, path: '/signin');
+    final response = await http.post(
+      uri,
+      headers: <String, String>{'Content-Type': 'application/json; charset=UTF-8'},
+      body: jsonEncode(Authentication(
+        verification_id: nullAliasInt,
+        reference: nullAliasInt,
+        code: nullAliasInt,
+        email: email,
+        secondary_email: nullAliasString,
+        password: password,
+        access_token: nullAliasString,
+        refresh_token: nullAliasString,
+        users_id: nullAliasInt,
+      ).toJson()),
+    );
+    if (response.statusCode == 200) {
+      final Authentication authentication = Authentication.fromJson(jsonDecode(utf8.decode(response.bodyBytes)));
+      await ref.read(credentialProvider.notifier).deleteAll();
+      await ref.read(credentialProvider.notifier).write(email: authentication.email, password: authentication.password, access_token: authentication.access_token, refresh_token: authentication.refresh_token, users_id: authentication.users_id);
+      return UnwrapResponse<Authentication>(statusCode: response.statusCode, model: authentication);
+    } else {
+      await ref.read(credentialProvider.notifier).deleteAll();
+      return UnwrapResponse<Authentication>(
+        statusCode: response.statusCode,
+        model: Authentication(
+          verification_id: nullAliasInt,
+          reference: nullAliasInt,
+          code: nullAliasInt,
+          email: email,
+          secondary_email: nullAliasString,
+          password: password,
+          access_token: nullAliasString,
+          refresh_token: nullAliasString,
+          users_id: nullAliasInt,
+        ),
+      );
+    }
+  } else {
+    await ref.read(credentialProvider.notifier).deleteAll();
+    return unwrapResponse;
   }
 }
 
@@ -545,7 +594,8 @@ class Search extends _$Search {
 
   Future<void> fetch(String query) async {
     final credential = await ref.read(credentialProvider.future);
-    if (credential.access_token != nullAliasString) {
+    final access_token = credential['access_token'];
+    if (access_token != null) {
       final Uri uri = Uri(
         scheme: 'http',
         host: '10.0.2.2',
@@ -557,7 +607,7 @@ class Search extends _$Search {
         uri,
         headers: <String, String>{
           'Content-Type': 'application/json; charset=UTF-8',
-          HttpHeaders.authorizationHeader: 'Bearer ${credential.access_token}',
+          HttpHeaders.authorizationHeader: 'Bearer $access_token',
         },
       );
       if (response.statusCode == 200) {
@@ -566,8 +616,13 @@ class Search extends _$Search {
         await ref.read(renewTokenProvider.notifier).fetch();
         ref.read(searchProvider.notifier).fetch(query);
       } else {
+        // await ref.read(credentialProvider.notifier).deleteAll();
+        // other error
         state = const AsyncData('sign out');
       }
+    } else {
+      await ref.read(credentialProvider.notifier).deleteAll();
+      state = const AsyncData('sign out');
     }
   }
 }
