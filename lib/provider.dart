@@ -537,7 +537,7 @@ class RenewToken extends _$RenewToken {
 
 @riverpod
 Future<UnwrapResponse<Authentication>> autoSignIn(AutoSignInRef ref) async {
-  final credential = await ref.watch(credentialProvider.future);
+  final credential = await ref.read(credentialProvider.future);
   final email = credential['email'];
   final password = credential['password'];
   if (email != null && password != null) {
@@ -559,11 +559,11 @@ Future<UnwrapResponse<Authentication>> autoSignIn(AutoSignInRef ref) async {
     );
     if (response.statusCode == 200) {
       final Authentication authentication = Authentication.fromJson(jsonDecode(utf8.decode(response.bodyBytes)));
-      await ref.watch(credentialProvider.notifier).deleteAll();
-      await ref.watch(credentialProvider.notifier).write(email: authentication.email, password: authentication.password, access_token: authentication.access_token, refresh_token: authentication.refresh_token, users_id: authentication.users_id);
+      await ref.read(credentialProvider.notifier).deleteAll();
+      await ref.read(credentialProvider.notifier).write(email: authentication.email, password: authentication.password, access_token: authentication.access_token, refresh_token: authentication.refresh_token, users_id: authentication.users_id);
       return UnwrapResponse<Authentication>(statusCode: response.statusCode, model: authentication);
     } else {
-      await ref.watch(credentialProvider.notifier).deleteAll();
+      await ref.read(credentialProvider.notifier).deleteAll();
       return UnwrapResponse<Authentication>(
         statusCode: response.statusCode,
         model: Authentication(
@@ -580,7 +580,7 @@ Future<UnwrapResponse<Authentication>> autoSignIn(AutoSignInRef ref) async {
       );
     }
   } else {
-    // await ref.watch(credentialProvider.notifier).deleteAll();
+    await ref.read(credentialProvider.notifier).deleteAll();
     return unwrapResponse;
   }
 }

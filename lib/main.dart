@@ -51,7 +51,6 @@ class MyApp extends HookConsumerWidget {
           routerConfig: GoRouter(
             initialLocation: (value.statusCode == 200) ? '/myhomepage' : '/signinscreen',
             // initialLocation: '/dev',
-            // // initialLocation: '/signinscreen',
             routes: <RouteBase>[
               GoRoute(
                 path: '/myhomepage',
