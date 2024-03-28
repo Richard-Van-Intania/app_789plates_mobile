@@ -604,7 +604,10 @@ class Search extends _$Search {
         host: '10.0.2.2',
         port: 8700,
         path: '/search',
-        queryParameters: {'query': query, 'users_id': int.parse(users_id)},
+        queryParameters: {
+          'users_id': int.parse(users_id),
+          'query': query,
+        },
       );
       final response = await http.get(
         uri,
