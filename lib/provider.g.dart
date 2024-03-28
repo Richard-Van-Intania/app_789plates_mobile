@@ -6,11 +6,11 @@ part of 'provider.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$autoSignInHash() => r'7aa05794bd1ff2a9e7d4280c5e26a5e57d1e62e8';
+String _$autoSignInHash() => r'4b2c92ff5c60d986195b6df21e5e7adeba412f53';
 
 /// See also [autoSignIn].
 @ProviderFor(autoSignIn)
-final autoSignInProvider = AutoDisposeFutureProvider<UnwrapResponse<Authentication>>.internal(
+final autoSignInProvider = FutureProvider<UnwrapResponse<Authentication>>.internal(
   autoSignIn,
   name: r'autoSignInProvider',
   debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product') ? null : _$autoSignInHash,
@@ -18,7 +18,7 @@ final autoSignInProvider = AutoDisposeFutureProvider<UnwrapResponse<Authenticati
   allTransitiveDependencies: null,
 );
 
-typedef AutoSignInRef = AutoDisposeFutureProviderRef<UnwrapResponse<Authentication>>;
+typedef AutoSignInRef = FutureProviderRef<UnwrapResponse<Authentication>>;
 String _$localeUpdateHash() => r'ecfb82dc371b6f83400840c8a6a4a1050dbab199';
 
 /// See also [LocaleUpdate].

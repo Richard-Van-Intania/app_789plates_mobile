@@ -132,6 +132,7 @@ class _StoreTabState extends ConsumerState<StoreTab> {
                 // pop up confirm
                 Navigator.pop(context);
                 ref.read(credentialProvider.notifier).deleteAll();
+                ref.invalidate(autoSignInProvider);
                 context.go('/signinscreen');
               },
               icon: const Icon(Icons.logout_outlined),
