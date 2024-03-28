@@ -6,7 +6,7 @@ part of 'provider.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$autoSignInHash() => r'4b2c92ff5c60d986195b6df21e5e7adeba412f53';
+String _$autoSignInHash() => r'1e581815cc245ba4aa0415abee4c850f4387b783';
 
 /// See also [autoSignIn].
 @ProviderFor(autoSignIn)
@@ -123,7 +123,7 @@ final createNewAccountProvider = AutoDisposeAsyncNotifierProvider<CreateNewAccou
 );
 
 typedef _$CreateNewAccount = AutoDisposeAsyncNotifier<UnwrapResponse<Authentication>>;
-String _$signInHash() => r'2efe8ab6ac536babefe38b8ff3f53782731acc2b';
+String _$signInHash() => r'079a7d81a690992de1da3146e3b540bfe9465656';
 
 /// See also [SignIn].
 @ProviderFor(SignIn)
@@ -188,7 +188,7 @@ final renewTokenProvider = AutoDisposeAsyncNotifierProvider<RenewToken, UnwrapRe
 );
 
 typedef _$RenewToken = AutoDisposeAsyncNotifier<UnwrapResponse<Authentication>>;
-String _$searchHash() => r'33bc6246b1eb28a23b48332fc3bfcb8f43b0e92c';
+String _$searchHash() => r'c3e9c5cfeffeaacb81363096f5b5802dc0c4758e';
 
 /// See also [Search].
 @ProviderFor(Search)

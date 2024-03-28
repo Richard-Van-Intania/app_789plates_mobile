@@ -597,13 +597,14 @@ class Search extends _$Search {
   Future<void> fetch(String query) async {
     final credential = await ref.read(credentialProvider.future);
     final access_token = credential['access_token'];
-    if (access_token != null) {
+    final users_id = credential['users_id'];
+    if (access_token != null && users_id != null) {
       final Uri uri = Uri(
         scheme: 'http',
         host: '10.0.2.2',
         port: 8700,
         path: '/search',
-        queryParameters: {'query': query, 'limit': '10'},
+        queryParameters: {'query': query, 'users_id': int.parse(users_id)},
       );
       final response = await http.get(
         uri,
