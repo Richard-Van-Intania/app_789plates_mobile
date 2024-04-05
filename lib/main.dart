@@ -50,7 +50,7 @@ class MyApp extends HookConsumerWidget {
       darkTheme: ThemeData(fontFamily: 'Noto Sans Thai', useMaterial3: true, colorScheme: darkColorScheme),
       home: switch (autoSignIn) {
         AsyncData(:final value) => (value.statusCode == 200) ? const MyHomePage() : const SignInScreen(),
-        AsyncError(:final error) => Scaffold(body: Center(child: Text(error.toString()))),
+        AsyncError() => const Scaffold(body: Center(child: Text('Oops, something unexpected happened!'))),
         _ => const Scaffold(body: Center(child: CircularProgressIndicator())),
       },
     );
