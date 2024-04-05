@@ -114,7 +114,7 @@ class CheckAvailabilityEmail extends _$CheckAvailabilityEmail {
     final Uri uri = Uri(scheme: 'http', host: '10.0.2.2', port: 8700, path: '/checkavailabilityemail');
     final response = await http.post(
       uri,
-      headers: <String, String>{'Content-Type': 'application/json; charset=UTF-8'},
+      headers: <String, String>{'Content-Type': 'application/json; charset=UTF-8', HttpHeaders.authorizationHeader: 'Bearer $keyToken'},
       body: jsonEncode(Authentication(
         verification_id: nullAliasInt,
         reference: nullAliasInt,
@@ -162,7 +162,7 @@ class CheckVerificationCode extends _$CheckVerificationCode {
       final Uri uri = Uri(scheme: 'http', host: '10.0.2.2', port: 8700, path: '/checkverificationcode');
       final response = await http.post(
         uri,
-        headers: <String, String>{'Content-Type': 'application/json; charset=UTF-8'},
+        headers: <String, String>{'Content-Type': 'application/json; charset=UTF-8', HttpHeaders.authorizationHeader: 'Bearer $keyToken'},
         body: jsonEncode(Authentication(
           verification_id: checkAvailabilityEmail.model.verification_id,
           reference: checkAvailabilityEmail.model.reference,
@@ -211,7 +211,7 @@ class CreateNewAccount extends _$CreateNewAccount {
       final Uri uri = Uri(scheme: 'http', host: '10.0.2.2', port: 8700, path: '/createnewaccount');
       final response = await http.post(
         uri,
-        headers: <String, String>{'Content-Type': 'application/json; charset=UTF-8'},
+        headers: <String, String>{'Content-Type': 'application/json; charset=UTF-8', HttpHeaders.authorizationHeader: 'Bearer $keyToken'},
         body: jsonEncode(Authentication(
           verification_id: checkVerificationCode.model.verification_id,
           reference: checkVerificationCode.model.reference,
@@ -261,7 +261,7 @@ class SignIn extends _$SignIn {
     final Uri uri = Uri(scheme: 'http', host: '10.0.2.2', port: 8700, path: '/signin');
     final response = await http.post(
       uri,
-      headers: <String, String>{'Content-Type': 'application/json; charset=UTF-8'},
+      headers: <String, String>{'Content-Type': 'application/json; charset=UTF-8', HttpHeaders.authorizationHeader: 'Bearer $keyToken'},
       body: jsonEncode(Authentication(
         verification_id: nullAliasInt,
         reference: nullAliasInt,
@@ -311,7 +311,7 @@ class ForgotPassword extends _$ForgotPassword {
     final Uri uri = Uri(scheme: 'http', host: '10.0.2.2', port: 8700, path: '/forgotpassword');
     final response = await http.post(
       uri,
-      headers: <String, String>{'Content-Type': 'application/json; charset=UTF-8'},
+      headers: <String, String>{'Content-Type': 'application/json; charset=UTF-8', HttpHeaders.authorizationHeader: 'Bearer $keyToken'},
       body: jsonEncode(Authentication(
         verification_id: nullAliasInt,
         reference: nullAliasInt,
@@ -359,7 +359,7 @@ class CheckVerificationCodeForgot extends _$CheckVerificationCodeForgot {
       final Uri uri = Uri(scheme: 'http', host: '10.0.2.2', port: 8700, path: '/checkverificationcode');
       final response = await http.post(
         uri,
-        headers: <String, String>{'Content-Type': 'application/json; charset=UTF-8'},
+        headers: <String, String>{'Content-Type': 'application/json; charset=UTF-8', HttpHeaders.authorizationHeader: 'Bearer $keyToken'},
         body: jsonEncode(Authentication(
           verification_id: forgotPassword.model.verification_id,
           reference: forgotPassword.model.reference,
@@ -408,7 +408,7 @@ class ResetPassword extends _$ResetPassword {
       final Uri uri = Uri(scheme: 'http', host: '10.0.2.2', port: 8700, path: '/resetpassword');
       final response = await http.put(
         uri,
-        headers: <String, String>{'Content-Type': 'application/json; charset=UTF-8'},
+        headers: <String, String>{'Content-Type': 'application/json; charset=UTF-8', HttpHeaders.authorizationHeader: 'Bearer $keyToken'},
         body: jsonEncode(Authentication(
           verification_id: checkVerificationCodeForgot.model.verification_id,
           reference: checkVerificationCodeForgot.model.reference,
@@ -545,7 +545,7 @@ Future<UnwrapResponse<Authentication>> autoSignIn(AutoSignInRef ref) async {
     final Uri uri = Uri(scheme: 'http', host: '10.0.2.2', port: 8700, path: '/signin');
     final response = await http.post(
       uri,
-      headers: <String, String>{'Content-Type': 'application/json; charset=UTF-8'},
+      headers: <String, String>{'Content-Type': 'application/json; charset=UTF-8', HttpHeaders.authorizationHeader: 'Bearer $keyToken'},
       body: jsonEncode(Authentication(
         verification_id: nullAliasInt,
         reference: nullAliasInt,
