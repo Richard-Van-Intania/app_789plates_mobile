@@ -175,7 +175,7 @@ final resetPasswordProvider = AutoDisposeAsyncNotifierProvider<ResetPassword, Un
 );
 
 typedef _$ResetPassword = AutoDisposeAsyncNotifier<UnwrapResponse<Authentication>>;
-String _$renewTokenHash() => r'5a6ac2e4354707507cc5ec41f9b83838d6dd527b';
+String _$renewTokenHash() => r'8ab76bedec14e6ce68efed8cf5c90b2810a239d0';
 
 /// See also [RenewToken].
 @ProviderFor(RenewToken)

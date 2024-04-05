@@ -462,7 +462,7 @@ class RenewToken extends _$RenewToken {
       final Uri uri = Uri(scheme: 'http', host: '10.0.2.2', port: 8700, path: '/renewtoken');
       final response = await http.post(
         uri,
-        headers: <String, String>{'Content-Type': 'application/json; charset=UTF-8'},
+        headers: <String, String>{'Content-Type': 'application/json; charset=UTF-8', HttpHeaders.authorizationHeader: 'Bearer $keyToken'},
         body: jsonEncode(Authentication(
           verification_id: nullAliasInt,
           reference: nullAliasInt,
@@ -486,7 +486,7 @@ class RenewToken extends _$RenewToken {
           final Uri uri = Uri(scheme: 'http', host: '10.0.2.2', port: 8700, path: '/signin');
           final response = await http.post(
             uri,
-            headers: <String, String>{'Content-Type': 'application/json; charset=UTF-8'},
+            headers: <String, String>{'Content-Type': 'application/json; charset=UTF-8', HttpHeaders.authorizationHeader: 'Bearer $keyToken'},
             body: jsonEncode(Authentication(
               verification_id: nullAliasInt,
               reference: nullAliasInt,
@@ -611,10 +611,7 @@ class Search extends _$Search {
       );
       final response = await http.get(
         uri,
-        headers: <String, String>{
-          'Content-Type': 'application/json; charset=UTF-8',
-          HttpHeaders.authorizationHeader: 'Bearer $access_token',
-        },
+        headers: <String, String>{'Content-Type': 'application/json; charset=UTF-8', HttpHeaders.authorizationHeader: 'Bearer $access_token'},
       );
       if (response.statusCode == 200) {
         state = AsyncData(response.body);
