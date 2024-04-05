@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
-import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import '../../initialize.dart';
+import '../../main.dart';
 import '../../provider.dart';
 
 class CreateNewAccountScreen extends StatefulHookConsumerWidget {
@@ -29,7 +29,7 @@ class _CreateNewAccountScreenState extends ConsumerState<CreateNewAccountScreen>
           print(error.toString());
         case AsyncValue(:final valueOrNull?):
           if (valueOrNull.statusCode == 200) {
-            context.go('/myhomepage');
+            Navigator.of(context, rootNavigator: true).pushAndRemoveUntil(MaterialPageRoute(builder: (context) => const MyHomePage()), (Route<dynamic> route) => false);
           } else {
             print(valueOrNull.statusCode);
           }

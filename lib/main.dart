@@ -1,9 +1,10 @@
 import 'package:app_789plates_mobile/constants.dart';
+import 'package:app_789plates_mobile/model.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import 'package:go_router/go_router.dart';
+
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'color_schemes.g.dart';
 import 'initialize.dart';
@@ -39,55 +40,20 @@ class MyApp extends HookConsumerWidget {
     final Locale locale = ref.watch(localeUpdateProvider);
     final ThemeMode themeMode = ref.watch(themeModeUpdateProvider);
     final autoSignIn = ref.watch(autoSignInProvider);
-    return switch (autoSignIn) {
-      AsyncData(:final value) => MaterialApp.router(
-          title: '789plates',
-          localizationsDelegates: AppLocalizations.localizationsDelegates,
-          supportedLocales: AppLocalizations.supportedLocales,
-          locale: locale,
-          themeMode: themeMode,
-          theme: ThemeData(fontFamily: 'Noto Sans Thai', useMaterial3: true, colorScheme: lightColorScheme),
-          darkTheme: ThemeData(fontFamily: 'Noto Sans Thai', useMaterial3: true, colorScheme: darkColorScheme),
-          routerConfig: GoRouter(
-            initialLocation: (value.statusCode == 200) ? '/myhomepage' : '/signinscreen',
-            // initialLocation: '/dev',
-            routes: <RouteBase>[
-              GoRoute(
-                path: '/myhomepage',
-                builder: (BuildContext context, GoRouterState state) => const MyHomePage(),
-              ),
-              GoRoute(
-                path: '/signinscreen',
-                builder: (BuildContext context, GoRouterState state) => const SignInScreen(),
-              ),
-              GoRoute(
-                path: '/dev',
-                builder: (BuildContext context, GoRouterState state) => const ResetPasswordScreen(),
-              ),
-            ],
-          ),
-        ),
-      AsyncError() => MaterialApp(
-          title: '789plates',
-          localizationsDelegates: AppLocalizations.localizationsDelegates,
-          supportedLocales: AppLocalizations.supportedLocales,
-          locale: locale,
-          themeMode: themeMode,
-          theme: ThemeData(fontFamily: 'Noto Sans Thai', useMaterial3: true, colorScheme: lightColorScheme),
-          darkTheme: ThemeData(fontFamily: 'Noto Sans Thai', useMaterial3: true, colorScheme: darkColorScheme),
-          home: const Scaffold(body: Center(child: Text('Oops, something unexpected happened'))),
-        ),
-      _ => MaterialApp(
-          title: '789plates',
-          localizationsDelegates: AppLocalizations.localizationsDelegates,
-          supportedLocales: AppLocalizations.supportedLocales,
-          locale: locale,
-          themeMode: themeMode,
-          theme: ThemeData(fontFamily: 'Noto Sans Thai', useMaterial3: true, colorScheme: lightColorScheme),
-          darkTheme: ThemeData(fontFamily: 'Noto Sans Thai', useMaterial3: true, colorScheme: darkColorScheme),
-          home: const Scaffold(body: Center(child: CircularProgressIndicator())),
-        ),
-    };
+    return MaterialApp(
+      title: '789plates',
+      localizationsDelegates: AppLocalizations.localizationsDelegates,
+      supportedLocales: AppLocalizations.supportedLocales,
+      locale: locale,
+      themeMode: themeMode,
+      theme: ThemeData(fontFamily: 'Noto Sans Thai', useMaterial3: true, colorScheme: lightColorScheme),
+      darkTheme: ThemeData(fontFamily: 'Noto Sans Thai', useMaterial3: true, colorScheme: darkColorScheme),
+      home: switch (autoSignIn) {
+        AsyncData(:final value) => (value.statusCode == 200) ? const MyHomePage() : const SignInScreen(),
+        AsyncError(:final error) => Scaffold(body: Center(child: Text(error.toString()))),
+        _ => const Scaffold(body: Center(child: CircularProgressIndicator())),
+      },
+    );
   }
 }
 

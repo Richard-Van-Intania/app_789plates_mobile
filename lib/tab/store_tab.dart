@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import '../drawer/account_drawer.dart';
@@ -8,6 +7,7 @@ import '../drawer/liked_drawer.dart';
 import '../drawer/settings_drawer.dart';
 import '../drawer/store_drawer.dart';
 import '../provider.dart';
+import '../screen/sign_in_screen.dart';
 
 class StoreTab extends StatefulHookConsumerWidget {
   const StoreTab({super.key});
@@ -133,7 +133,7 @@ class _StoreTabState extends ConsumerState<StoreTab> {
                 Navigator.pop(context);
                 ref.read(credentialProvider.notifier).deleteAll();
                 ref.invalidate(autoSignInProvider);
-                context.go('/signinscreen');
+                Navigator.of(context, rootNavigator: true).pushAndRemoveUntil(MaterialPageRoute(builder: (context) => const SignInScreen()), (Route<dynamic> route) => false);
               },
               icon: const Icon(Icons.logout_outlined),
               label: Text(AppLocalizations.of(context)!.logOut),

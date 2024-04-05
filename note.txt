@@ -13,6 +13,11 @@ StatefulHookConsumerWidget
 
 
 
+    Navigator.of(context).pushAndRemoveUntil(MaterialPageRoute(builder: (context) => const MainScreen()), (Route<dynamic> route) => false);
+
+
+
+
    3 ways Navigation
 
    go no back
