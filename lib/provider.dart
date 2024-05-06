@@ -111,16 +111,21 @@ class CheckAvailabilityEmail extends _$CheckAvailabilityEmail {
   }
 
   Future<void> fetch(String email) async {
-    final Uri uri = Uri(scheme: 'http', host: '10.0.2.2', port: 8700, path: '/checkavailabilityemail');
+    final Uri uri = Uri(
+      scheme: 'http',
+      host: '10.0.2.2',
+      port: 8700,
+      path: '/create_verification',
+      queryParameters: {'api_key': apiKey},
+    );
     final response = await http.post(
       uri,
-      headers: <String, String>{'Content-Type': 'application/json; charset=UTF-8', HttpHeaders.authorizationHeader: 'Bearer $keyToken'},
+      headers: <String, String>{'Content-Type': 'application/json; charset=UTF-8'},
       body: jsonEncode(Authentication(
         verification_id: nullAliasInt,
         reference: nullAliasInt,
         code: nullAliasInt,
         email: email,
-        secondary_email: nullAliasString,
         password: nullAliasString,
         access_token: nullAliasString,
         refresh_token: nullAliasString,
@@ -138,7 +143,6 @@ class CheckAvailabilityEmail extends _$CheckAvailabilityEmail {
           reference: nullAliasInt,
           code: nullAliasInt,
           email: email,
-          secondary_email: nullAliasString,
           password: nullAliasString,
           access_token: nullAliasString,
           refresh_token: nullAliasString,
@@ -159,16 +163,21 @@ class CheckVerificationCode extends _$CheckVerificationCode {
   Future<void> fetch(int code) async {
     final checkAvailabilityEmail = await ref.read(checkAvailabilityEmailProvider.future);
     if (checkAvailabilityEmail.statusCode == 200) {
-      final Uri uri = Uri(scheme: 'http', host: '10.0.2.2', port: 8700, path: '/checkverificationcode');
+      final Uri uri = Uri(
+        scheme: 'http',
+        host: '10.0.2.2',
+        port: 8700,
+        path: '/validate_verification',
+        queryParameters: {'api_key': apiKey},
+      );
       final response = await http.post(
         uri,
-        headers: <String, String>{'Content-Type': 'application/json; charset=UTF-8', HttpHeaders.authorizationHeader: 'Bearer $keyToken'},
+        headers: <String, String>{'Content-Type': 'application/json; charset=UTF-8'},
         body: jsonEncode(Authentication(
           verification_id: checkAvailabilityEmail.model.verification_id,
           reference: checkAvailabilityEmail.model.reference,
           code: code,
           email: checkAvailabilityEmail.model.email,
-          secondary_email: nullAliasString,
           password: nullAliasString,
           access_token: nullAliasString,
           refresh_token: nullAliasString,
@@ -186,7 +195,6 @@ class CheckVerificationCode extends _$CheckVerificationCode {
             reference: checkAvailabilityEmail.model.reference,
             code: code,
             email: checkAvailabilityEmail.model.email,
-            secondary_email: nullAliasString,
             password: nullAliasString,
             access_token: nullAliasString,
             refresh_token: nullAliasString,
@@ -208,16 +216,21 @@ class CreateNewAccount extends _$CreateNewAccount {
   Future<void> fetch(String password) async {
     final checkVerificationCode = await ref.read(checkVerificationCodeProvider.future);
     if (checkVerificationCode.statusCode == 200) {
-      final Uri uri = Uri(scheme: 'http', host: '10.0.2.2', port: 8700, path: '/createnewaccount');
+      final Uri uri = Uri(
+        scheme: 'http',
+        host: '10.0.2.2',
+        port: 8700,
+        path: '/create_new_account',
+        queryParameters: {'api_key': apiKey},
+      );
       final response = await http.post(
         uri,
-        headers: <String, String>{'Content-Type': 'application/json; charset=UTF-8', HttpHeaders.authorizationHeader: 'Bearer $keyToken'},
+        headers: <String, String>{'Content-Type': 'application/json; charset=UTF-8'},
         body: jsonEncode(Authentication(
           verification_id: checkVerificationCode.model.verification_id,
           reference: checkVerificationCode.model.reference,
           code: checkVerificationCode.model.code,
           email: checkVerificationCode.model.email,
-          secondary_email: nullAliasString,
           password: password,
           access_token: nullAliasString,
           refresh_token: nullAliasString,
@@ -238,7 +251,6 @@ class CreateNewAccount extends _$CreateNewAccount {
             reference: checkVerificationCode.model.reference,
             code: checkVerificationCode.model.code,
             email: checkVerificationCode.model.email,
-            secondary_email: nullAliasString,
             password: password,
             access_token: nullAliasString,
             refresh_token: nullAliasString,
@@ -258,16 +270,21 @@ class SignIn extends _$SignIn {
   }
 
   Future<void> fetch(String email, String password) async {
-    final Uri uri = Uri(scheme: 'http', host: '10.0.2.2', port: 8700, path: '/signin');
+    final Uri uri = Uri(
+      scheme: 'http',
+      host: '10.0.2.2',
+      port: 8700,
+      path: '/sign_in',
+      queryParameters: {'api_key': apiKey},
+    );
     final response = await http.post(
       uri,
-      headers: <String, String>{'Content-Type': 'application/json; charset=UTF-8', HttpHeaders.authorizationHeader: 'Bearer $keyToken'},
+      headers: <String, String>{'Content-Type': 'application/json; charset=UTF-8'},
       body: jsonEncode(Authentication(
         verification_id: nullAliasInt,
         reference: nullAliasInt,
         code: nullAliasInt,
         email: email,
-        secondary_email: nullAliasString,
         password: password,
         access_token: nullAliasString,
         refresh_token: nullAliasString,
@@ -289,7 +306,6 @@ class SignIn extends _$SignIn {
           reference: nullAliasInt,
           code: nullAliasInt,
           email: email,
-          secondary_email: nullAliasString,
           password: password,
           access_token: nullAliasString,
           refresh_token: nullAliasString,
@@ -300,6 +316,8 @@ class SignIn extends _$SignIn {
   }
 }
 
+// here
+
 @riverpod
 class ForgotPassword extends _$ForgotPassword {
   @override
@@ -308,16 +326,21 @@ class ForgotPassword extends _$ForgotPassword {
   }
 
   Future<void> fetch(String email) async {
-    final Uri uri = Uri(scheme: 'http', host: '10.0.2.2', port: 8700, path: '/forgotpassword');
+    final Uri uri = Uri(
+      scheme: 'http',
+      host: '10.0.2.2',
+      port: 8700,
+      path: '/create_verification_forgot',
+      queryParameters: {'api_key': apiKey},
+    );
     final response = await http.post(
       uri,
-      headers: <String, String>{'Content-Type': 'application/json; charset=UTF-8', HttpHeaders.authorizationHeader: 'Bearer $keyToken'},
+      headers: <String, String>{'Content-Type': 'application/json; charset=UTF-8'},
       body: jsonEncode(Authentication(
         verification_id: nullAliasInt,
         reference: nullAliasInt,
         code: nullAliasInt,
         email: email,
-        secondary_email: nullAliasString,
         password: nullAliasString,
         access_token: nullAliasString,
         refresh_token: nullAliasString,
@@ -335,7 +358,6 @@ class ForgotPassword extends _$ForgotPassword {
           reference: nullAliasInt,
           code: nullAliasInt,
           email: email,
-          secondary_email: nullAliasString,
           password: nullAliasString,
           access_token: nullAliasString,
           refresh_token: nullAliasString,
@@ -356,16 +378,21 @@ class CheckVerificationCodeForgot extends _$CheckVerificationCodeForgot {
   Future<void> fetch(int code) async {
     final forgotPassword = await ref.read(forgotPasswordProvider.future);
     if (forgotPassword.statusCode == 200) {
-      final Uri uri = Uri(scheme: 'http', host: '10.0.2.2', port: 8700, path: '/checkverificationcode');
+      final Uri uri = Uri(
+        scheme: 'http',
+        host: '10.0.2.2',
+        port: 8700,
+        path: '/validate_verification',
+        queryParameters: {'api_key': apiKey},
+      );
       final response = await http.post(
         uri,
-        headers: <String, String>{'Content-Type': 'application/json; charset=UTF-8', HttpHeaders.authorizationHeader: 'Bearer $keyToken'},
+        headers: <String, String>{'Content-Type': 'application/json; charset=UTF-8'},
         body: jsonEncode(Authentication(
           verification_id: forgotPassword.model.verification_id,
           reference: forgotPassword.model.reference,
           code: code,
           email: forgotPassword.model.email,
-          secondary_email: nullAliasString,
           password: nullAliasString,
           access_token: nullAliasString,
           refresh_token: nullAliasString,
@@ -383,7 +410,6 @@ class CheckVerificationCodeForgot extends _$CheckVerificationCodeForgot {
             reference: forgotPassword.model.reference,
             code: code,
             email: forgotPassword.model.email,
-            secondary_email: nullAliasString,
             password: nullAliasString,
             access_token: nullAliasString,
             refresh_token: nullAliasString,
@@ -405,16 +431,21 @@ class ResetPassword extends _$ResetPassword {
   Future<void> fetch(String password) async {
     final checkVerificationCodeForgot = await ref.read(checkVerificationCodeForgotProvider.future);
     if (checkVerificationCodeForgot.statusCode == 200) {
-      final Uri uri = Uri(scheme: 'http', host: '10.0.2.2', port: 8700, path: '/resetpassword');
+      final Uri uri = Uri(
+        scheme: 'http',
+        host: '10.0.2.2',
+        port: 8700,
+        path: '/reset_password',
+        queryParameters: {'api_key': apiKey},
+      );
       final response = await http.put(
         uri,
-        headers: <String, String>{'Content-Type': 'application/json; charset=UTF-8', HttpHeaders.authorizationHeader: 'Bearer $keyToken'},
+        headers: <String, String>{'Content-Type': 'application/json; charset=UTF-8'},
         body: jsonEncode(Authentication(
           verification_id: checkVerificationCodeForgot.model.verification_id,
           reference: checkVerificationCodeForgot.model.reference,
           code: checkVerificationCodeForgot.model.code,
           email: checkVerificationCodeForgot.model.email,
-          secondary_email: nullAliasString,
           password: password,
           access_token: nullAliasString,
           refresh_token: nullAliasString,
@@ -435,7 +466,6 @@ class ResetPassword extends _$ResetPassword {
             reference: checkVerificationCodeForgot.model.reference,
             code: checkVerificationCodeForgot.model.code,
             email: checkVerificationCodeForgot.model.email,
-            secondary_email: nullAliasString,
             password: password,
             access_token: nullAliasString,
             refresh_token: nullAliasString,
@@ -459,16 +489,21 @@ class RenewToken extends _$RenewToken {
     final access_token = credential['access_token'];
     final refresh_token = credential['refresh_token'];
     if (access_token != null && refresh_token != null) {
-      final Uri uri = Uri(scheme: 'http', host: '10.0.2.2', port: 8700, path: '/renewtoken');
+      final Uri uri = Uri(
+        scheme: 'http',
+        host: '10.0.2.2',
+        port: 8700,
+        path: '/renew_token',
+        queryParameters: {'api_key': apiKey},
+      );
       final response = await http.post(
         uri,
-        headers: <String, String>{'Content-Type': 'application/json; charset=UTF-8', HttpHeaders.authorizationHeader: 'Bearer $keyToken'},
+        headers: <String, String>{'Content-Type': 'application/json; charset=UTF-8'},
         body: jsonEncode(Authentication(
           verification_id: nullAliasInt,
           reference: nullAliasInt,
           code: nullAliasInt,
           email: nullAliasString,
-          secondary_email: nullAliasString,
           password: nullAliasString,
           access_token: access_token,
           refresh_token: refresh_token,
@@ -483,16 +518,21 @@ class RenewToken extends _$RenewToken {
         final email = credential['email'];
         final password = credential['password'];
         if (email != null && password != null) {
-          final Uri uri = Uri(scheme: 'http', host: '10.0.2.2', port: 8700, path: '/signin');
+          final Uri uri = Uri(
+            scheme: 'http',
+            host: '10.0.2.2',
+            port: 8700,
+            path: '/sign_in',
+            queryParameters: {'api_key': apiKey},
+          );
           final response = await http.post(
             uri,
-            headers: <String, String>{'Content-Type': 'application/json; charset=UTF-8', HttpHeaders.authorizationHeader: 'Bearer $keyToken'},
+            headers: <String, String>{'Content-Type': 'application/json; charset=UTF-8'},
             body: jsonEncode(Authentication(
               verification_id: nullAliasInt,
               reference: nullAliasInt,
               code: nullAliasInt,
               email: email,
-              secondary_email: nullAliasString,
               password: password,
               access_token: nullAliasString,
               refresh_token: nullAliasString,
@@ -513,7 +553,6 @@ class RenewToken extends _$RenewToken {
                 reference: nullAliasInt,
                 code: nullAliasInt,
                 email: email,
-                secondary_email: nullAliasString,
                 password: password,
                 access_token: nullAliasString,
                 refresh_token: nullAliasString,
@@ -542,16 +581,21 @@ Future<UnwrapResponse<Authentication>> autoSignIn(AutoSignInRef ref) async {
   final email = credential['email'];
   final password = credential['password'];
   if (email != null && password != null) {
-    final Uri uri = Uri(scheme: 'http', host: '10.0.2.2', port: 8700, path: '/signin');
+    final Uri uri = Uri(
+      scheme: 'http',
+      host: '10.0.2.2',
+      port: 8700,
+      path: '/sign_in',
+      queryParameters: {'api_key': apiKey},
+    );
     final response = await http.post(
       uri,
-      headers: <String, String>{'Content-Type': 'application/json; charset=UTF-8', HttpHeaders.authorizationHeader: 'Bearer $keyToken'},
+      headers: <String, String>{'Content-Type': 'application/json; charset=UTF-8'},
       body: jsonEncode(Authentication(
         verification_id: nullAliasInt,
         reference: nullAliasInt,
         code: nullAliasInt,
         email: email,
-        secondary_email: nullAliasString,
         password: password,
         access_token: nullAliasString,
         refresh_token: nullAliasString,
@@ -573,7 +617,6 @@ Future<UnwrapResponse<Authentication>> autoSignIn(AutoSignInRef ref) async {
           reference: nullAliasInt,
           code: nullAliasInt,
           email: email,
-          secondary_email: nullAliasString,
           password: password,
           access_token: nullAliasString,
           refresh_token: nullAliasString,

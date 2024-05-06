@@ -1,6 +1,5 @@
 // ignore_for_file: non_constant_identifier_names
 import 'package:freezed_annotation/freezed_annotation.dart';
-
 import 'constants.dart';
 
 part 'model.freezed.dart';
@@ -13,7 +12,6 @@ class Authentication with _$Authentication {
     required int reference,
     required int code,
     required String email,
-    required String secondary_email,
     required String password,
     required String access_token,
     required String refresh_token,
@@ -36,7 +34,6 @@ const unwrapResponse = UnwrapResponse<Authentication>(
     reference: nullAliasInt,
     code: nullAliasInt,
     email: nullAliasString,
-    secondary_email: nullAliasString,
     password: nullAliasString,
     access_token: nullAliasString,
     refresh_token: nullAliasString,
