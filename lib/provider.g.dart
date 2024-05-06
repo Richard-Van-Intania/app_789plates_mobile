@@ -110,7 +110,7 @@ final checkVerificationCodeProvider = AutoDisposeAsyncNotifierProvider<CheckVeri
 );
 
 typedef _$CheckVerificationCode = AutoDisposeAsyncNotifier<UnwrapResponse<Authentication>>;
-String _$createNewAccountHash() => r'7f0ed7799c063d146e4e688cba9a622ba9183d6c';
+String _$createNewAccountHash() => r'82ea44deb25ab3f4be5f6b5f320c28c6b55d067b';
 
 /// See also [CreateNewAccount].
 @ProviderFor(CreateNewAccount)
@@ -162,7 +162,7 @@ final checkVerificationCodeForgotProvider = AutoDisposeAsyncNotifierProvider<Che
 );
 
 typedef _$CheckVerificationCodeForgot = AutoDisposeAsyncNotifier<UnwrapResponse<Authentication>>;
-String _$resetPasswordHash() => r'004b96db09ef0ea7fe01369755efc3d0c5c0ba5b';
+String _$resetPasswordHash() => r'c0542764019f43d27efd7d6d51233508886e029d';
 
 /// See also [ResetPassword].
 @ProviderFor(ResetPassword)
