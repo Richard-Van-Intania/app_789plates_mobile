@@ -569,8 +569,6 @@ class RenewToken extends _$RenewToken {
   }
 }
 
-// here jaa
-
 @Riverpod(keepAlive: true)
 Future<UnwrapResponse<Authentication>> autoSignIn(AutoSignInRef ref) async {
   final credential = await ref.read(credentialProvider.future);
@@ -604,8 +602,6 @@ Future<UnwrapResponse<Authentication>> autoSignIn(AutoSignInRef ref) async {
       await ref.read(credentialProvider.notifier).write(email: authentication.email, password: authentication.password, access_token: authentication.access_token, refresh_token: authentication.refresh_token, users_id: authentication.users_id);
       return UnwrapResponse<Authentication>(statusCode: response.statusCode, model: authentication);
     } else {
-      // await ref.read(credentialProvider.notifier).deleteAll();
-      // internal server error
       return UnwrapResponse<Authentication>(
         statusCode: response.statusCode,
         model: Authentication(
@@ -625,6 +621,8 @@ Future<UnwrapResponse<Authentication>> autoSignIn(AutoSignInRef ref) async {
     return unwrapResponse;
   }
 }
+
+// here jaa
 
 @riverpod
 class Search extends _$Search {
