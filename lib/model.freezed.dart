@@ -11,8 +11,7 @@ part of 'model.dart';
 
 T _$identity<T>(T value) => value;
 
-final _privateConstructorUsedError = UnsupportedError(
-    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models');
+final _privateConstructorUsedError = UnsupportedError('It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models');
 
 Authentication _$AuthenticationFromJson(Map<String, dynamic> json) {
   return _Authentication.fromJson(json);
@@ -31,30 +30,18 @@ mixin _$Authentication {
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
-  $AuthenticationCopyWith<Authentication> get copyWith =>
-      throw _privateConstructorUsedError;
+  $AuthenticationCopyWith<Authentication> get copyWith => throw _privateConstructorUsedError;
 }
 
 /// @nodoc
 abstract class $AuthenticationCopyWith<$Res> {
-  factory $AuthenticationCopyWith(
-          Authentication value, $Res Function(Authentication) then) =
-      _$AuthenticationCopyWithImpl<$Res, Authentication>;
+  factory $AuthenticationCopyWith(Authentication value, $Res Function(Authentication) then) = _$AuthenticationCopyWithImpl<$Res, Authentication>;
   @useResult
-  $Res call(
-      {int verification_id,
-      int reference,
-      int code,
-      String email,
-      String password,
-      String access_token,
-      String refresh_token,
-      int users_id});
+  $Res call({int verification_id, int reference, int code, String email, String password, String access_token, String refresh_token, int users_id});
 }
 
 /// @nodoc
-class _$AuthenticationCopyWithImpl<$Res, $Val extends Authentication>
-    implements $AuthenticationCopyWith<$Res> {
+class _$AuthenticationCopyWithImpl<$Res, $Val extends Authentication> implements $AuthenticationCopyWith<$Res> {
   _$AuthenticationCopyWithImpl(this._value, this._then);
 
   // ignore: unused_field
@@ -112,31 +99,16 @@ class _$AuthenticationCopyWithImpl<$Res, $Val extends Authentication>
 }
 
 /// @nodoc
-abstract class _$$AuthenticationImplCopyWith<$Res>
-    implements $AuthenticationCopyWith<$Res> {
-  factory _$$AuthenticationImplCopyWith(_$AuthenticationImpl value,
-          $Res Function(_$AuthenticationImpl) then) =
-      __$$AuthenticationImplCopyWithImpl<$Res>;
+abstract class _$$AuthenticationImplCopyWith<$Res> implements $AuthenticationCopyWith<$Res> {
+  factory _$$AuthenticationImplCopyWith(_$AuthenticationImpl value, $Res Function(_$AuthenticationImpl) then) = __$$AuthenticationImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call(
-      {int verification_id,
-      int reference,
-      int code,
-      String email,
-      String password,
-      String access_token,
-      String refresh_token,
-      int users_id});
+  $Res call({int verification_id, int reference, int code, String email, String password, String access_token, String refresh_token, int users_id});
 }
 
 /// @nodoc
-class __$$AuthenticationImplCopyWithImpl<$Res>
-    extends _$AuthenticationCopyWithImpl<$Res, _$AuthenticationImpl>
-    implements _$$AuthenticationImplCopyWith<$Res> {
-  __$$AuthenticationImplCopyWithImpl(
-      _$AuthenticationImpl _value, $Res Function(_$AuthenticationImpl) _then)
-      : super(_value, _then);
+class __$$AuthenticationImplCopyWithImpl<$Res> extends _$AuthenticationCopyWithImpl<$Res, _$AuthenticationImpl> implements _$$AuthenticationImplCopyWith<$Res> {
+  __$$AuthenticationImplCopyWithImpl(_$AuthenticationImpl _value, $Res Function(_$AuthenticationImpl) _then) : super(_value, _then);
 
   @pragma('vm:prefer-inline')
   @override
@@ -190,18 +162,9 @@ class __$$AuthenticationImplCopyWithImpl<$Res>
 /// @nodoc
 @JsonSerializable()
 class _$AuthenticationImpl implements _Authentication {
-  const _$AuthenticationImpl(
-      {required this.verification_id,
-      required this.reference,
-      required this.code,
-      required this.email,
-      required this.password,
-      required this.access_token,
-      required this.refresh_token,
-      required this.users_id});
+  const _$AuthenticationImpl({required this.verification_id, required this.reference, required this.code, required this.email, required this.password, required this.access_token, required this.refresh_token, required this.users_id});
 
-  factory _$AuthenticationImpl.fromJson(Map<String, dynamic> json) =>
-      _$$AuthenticationImplFromJson(json);
+  factory _$AuthenticationImpl.fromJson(Map<String, dynamic> json) => _$$AuthenticationImplFromJson(json);
 
   @override
   final int verification_id;
@@ -230,33 +193,24 @@ class _$AuthenticationImpl implements _Authentication {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$AuthenticationImpl &&
-            (identical(other.verification_id, verification_id) ||
-                other.verification_id == verification_id) &&
-            (identical(other.reference, reference) ||
-                other.reference == reference) &&
+            (identical(other.verification_id, verification_id) || other.verification_id == verification_id) &&
+            (identical(other.reference, reference) || other.reference == reference) &&
             (identical(other.code, code) || other.code == code) &&
             (identical(other.email, email) || other.email == email) &&
-            (identical(other.password, password) ||
-                other.password == password) &&
-            (identical(other.access_token, access_token) ||
-                other.access_token == access_token) &&
-            (identical(other.refresh_token, refresh_token) ||
-                other.refresh_token == refresh_token) &&
-            (identical(other.users_id, users_id) ||
-                other.users_id == users_id));
+            (identical(other.password, password) || other.password == password) &&
+            (identical(other.access_token, access_token) || other.access_token == access_token) &&
+            (identical(other.refresh_token, refresh_token) || other.refresh_token == refresh_token) &&
+            (identical(other.users_id, users_id) || other.users_id == users_id));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(runtimeType, verification_id, reference, code,
-      email, password, access_token, refresh_token, users_id);
+  int get hashCode => Object.hash(runtimeType, verification_id, reference, code, email, password, access_token, refresh_token, users_id);
 
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$AuthenticationImplCopyWith<_$AuthenticationImpl> get copyWith =>
-      __$$AuthenticationImplCopyWithImpl<_$AuthenticationImpl>(
-          this, _$identity);
+  _$$AuthenticationImplCopyWith<_$AuthenticationImpl> get copyWith => __$$AuthenticationImplCopyWithImpl<_$AuthenticationImpl>(this, _$identity);
 
   @override
   Map<String, dynamic> toJson() {
@@ -267,18 +221,9 @@ class _$AuthenticationImpl implements _Authentication {
 }
 
 abstract class _Authentication implements Authentication {
-  const factory _Authentication(
-      {required final int verification_id,
-      required final int reference,
-      required final int code,
-      required final String email,
-      required final String password,
-      required final String access_token,
-      required final String refresh_token,
-      required final int users_id}) = _$AuthenticationImpl;
+  const factory _Authentication({required final int verification_id, required final int reference, required final int code, required final String email, required final String password, required final String access_token, required final String refresh_token, required final int users_id}) = _$AuthenticationImpl;
 
-  factory _Authentication.fromJson(Map<String, dynamic> json) =
-      _$AuthenticationImpl.fromJson;
+  factory _Authentication.fromJson(Map<String, dynamic> json) = _$AuthenticationImpl.fromJson;
 
   @override
   int get verification_id;
@@ -298,6 +243,5 @@ abstract class _Authentication implements Authentication {
   int get users_id;
   @override
   @JsonKey(ignore: true)
-  _$$AuthenticationImplCopyWith<_$AuthenticationImpl> get copyWith =>
-      throw _privateConstructorUsedError;
+  _$$AuthenticationImplCopyWith<_$AuthenticationImpl> get copyWith => throw _privateConstructorUsedError;
 }

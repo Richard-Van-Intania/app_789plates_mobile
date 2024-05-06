@@ -1,12 +1,13 @@
 // ignore_for_file: non_constant_identifier_names
 import 'dart:convert';
 import 'dart:io';
-import 'package:app_789plates_mobile/constants.dart';
-import 'package:app_789plates_mobile/model.dart';
 import 'package:flutter/material.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
+import 'constants.dart';
 import 'initialize.dart';
 import 'package:http/http.dart' as http;
+
+import 'model.dart';
 
 part 'provider.g.dart';
 
