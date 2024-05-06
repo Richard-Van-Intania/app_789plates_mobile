@@ -215,6 +215,7 @@ class CreateNewAccount extends _$CreateNewAccount {
   }
 
   Future<void> fetch(String password) async {
+    await ref.read(credentialProvider.notifier).deleteAll();
     final checkVerificationCode = await ref.read(checkVerificationCodeProvider.future);
     if (checkVerificationCode.statusCode == 200) {
       final Uri uri = Uri(
@@ -240,11 +241,9 @@ class CreateNewAccount extends _$CreateNewAccount {
       );
       if (response.statusCode == 200) {
         final Authentication authentication = Authentication.fromJson(jsonDecode(utf8.decode(response.bodyBytes)));
-        await ref.read(credentialProvider.notifier).deleteAll();
         await ref.read(credentialProvider.notifier).write(email: authentication.email, password: authentication.password, access_token: authentication.access_token, refresh_token: authentication.refresh_token, users_id: authentication.users_id);
         state = AsyncData(UnwrapResponse<Authentication>(statusCode: response.statusCode, model: authentication));
       } else {
-        await ref.read(credentialProvider.notifier).deleteAll();
         state = AsyncData(UnwrapResponse<Authentication>(
           statusCode: response.statusCode,
           model: Authentication(
@@ -298,8 +297,6 @@ class SignIn extends _$SignIn {
       await ref.read(credentialProvider.notifier).write(email: authentication.email, password: authentication.password, access_token: authentication.access_token, refresh_token: authentication.refresh_token, users_id: authentication.users_id);
       state = AsyncData(UnwrapResponse<Authentication>(statusCode: response.statusCode, model: authentication));
     } else {
-      // await ref.read(credentialProvider.notifier).deleteAll();
-      // internal server 500
       state = AsyncData(UnwrapResponse<Authentication>(
         statusCode: response.statusCode,
         model: Authentication(
