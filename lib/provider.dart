@@ -540,7 +540,6 @@ class RenewToken extends _$RenewToken {
             await ref.read(credentialProvider.notifier).write(email: authentication.email, password: authentication.password, access_token: authentication.access_token, refresh_token: authentication.refresh_token, users_id: authentication.users_id);
             state = AsyncData(UnwrapResponse<Authentication>(statusCode: response.statusCode, model: authentication));
           } else {
-            await ref.read(credentialProvider.notifier).deleteAll();
             state = AsyncData(UnwrapResponse<Authentication>(
               statusCode: response.statusCode,
               model: Authentication(
