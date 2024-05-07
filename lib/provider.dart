@@ -696,6 +696,7 @@ Future<GoRouter> routeConfig(RouteConfigRef ref) async {
     },
     routes: <RouteBase>[
       StatefulShellRoute.indexedStack(
+        parentNavigatorKey: rootNavigatorKey,
         builder: (BuildContext context, GoRouterState state, StatefulNavigationShell navigationShell) {
           return Scaffold(
             body: navigationShell,
