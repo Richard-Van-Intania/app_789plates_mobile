@@ -2,12 +2,19 @@
 import 'dart:convert';
 import 'dart:io';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'constants.dart';
 import 'initialize.dart';
 import 'package:http/http.dart' as http;
-
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'model.dart';
+import 'screen/sign_in_screen.dart';
+import 'tab/chat_tab.dart';
+import 'tab/explore_tab.dart';
+import 'tab/home_tab.dart';
+import 'tab/saved_tab.dart';
+import 'tab/store_tab.dart';
 
 part 'provider.g.dart';
 
@@ -665,4 +672,132 @@ class Search extends _$Search {
       state = const AsyncData('sign out');
     }
   }
+}
+
+@Riverpod(keepAlive: true)
+Future<GoRouter> routeConfig(RouteConfigRef ref) async {
+  final GlobalKey<NavigatorState> rootNavigatorKey = GlobalKey<NavigatorState>(debugLabel: 'root');
+  final GlobalKey<NavigatorState> homeNavigatorKey = GlobalKey<NavigatorState>(debugLabel: 'home');
+  final GlobalKey<NavigatorState> exploreNavigatorKey = GlobalKey<NavigatorState>(debugLabel: 'explore');
+  final GlobalKey<NavigatorState> savedNavigatorKey = GlobalKey<NavigatorState>(debugLabel: 'saved');
+  final GlobalKey<NavigatorState> chatsNavigatorKey = GlobalKey<NavigatorState>(debugLabel: 'chats');
+  final GlobalKey<NavigatorState> storeNavigatorKey = GlobalKey<NavigatorState>(debugLabel: 'store');
+  final autoSignIn = await ref.read(autoSignInProvider.future);
+
+  final GoRouter goRouter = GoRouter(
+    navigatorKey: rootNavigatorKey,
+    initialLocation: '/home',
+    redirect: (context, state) {
+      if (autoSignIn.statusCode == 200) {
+        return null;
+      } else {
+        return '/sign_in';
+      }
+    },
+    routes: <RouteBase>[
+      StatefulShellRoute.indexedStack(
+        builder: (BuildContext context, GoRouterState state, StatefulNavigationShell navigationShell) {
+          return Scaffold(
+            body: navigationShell,
+            bottomNavigationBar: NavigationBar(
+              selectedIndex: navigationShell.currentIndex,
+              onDestinationSelected: (int index) {
+                navigationShell.goBranch(index, initialLocation: index == navigationShell.currentIndex);
+              },
+              destinations: <Widget>[
+                NavigationDestination(
+                  icon: const Icon(Icons.home_outlined),
+                  selectedIcon: const Icon(Icons.home),
+                  label: AppLocalizations.of(context)!.home,
+                ),
+                NavigationDestination(
+                  icon: const Icon(Icons.explore_outlined),
+                  selectedIcon: const Icon(Icons.explore),
+                  label: AppLocalizations.of(context)!.explore,
+                ),
+                NavigationDestination(
+                  icon: const Icon(Icons.bookmark_border_outlined),
+                  selectedIcon: const Icon(Icons.bookmark_outlined),
+                  label: AppLocalizations.of(context)!.saved,
+                ),
+                NavigationDestination(
+                  icon: const Icon(Icons.chat_outlined),
+                  selectedIcon: const Icon(Icons.chat),
+                  label: AppLocalizations.of(context)!.chats,
+                ),
+                NavigationDestination(
+                  icon: const Icon(Icons.store_outlined),
+                  selectedIcon: const Icon(Icons.store),
+                  label: AppLocalizations.of(context)!.store,
+                ),
+              ],
+            ),
+          );
+        },
+        branches: <StatefulShellBranch>[
+          StatefulShellBranch(
+            navigatorKey: homeNavigatorKey,
+            routes: <RouteBase>[
+              GoRoute(
+                path: '/home',
+                builder: (context, state) => HomeTab(),
+              ),
+            ],
+          ),
+          StatefulShellBranch(
+            navigatorKey: exploreNavigatorKey,
+            routes: <RouteBase>[
+              GoRoute(
+                path: '/explore',
+                builder: (context, state) => ExploreTab(),
+              ),
+            ],
+          ),
+          StatefulShellBranch(
+            navigatorKey: savedNavigatorKey,
+            routes: <RouteBase>[
+              GoRoute(
+                path: '/saved',
+                builder: (context, state) => SavedTab(),
+              ),
+            ],
+          ),
+          StatefulShellBranch(
+            navigatorKey: chatsNavigatorKey,
+            routes: <RouteBase>[
+              GoRoute(
+                path: '/chats',
+                builder: (context, state) => ChatTab(),
+              ),
+            ],
+          ),
+          StatefulShellBranch(
+            navigatorKey: storeNavigatorKey,
+            routes: <RouteBase>[
+              GoRoute(
+                path: '/store',
+                builder: (context, state) => StoreTab(),
+              ),
+            ],
+          ),
+        ],
+      ),
+      GoRoute(
+        path: '/sign_in',
+        builder: (context, state) => SignInScreen(),
+      ),
+      GoRoute(
+        path: '/loading',
+        builder: (context, state) => const Scaffold(body: Center(child: CircularProgressIndicator())),
+      ),
+      GoRoute(
+        path: '/error',
+        builder: (context, state) => const Scaffold(body: Center(child: Text('Oops, something unexpected happened!'))),
+      ),
+    ],
+  );
+
+  // ref.onDispose(goRouter.dispose);
+
+  return goRouter;
 }

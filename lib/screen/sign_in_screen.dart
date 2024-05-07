@@ -2,6 +2,7 @@ import 'package:app_789plates_mobile/provider.dart';
 import 'package:email_validator/email_validator.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
+import 'package:go_router/go_router.dart';
 
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import '../initialize.dart';
@@ -33,7 +34,8 @@ class _SignInScreenState extends ConsumerState<SignInScreen> {
           print(error.toString());
         case AsyncValue(:final valueOrNull?):
           if (valueOrNull.statusCode == 200) {
-            Navigator.of(context, rootNavigator: true).pushAndRemoveUntil(MaterialPageRoute(builder: (context) => const MyHomePage()), (Route<dynamic> route) => false);
+            context.go('/home');
+            // Navigator.of(context, rootNavigator: true).pushAndRemoveUntil(MaterialPageRoute(builder: (context) => const MyHomePage()), (Route<dynamic> route) => false);
           } else {
             print(valueOrNull.statusCode);
           }
@@ -155,6 +157,9 @@ class _SignInScreenState extends ConsumerState<SignInScreen> {
                 ],
               ),
             ),
+            floatingActionButton: FloatingActionButton(onPressed: () {
+              context.go('/home');
+            }),
           ),
         );
       },

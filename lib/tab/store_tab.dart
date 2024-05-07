@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import '../drawer/account_drawer.dart';
@@ -128,12 +129,18 @@ class _StoreTabState extends ConsumerState<StoreTab> {
           Padding(
             padding: const EdgeInsets.all(16.0),
             child: TextButton.icon(
-              onPressed: () {
-                // pop up confirm
+              onPressed: () async {
+                // // pop up confirm
+                // Navigator.pop(context);
+                // await ref.read(credentialProvider.notifier).deleteAll();
+                // ref.invalidate(autoSignInProvider);
+                // ref.invalidate(routeConfigProvider);
+                // Navigator.of(context, rootNavigator: true).pushAndRemoveUntil(MaterialPageRoute(builder: (context) => const SignInScreen()), (Route<dynamic> route) => false);
+
                 Navigator.pop(context);
-                ref.read(credentialProvider.notifier).deleteAll();
+                context.go('/sign_in');
+                await ref.read(credentialProvider.notifier).deleteAll();
                 ref.invalidate(autoSignInProvider);
-                Navigator.of(context, rootNavigator: true).pushAndRemoveUntil(MaterialPageRoute(builder: (context) => const SignInScreen()), (Route<dynamic> route) => false);
               },
               icon: const Icon(Icons.logout_outlined),
               label: Text(AppLocalizations.of(context)!.logOut),

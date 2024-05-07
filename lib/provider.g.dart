@@ -19,6 +19,19 @@ final autoSignInProvider = FutureProvider<UnwrapResponse<Authentication>>.intern
 );
 
 typedef AutoSignInRef = FutureProviderRef<UnwrapResponse<Authentication>>;
+String _$routeConfigHash() => r'74a03661d80c63b21d6c597db5960b4988b804cd';
+
+/// See also [routeConfig].
+@ProviderFor(routeConfig)
+final routeConfigProvider = FutureProvider<GoRouter>.internal(
+  routeConfig,
+  name: r'routeConfigProvider',
+  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product') ? null : _$routeConfigHash,
+  dependencies: null,
+  allTransitiveDependencies: null,
+);
+
+typedef RouteConfigRef = FutureProviderRef<GoRouter>;
 String _$localeUpdateHash() => r'ecfb82dc371b6f83400840c8a6a4a1050dbab199';
 
 /// See also [LocaleUpdate].
