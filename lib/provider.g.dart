@@ -19,7 +19,7 @@ final autoSignInProvider = FutureProvider<UnwrapResponse<Authentication>>.intern
 );
 
 typedef AutoSignInRef = FutureProviderRef<UnwrapResponse<Authentication>>;
-String _$routeConfigHash() => r'14b7ec31df01eee6e1e304896baa8e5967380b3d';
+String _$routeConfigHash() => r'f01f59532ceb6bea9d98d3dc3e4bb34a466eef99';
 
 /// See also [routeConfig].
 @ProviderFor(routeConfig)

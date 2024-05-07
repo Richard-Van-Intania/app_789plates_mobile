@@ -689,6 +689,7 @@ Future<GoRouter> routeConfig(RouteConfigRef ref) async {
     navigatorKey: rootNavigatorKey,
     initialLocation: '/home',
     redirect: (context, state) {
+      print(state.fullPath);
       if (autoSignIn.statusCode == 200) {
         return null;
       } else {

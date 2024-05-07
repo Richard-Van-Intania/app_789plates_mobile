@@ -69,6 +69,7 @@ class MyApp extends HookConsumerWidget {
       routerConfig: switch (routeConfig) {
         AsyncData(:final value) => value,
         AsyncError() => GoRouter(
+            initialLocation: '/on_error',
             routes: [
               GoRoute(
                 path: '/on_error',
@@ -77,6 +78,7 @@ class MyApp extends HookConsumerWidget {
             ],
           ),
         _ => GoRouter(
+            initialLocation: '/on_loading',
             routes: [
               GoRoute(
                 path: '/on_loading',
@@ -104,6 +106,7 @@ final GoRouter goRouter = GoRouter(
   },
   routes: <RouteBase>[
     StatefulShellRoute.indexedStack(
+      parentNavigatorKey: _rootNavigatorKey,
       builder: (BuildContext context, GoRouterState state, StatefulNavigationShell navigationShell) {
         return Scaffold(
           body: navigationShell,
