@@ -158,7 +158,7 @@ class _SignInScreenState extends ConsumerState<SignInScreen> {
               ),
             ),
             floatingActionButton: FloatingActionButton(onPressed: () {
-              context.go('/home');
+              context.go('/error');
             }),
           ),
         );

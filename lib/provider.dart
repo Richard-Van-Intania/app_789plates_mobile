@@ -682,6 +682,7 @@ Future<GoRouter> routeConfig(RouteConfigRef ref) async {
   final GlobalKey<NavigatorState> savedNavigatorKey = GlobalKey<NavigatorState>(debugLabel: 'saved');
   final GlobalKey<NavigatorState> chatsNavigatorKey = GlobalKey<NavigatorState>(debugLabel: 'chats');
   final GlobalKey<NavigatorState> storeNavigatorKey = GlobalKey<NavigatorState>(debugLabel: 'store');
+
   final autoSignIn = await ref.read(autoSignInProvider.future);
 
   final GoRouter goRouter = GoRouter(

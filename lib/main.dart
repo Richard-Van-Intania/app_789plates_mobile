@@ -69,19 +69,17 @@ class MyApp extends HookConsumerWidget {
       routerConfig: switch (routeConfig) {
         AsyncData(:final value) => value,
         AsyncError() => GoRouter(
-            initialLocation: '/error',
             routes: [
               GoRoute(
-                path: '/error',
+                path: '/on_error',
                 builder: (context, state) => const Scaffold(body: Center(child: Text('Oops, something unexpected happened!'))),
               ),
             ],
           ),
         _ => GoRouter(
-            initialLocation: '/loading',
             routes: [
               GoRoute(
-                path: '/loading',
+                path: '/on_loading',
                 builder: (context, state) => const Scaffold(body: Center(child: CircularProgressIndicator())),
               ),
             ],
