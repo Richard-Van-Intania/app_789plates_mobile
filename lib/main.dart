@@ -30,11 +30,11 @@ Future<void> main() async {
     yield LicenseEntryWithLineBreaks(['google_fonts'], license);
   });
   await initialize();
-  runApp(ProviderScope(child: MyApp()));
+  runApp(const ProviderScope(child: MyApp()));
 }
 
 class MyApp extends HookConsumerWidget {
-  MyApp({super.key});
+  const MyApp({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -57,7 +57,8 @@ class MyApp extends HookConsumerWidget {
     // );
 
     // should use redirect
-    final routeConfig = ref.watch(routeConfigProvider);
+
+    final routerConfiguration = ref.watch(routerConfigurationProvider);
     return MaterialApp.router(
       title: '789plates',
       localizationsDelegates: AppLocalizations.localizationsDelegates,
@@ -66,28 +67,45 @@ class MyApp extends HookConsumerWidget {
       themeMode: themeMode,
       theme: ThemeData(fontFamily: 'Noto Sans Thai', useMaterial3: true, colorScheme: lightColorScheme),
       darkTheme: ThemeData(fontFamily: 'Noto Sans Thai', useMaterial3: true, colorScheme: darkColorScheme),
-      routerConfig: switch (routeConfig) {
-        AsyncData(:final value) => value,
-        AsyncError() => GoRouter(
-            initialLocation: '/on_error',
-            routes: [
-              GoRoute(
-                path: '/on_error',
-                builder: (context, state) => const Scaffold(body: Center(child: Text('Oops, something unexpected happened!'))),
-              ),
-            ],
-          ),
-        _ => GoRouter(
-            initialLocation: '/on_loading',
-            routes: [
-              GoRoute(
-                path: '/on_loading',
-                builder: (context, state) => const Scaffold(body: Center(child: CircularProgressIndicator())),
-              ),
-            ],
-          ),
+      routerConfig: switch (routerConfiguration) {
+        AsyncData(:final value) => value.goRouter,
+        AsyncError() => on_error,
+        _ => on_loading,
       },
     );
+
+    //
+    // final autoSignIn = ref.watch(autoSignInProvider);
+    // return MaterialApp.router(
+    //   title: '789plates',
+    //   localizationsDelegates: AppLocalizations.localizationsDelegates,
+    //   supportedLocales: AppLocalizations.supportedLocales,
+    //   locale: locale,
+    //   themeMode: themeMode,
+    //   theme: ThemeData(fontFamily: 'Noto Sans Thai', useMaterial3: true, colorScheme: lightColorScheme),
+    //   darkTheme: ThemeData(fontFamily: 'Noto Sans Thai', useMaterial3: true, colorScheme: darkColorScheme),
+    //   routerConfig: switch (routeConfig) {
+    //     AsyncData(:final value) => value,
+    //     AsyncError() => GoRouter(
+    //         initialLocation: '/on_error',
+    //         routes: [
+    //           GoRoute(
+    //             path: '/on_error',
+    //             builder: (context, state) => const Scaffold(body: Center(child: Text('Oops, something unexpected happened!'))),
+    //           ),
+    //         ],
+    //       ),
+    //     _ => GoRouter(
+    //         initialLocation: '/on_loading',
+    //         routes: [
+    //           GoRoute(
+    //             path: '/on_loading',
+    //             builder: (context, state) => const Scaffold(body: Center(child: CircularProgressIndicator())),
+    //           ),
+    //         ],
+    //       ),
+    //   },
+    // );
   }
 }
 

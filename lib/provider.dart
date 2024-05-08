@@ -269,57 +269,59 @@ class CreateNewAccount extends _$CreateNewAccount {
   }
 }
 
-@riverpod
-class SignIn extends _$SignIn {
-  @override
-  Future<UnwrapResponse<Authentication>> build() async {
-    return unwrapResponse;
-  }
+// // here ------------------------
 
-  Future<void> fetch(String email, String password) async {
-    final Uri uri = Uri(
-      scheme: 'http',
-      host: '10.0.2.2',
-      port: 8700,
-      path: '/sign_in',
-      queryParameters: {'api_key': apiKey},
-    );
-    final response = await http.post(
-      uri,
-      headers: <String, String>{'Content-Type': 'application/json; charset=UTF-8'},
-      body: jsonEncode(Authentication(
-        verification_id: nullAliasInt,
-        reference: nullAliasInt,
-        code: nullAliasInt,
-        email: email,
-        password: password,
-        access_token: nullAliasString,
-        refresh_token: nullAliasString,
-        users_id: nullAliasInt,
-      ).toJson()),
-    );
-    if (response.statusCode == 200) {
-      final Authentication authentication = Authentication.fromJson(jsonDecode(utf8.decode(response.bodyBytes)));
-      await ref.read(credentialProvider.notifier).deleteAll();
-      await ref.read(credentialProvider.notifier).write(email: authentication.email, password: authentication.password, access_token: authentication.access_token, refresh_token: authentication.refresh_token, users_id: authentication.users_id);
-      state = AsyncData(UnwrapResponse<Authentication>(statusCode: response.statusCode, model: authentication));
-    } else {
-      state = AsyncData(UnwrapResponse<Authentication>(
-        statusCode: response.statusCode,
-        model: Authentication(
-          verification_id: nullAliasInt,
-          reference: nullAliasInt,
-          code: nullAliasInt,
-          email: email,
-          password: password,
-          access_token: nullAliasString,
-          refresh_token: nullAliasString,
-          users_id: nullAliasInt,
-        ),
-      ));
-    }
-  }
-}
+// @riverpod
+// class SignIn extends _$SignIn {
+//   @override
+//   Future<UnwrapResponse<Authentication>> build() async {
+//     return unwrapResponse;
+//   }
+
+//   Future<void> fetch(String email, String password) async {
+//     final Uri uri = Uri(
+//       scheme: 'http',
+//       host: '10.0.2.2',
+//       port: 8700,
+//       path: '/sign_in',
+//       queryParameters: {'api_key': apiKey},
+//     );
+//     final response = await http.post(
+//       uri,
+//       headers: <String, String>{'Content-Type': 'application/json; charset=UTF-8'},
+//       body: jsonEncode(Authentication(
+//         verification_id: nullAliasInt,
+//         reference: nullAliasInt,
+//         code: nullAliasInt,
+//         email: email,
+//         password: password,
+//         access_token: nullAliasString,
+//         refresh_token: nullAliasString,
+//         users_id: nullAliasInt,
+//       ).toJson()),
+//     );
+//     if (response.statusCode == 200) {
+//       final Authentication authentication = Authentication.fromJson(jsonDecode(utf8.decode(response.bodyBytes)));
+//       await ref.read(credentialProvider.notifier).deleteAll();
+//       await ref.read(credentialProvider.notifier).write(email: authentication.email, password: authentication.password, access_token: authentication.access_token, refresh_token: authentication.refresh_token, users_id: authentication.users_id);
+//       state = AsyncData(UnwrapResponse<Authentication>(statusCode: response.statusCode, model: authentication));
+//     } else {
+//       state = AsyncData(UnwrapResponse<Authentication>(
+//         statusCode: response.statusCode,
+//         model: Authentication(
+//           verification_id: nullAliasInt,
+//           reference: nullAliasInt,
+//           code: nullAliasInt,
+//           email: email,
+//           password: password,
+//           access_token: nullAliasString,
+//           refresh_token: nullAliasString,
+//           users_id: nullAliasInt,
+//         ),
+//       ));
+//     }
+//   }
+// }
 
 @riverpod
 class ForgotPassword extends _$ForgotPassword {
@@ -576,58 +578,60 @@ class RenewToken extends _$RenewToken {
   }
 }
 
-@Riverpod(keepAlive: true)
-Future<UnwrapResponse<Authentication>> autoSignIn(AutoSignInRef ref) async {
-  final credential = await ref.read(credentialProvider.future);
-  final email = credential['email'];
-  final password = credential['password'];
-  if (email != null && password != null) {
-    final Uri uri = Uri(
-      scheme: 'http',
-      host: '10.0.2.2',
-      port: 8700,
-      path: '/sign_in',
-      queryParameters: {'api_key': apiKey},
-    );
-    final response = await http.post(
-      uri,
-      headers: <String, String>{'Content-Type': 'application/json; charset=UTF-8'},
-      body: jsonEncode(Authentication(
-        verification_id: nullAliasInt,
-        reference: nullAliasInt,
-        code: nullAliasInt,
-        email: email,
-        password: password,
-        access_token: nullAliasString,
-        refresh_token: nullAliasString,
-        users_id: nullAliasInt,
-      ).toJson()),
-    );
-    if (response.statusCode == 200) {
-      final Authentication authentication = Authentication.fromJson(jsonDecode(utf8.decode(response.bodyBytes)));
-      await ref.read(credentialProvider.notifier).deleteAll();
-      await ref.read(credentialProvider.notifier).write(email: authentication.email, password: authentication.password, access_token: authentication.access_token, refresh_token: authentication.refresh_token, users_id: authentication.users_id);
-      return UnwrapResponse<Authentication>(statusCode: response.statusCode, model: authentication);
-    } else {
-      return UnwrapResponse<Authentication>(
-        statusCode: response.statusCode,
-        model: Authentication(
-          verification_id: nullAliasInt,
-          reference: nullAliasInt,
-          code: nullAliasInt,
-          email: email,
-          password: password,
-          access_token: nullAliasString,
-          refresh_token: nullAliasString,
-          users_id: nullAliasInt,
-        ),
-      );
-    }
-  } else {
-    await ref.read(credentialProvider.notifier).deleteAll();
-    return unwrapResponse;
-  }
-}
+// // here ------------------------
+
+// @Riverpod(keepAlive: true)
+// Future<UnwrapResponse<Authentication>> autoSignIn(AutoSignInRef ref) async {
+//   final credential = await ref.read(credentialProvider.future);
+//   final email = credential['email'];
+//   final password = credential['password'];
+//   if (email != null && password != null) {
+//     final Uri uri = Uri(
+//       scheme: 'http',
+//       host: '10.0.2.2',
+//       port: 8700,
+//       path: '/sign_in',
+//       queryParameters: {'api_key': apiKey},
+//     );
+//     final response = await http.post(
+//       uri,
+//       headers: <String, String>{'Content-Type': 'application/json; charset=UTF-8'},
+//       body: jsonEncode(Authentication(
+//         verification_id: nullAliasInt,
+//         reference: nullAliasInt,
+//         code: nullAliasInt,
+//         email: email,
+//         password: password,
+//         access_token: nullAliasString,
+//         refresh_token: nullAliasString,
+//         users_id: nullAliasInt,
+//       ).toJson()),
+//     );
+//     if (response.statusCode == 200) {
+//       final Authentication authentication = Authentication.fromJson(jsonDecode(utf8.decode(response.bodyBytes)));
+//       await ref.read(credentialProvider.notifier).deleteAll();
+//       await ref.read(credentialProvider.notifier).write(email: authentication.email, password: authentication.password, access_token: authentication.access_token, refresh_token: authentication.refresh_token, users_id: authentication.users_id);
+//       return UnwrapResponse<Authentication>(statusCode: response.statusCode, model: authentication);
+//     } else {
+//       return UnwrapResponse<Authentication>(
+//         statusCode: response.statusCode,
+//         model: Authentication(
+//           verification_id: nullAliasInt,
+//           reference: nullAliasInt,
+//           code: nullAliasInt,
+//           email: email,
+//           password: password,
+//           access_token: nullAliasString,
+//           refresh_token: nullAliasString,
+//           users_id: nullAliasInt,
+//         ),
+//       );
+//     }
+//   } else {
+//     await ref.read(credentialProvider.notifier).deleteAll();
+//     return unwrapResponse;
+//   }
+// }
 
 // here jaa
 
@@ -674,133 +678,360 @@ class Search extends _$Search {
   }
 }
 
-@Riverpod(keepAlive: true)
-Future<GoRouter> routeConfig(RouteConfigRef ref) async {
-  final GlobalKey<NavigatorState> rootNavigatorKey = GlobalKey<NavigatorState>(debugLabel: 'root');
-  final GlobalKey<NavigatorState> homeNavigatorKey = GlobalKey<NavigatorState>(debugLabel: 'home');
-  final GlobalKey<NavigatorState> exploreNavigatorKey = GlobalKey<NavigatorState>(debugLabel: 'explore');
-  final GlobalKey<NavigatorState> savedNavigatorKey = GlobalKey<NavigatorState>(debugLabel: 'saved');
-  final GlobalKey<NavigatorState> chatsNavigatorKey = GlobalKey<NavigatorState>(debugLabel: 'chats');
-  final GlobalKey<NavigatorState> storeNavigatorKey = GlobalKey<NavigatorState>(debugLabel: 'store');
+// // here ------------------------
 
-  final autoSignIn = await ref.read(autoSignInProvider.future);
+// @Riverpod(keepAlive: true)
+// Future<GoRouter> routeConfig(RouteConfigRef ref) async {
+//   final GlobalKey<NavigatorState> rootNavigatorKey = GlobalKey<NavigatorState>(debugLabel: 'root');
+//   final GlobalKey<NavigatorState> homeNavigatorKey = GlobalKey<NavigatorState>(debugLabel: 'home');
+//   final GlobalKey<NavigatorState> exploreNavigatorKey = GlobalKey<NavigatorState>(debugLabel: 'explore');
+//   final GlobalKey<NavigatorState> savedNavigatorKey = GlobalKey<NavigatorState>(debugLabel: 'saved');
+//   final GlobalKey<NavigatorState> chatsNavigatorKey = GlobalKey<NavigatorState>(debugLabel: 'chats');
+//   final GlobalKey<NavigatorState> storeNavigatorKey = GlobalKey<NavigatorState>(debugLabel: 'store');
 
-  final GoRouter goRouter = GoRouter(
-    navigatorKey: rootNavigatorKey,
-    initialLocation: '/home',
-    redirect: (context, state) {
-      print(state.fullPath);
-      if (autoSignIn.statusCode == 200) {
-        return null;
-      } else {
-        return '/sign_in';
-      }
-    },
-    routes: <RouteBase>[
-      StatefulShellRoute.indexedStack(
-        parentNavigatorKey: rootNavigatorKey,
-        builder: (BuildContext context, GoRouterState state, StatefulNavigationShell navigationShell) {
-          return Scaffold(
-            body: navigationShell,
-            bottomNavigationBar: NavigationBar(
-              selectedIndex: navigationShell.currentIndex,
-              onDestinationSelected: (int index) {
-                navigationShell.goBranch(index, initialLocation: index == navigationShell.currentIndex);
-              },
-              destinations: <Widget>[
-                NavigationDestination(
-                  icon: const Icon(Icons.home_outlined),
-                  selectedIcon: const Icon(Icons.home),
-                  label: AppLocalizations.of(context)!.home,
-                ),
-                NavigationDestination(
-                  icon: const Icon(Icons.explore_outlined),
-                  selectedIcon: const Icon(Icons.explore),
-                  label: AppLocalizations.of(context)!.explore,
-                ),
-                NavigationDestination(
-                  icon: const Icon(Icons.bookmark_border_outlined),
-                  selectedIcon: const Icon(Icons.bookmark_outlined),
-                  label: AppLocalizations.of(context)!.saved,
-                ),
-                NavigationDestination(
-                  icon: const Icon(Icons.chat_outlined),
-                  selectedIcon: const Icon(Icons.chat),
-                  label: AppLocalizations.of(context)!.chats,
-                ),
-                NavigationDestination(
-                  icon: const Icon(Icons.store_outlined),
-                  selectedIcon: const Icon(Icons.store),
-                  label: AppLocalizations.of(context)!.store,
-                ),
-              ],
+//   final autoSignIn = await ref.watch(autoSignInProvider.future);
+
+//   final GoRouter goRouter = GoRouter(
+//     navigatorKey: rootNavigatorKey,
+//     initialLocation: '/home',
+//     redirect: (context, state) {
+//       // here
+//       print(state.fullPath);
+//       print(autoSignIn.statusCode);
+//       if (autoSignIn.statusCode == 200) {
+//         return null;
+//       } else {
+//         return '/sign_in';
+//       }
+//     },
+//     routes: <RouteBase>[
+//       StatefulShellRoute.indexedStack(
+//         parentNavigatorKey: rootNavigatorKey,
+//         builder: (BuildContext context, GoRouterState state, StatefulNavigationShell navigationShell) {
+//           return Scaffold(
+//             body: navigationShell,
+//             bottomNavigationBar: NavigationBar(
+//               selectedIndex: navigationShell.currentIndex,
+//               onDestinationSelected: (int index) {
+//                 navigationShell.goBranch(index, initialLocation: index == navigationShell.currentIndex);
+//               },
+//               destinations: <Widget>[
+//                 NavigationDestination(
+//                   icon: const Icon(Icons.home_outlined),
+//                   selectedIcon: const Icon(Icons.home),
+//                   label: AppLocalizations.of(context)!.home,
+//                 ),
+//                 NavigationDestination(
+//                   icon: const Icon(Icons.explore_outlined),
+//                   selectedIcon: const Icon(Icons.explore),
+//                   label: AppLocalizations.of(context)!.explore,
+//                 ),
+//                 NavigationDestination(
+//                   icon: const Icon(Icons.bookmark_border_outlined),
+//                   selectedIcon: const Icon(Icons.bookmark_outlined),
+//                   label: AppLocalizations.of(context)!.saved,
+//                 ),
+//                 NavigationDestination(
+//                   icon: const Icon(Icons.chat_outlined),
+//                   selectedIcon: const Icon(Icons.chat),
+//                   label: AppLocalizations.of(context)!.chats,
+//                 ),
+//                 NavigationDestination(
+//                   icon: const Icon(Icons.store_outlined),
+//                   selectedIcon: const Icon(Icons.store),
+//                   label: AppLocalizations.of(context)!.store,
+//                 ),
+//               ],
+//             ),
+//           );
+//         },
+//         branches: <StatefulShellBranch>[
+//           StatefulShellBranch(
+//             navigatorKey: homeNavigatorKey,
+//             routes: <RouteBase>[
+//               GoRoute(
+//                 path: '/home',
+//                 builder: (context, state) => HomeTab(),
+//               ),
+//             ],
+//           ),
+//           StatefulShellBranch(
+//             navigatorKey: exploreNavigatorKey,
+//             routes: <RouteBase>[
+//               GoRoute(
+//                 path: '/explore',
+//                 builder: (context, state) => ExploreTab(),
+//               ),
+//             ],
+//           ),
+//           StatefulShellBranch(
+//             navigatorKey: savedNavigatorKey,
+//             routes: <RouteBase>[
+//               GoRoute(
+//                 path: '/saved',
+//                 builder: (context, state) => SavedTab(),
+//               ),
+//             ],
+//           ),
+//           StatefulShellBranch(
+//             navigatorKey: chatsNavigatorKey,
+//             routes: <RouteBase>[
+//               GoRoute(
+//                 path: '/chats',
+//                 builder: (context, state) => ChatTab(),
+//               ),
+//             ],
+//           ),
+//           StatefulShellBranch(
+//             navigatorKey: storeNavigatorKey,
+//             routes: <RouteBase>[
+//               GoRoute(
+//                 path: '/store',
+//                 builder: (context, state) => StoreTab(),
+//               ),
+//             ],
+//           ),
+//         ],
+//       ),
+//       GoRoute(
+//         path: '/sign_in',
+//         builder: (context, state) => SignInScreen(),
+//       ),
+//       GoRoute(
+//         path: '/loading',
+//         builder: (context, state) => const Scaffold(body: Center(child: CircularProgressIndicator())),
+//       ),
+//       GoRoute(
+//         path: '/error',
+//         builder: (context, state) => const Scaffold(body: Center(child: Text('Oops, something unexpected happened!'))),
+//       ),
+//     ],
+//   );
+
+//   ref.onDispose(goRouter.dispose);
+
+//   return goRouter;
+// }
+
+final GlobalKey<NavigatorState> rootNavigatorKey = GlobalKey<NavigatorState>(debugLabel: 'root');
+final GlobalKey<NavigatorState> homeNavigatorKey = GlobalKey<NavigatorState>(debugLabel: 'home');
+final GlobalKey<NavigatorState> exploreNavigatorKey = GlobalKey<NavigatorState>(debugLabel: 'explore');
+final GlobalKey<NavigatorState> savedNavigatorKey = GlobalKey<NavigatorState>(debugLabel: 'saved');
+final GlobalKey<NavigatorState> chatsNavigatorKey = GlobalKey<NavigatorState>(debugLabel: 'chats');
+final GlobalKey<NavigatorState> storeNavigatorKey = GlobalKey<NavigatorState>(debugLabel: 'store');
+
+final signed_in = GoRouter(
+  navigatorKey: rootNavigatorKey,
+  initialLocation: '/home',
+  routes: <RouteBase>[
+    StatefulShellRoute.indexedStack(
+      parentNavigatorKey: rootNavigatorKey,
+      builder: (BuildContext context, GoRouterState state, StatefulNavigationShell navigationShell) {
+        return Scaffold(
+          body: navigationShell,
+          bottomNavigationBar: NavigationBar(
+            selectedIndex: navigationShell.currentIndex,
+            onDestinationSelected: (int index) {
+              navigationShell.goBranch(index, initialLocation: index == navigationShell.currentIndex);
+            },
+            destinations: <Widget>[
+              NavigationDestination(
+                icon: const Icon(Icons.home_outlined),
+                selectedIcon: const Icon(Icons.home),
+                label: AppLocalizations.of(context)!.home,
+              ),
+              NavigationDestination(
+                icon: const Icon(Icons.explore_outlined),
+                selectedIcon: const Icon(Icons.explore),
+                label: AppLocalizations.of(context)!.explore,
+              ),
+              NavigationDestination(
+                icon: const Icon(Icons.bookmark_border_outlined),
+                selectedIcon: const Icon(Icons.bookmark_outlined),
+                label: AppLocalizations.of(context)!.saved,
+              ),
+              NavigationDestination(
+                icon: const Icon(Icons.chat_outlined),
+                selectedIcon: const Icon(Icons.chat),
+                label: AppLocalizations.of(context)!.chats,
+              ),
+              NavigationDestination(
+                icon: const Icon(Icons.store_outlined),
+                selectedIcon: const Icon(Icons.store),
+                label: AppLocalizations.of(context)!.store,
+              ),
+            ],
+          ),
+        );
+      },
+      branches: <StatefulShellBranch>[
+        StatefulShellBranch(
+          navigatorKey: homeNavigatorKey,
+          routes: <RouteBase>[
+            GoRoute(
+              path: '/home',
+              builder: (context, state) => HomeTab(),
             ),
-          );
-        },
-        branches: <StatefulShellBranch>[
-          StatefulShellBranch(
-            navigatorKey: homeNavigatorKey,
-            routes: <RouteBase>[
-              GoRoute(
-                path: '/home',
-                builder: (context, state) => HomeTab(),
-              ),
-            ],
-          ),
-          StatefulShellBranch(
-            navigatorKey: exploreNavigatorKey,
-            routes: <RouteBase>[
-              GoRoute(
-                path: '/explore',
-                builder: (context, state) => ExploreTab(),
-              ),
-            ],
-          ),
-          StatefulShellBranch(
-            navigatorKey: savedNavigatorKey,
-            routes: <RouteBase>[
-              GoRoute(
-                path: '/saved',
-                builder: (context, state) => SavedTab(),
-              ),
-            ],
-          ),
-          StatefulShellBranch(
-            navigatorKey: chatsNavigatorKey,
-            routes: <RouteBase>[
-              GoRoute(
-                path: '/chats',
-                builder: (context, state) => ChatTab(),
-              ),
-            ],
-          ),
-          StatefulShellBranch(
-            navigatorKey: storeNavigatorKey,
-            routes: <RouteBase>[
-              GoRoute(
-                path: '/store',
-                builder: (context, state) => StoreTab(),
-              ),
-            ],
-          ),
-        ],
-      ),
-      GoRoute(
+          ],
+        ),
+        StatefulShellBranch(
+          navigatorKey: exploreNavigatorKey,
+          routes: <RouteBase>[
+            GoRoute(
+              path: '/explore',
+              builder: (context, state) => ExploreTab(),
+            ),
+          ],
+        ),
+        StatefulShellBranch(
+          navigatorKey: savedNavigatorKey,
+          routes: <RouteBase>[
+            GoRoute(
+              path: '/saved',
+              builder: (context, state) => SavedTab(),
+            ),
+          ],
+        ),
+        StatefulShellBranch(
+          navigatorKey: chatsNavigatorKey,
+          routes: <RouteBase>[
+            GoRoute(
+              path: '/chats',
+              builder: (context, state) => ChatTab(),
+            ),
+          ],
+        ),
+        StatefulShellBranch(
+          navigatorKey: storeNavigatorKey,
+          routes: <RouteBase>[
+            GoRoute(
+              path: '/store',
+              builder: (context, state) => StoreTab(),
+            ),
+          ],
+        ),
+      ],
+    ),
+  ],
+);
+
+final un_signed = GoRouter(
+  initialLocation: '/sign_in',
+  routes: <RouteBase>[
+    GoRoute(
+      path: '/sign_in',
+      builder: (context, state) => SignInScreen(),
+    ),
+  ],
+);
+
+final on_error = GoRouter(
+  initialLocation: '/on_error',
+  routes: [
+    GoRoute(
+      path: '/on_error',
+      builder: (context, state) => const Scaffold(body: Center(child: Text('Oops, something unexpected happened!'))),
+    ),
+  ],
+);
+
+final on_loading = GoRouter(
+  initialLocation: '/on_loading',
+  routes: [
+    GoRoute(
+      path: '/on_loading',
+      builder: (context, state) => const Scaffold(body: Center(child: CircularProgressIndicator())),
+    ),
+  ],
+);
+
+@Riverpod(keepAlive: true)
+class RouterConfiguration extends _$RouterConfiguration {
+  @override
+  Future<GoRouterConfiguration> build() async {
+    final credential = await ref.read(credentialProvider.future);
+    final email = credential['email'];
+    final password = credential['password'];
+    if (email != null && password != null) {
+      final Uri uri = Uri(
+        scheme: 'http',
+        host: '10.0.2.2',
+        port: 8700,
         path: '/sign_in',
-        builder: (context, state) => SignInScreen(),
-      ),
-      GoRoute(
-        path: '/loading',
-        builder: (context, state) => const Scaffold(body: Center(child: CircularProgressIndicator())),
-      ),
-      GoRoute(
-        path: '/error',
-        builder: (context, state) => const Scaffold(body: Center(child: Text('Oops, something unexpected happened!'))),
-      ),
-    ],
-  );
+        queryParameters: {'api_key': apiKey},
+      );
+      final response = await http.post(
+        uri,
+        headers: <String, String>{'Content-Type': 'application/json; charset=UTF-8'},
+        body: jsonEncode(Authentication(
+          verification_id: nullAliasInt,
+          reference: nullAliasInt,
+          code: nullAliasInt,
+          email: email,
+          password: password,
+          access_token: nullAliasString,
+          refresh_token: nullAliasString,
+          users_id: nullAliasInt,
+        ).toJson()),
+      );
+      if (response.statusCode == 200) {
+        final Authentication authentication = Authentication.fromJson(jsonDecode(utf8.decode(response.bodyBytes)));
+        await ref.read(credentialProvider.notifier).deleteAll();
+        await ref.read(credentialProvider.notifier).write(email: authentication.email, password: authentication.password, access_token: authentication.access_token, refresh_token: authentication.refresh_token, users_id: authentication.users_id);
+        return GoRouterConfiguration(
+          statusCode: response.statusCode,
+          goRouter: signed_in,
+        );
+      } else {
+        return GoRouterConfiguration(
+          statusCode: response.statusCode,
+          goRouter: un_signed,
+        );
+      }
+    } else {
+      await ref.read(credentialProvider.notifier).deleteAll();
+      return GoRouterConfiguration(
+        statusCode: 0,
+        goRouter: un_signed,
+      );
+    }
+  }
 
-  // ref.onDispose(goRouter.dispose);
-
-  return goRouter;
+  Future<void> fetch(String email, String password) async {
+    final Uri uri = Uri(
+      scheme: 'http',
+      host: '10.0.2.2',
+      port: 8700,
+      path: '/sign_in',
+      queryParameters: {'api_key': apiKey},
+    );
+    final response = await http.post(
+      uri,
+      headers: <String, String>{'Content-Type': 'application/json; charset=UTF-8'},
+      body: jsonEncode(Authentication(
+        verification_id: nullAliasInt,
+        reference: nullAliasInt,
+        code: nullAliasInt,
+        email: email,
+        password: password,
+        access_token: nullAliasString,
+        refresh_token: nullAliasString,
+        users_id: nullAliasInt,
+      ).toJson()),
+    );
+    if (response.statusCode == 200) {
+      final Authentication authentication = Authentication.fromJson(jsonDecode(utf8.decode(response.bodyBytes)));
+      await ref.read(credentialProvider.notifier).deleteAll();
+      await ref.read(credentialProvider.notifier).write(email: authentication.email, password: authentication.password, access_token: authentication.access_token, refresh_token: authentication.refresh_token, users_id: authentication.users_id);
+      state = AsyncData(GoRouterConfiguration(
+        statusCode: response.statusCode,
+        goRouter: signed_in,
+      ));
+    } else {
+      state = AsyncData(GoRouterConfiguration(
+        statusCode: response.statusCode,
+        goRouter: un_signed,
+      ));
+    }
+  }
 }

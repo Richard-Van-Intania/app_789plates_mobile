@@ -3,6 +3,7 @@ import 'package:app_789plates_mobile/provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
+import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
@@ -57,20 +58,20 @@ class _ExploreTabState extends ConsumerState<ExploreTab> {
           )
         ],
       ),
-      body: search.when(
-        data: (data) => Center(
-          child: Text(
-            data,
-            style: const TextStyle(
-              fontSize: 25.0,
-            ),
-          ),
-        ),
-        error: (e, s) => const Center(child: Text('Uh oh. Something went wrong!')),
-        loading: () => const Center(child: CircularProgressIndicator()),
-      ),
-      floatingActionButton: FloatingActionButton(onPressed: () async {
-        ref.read(searchProvider.notifier).fetch('holaaaa');
+      // body: search.when(
+      //   data: (data) => Center(
+      //     child: Text(
+      //       data,
+      //       style: const TextStyle(
+      //         fontSize: 25.0,
+      //       ),
+      //     ),
+      //   ),
+      //   error: (e, s) => const Center(child: Text('Uh oh. Something went wrong!')),
+      //   loading: () => const Center(child: CircularProgressIndicator()),
+      // ),
+      floatingActionButton: FloatingActionButton(onPressed: () {
+        context.go('/home');
       }),
     );
   }

@@ -138,9 +138,8 @@ class _StoreTabState extends ConsumerState<StoreTab> {
                 // Navigator.of(context, rootNavigator: true).pushAndRemoveUntil(MaterialPageRoute(builder: (context) => const SignInScreen()), (Route<dynamic> route) => false);
 
                 Navigator.pop(context);
-                context.go('/sign_in');
                 await ref.read(credentialProvider.notifier).deleteAll();
-                ref.invalidate(autoSignInProvider);
+                ref.invalidate(routerConfigurationProvider);
               },
               icon: const Icon(Icons.logout_outlined),
               label: Text(AppLocalizations.of(context)!.logOut),

@@ -6,32 +6,6 @@ part of 'provider.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$autoSignInHash() => r'4b4c1b53ce7926d2fc16f6c3fddec78ef416858b';
-
-/// See also [autoSignIn].
-@ProviderFor(autoSignIn)
-final autoSignInProvider = FutureProvider<UnwrapResponse<Authentication>>.internal(
-  autoSignIn,
-  name: r'autoSignInProvider',
-  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product') ? null : _$autoSignInHash,
-  dependencies: null,
-  allTransitiveDependencies: null,
-);
-
-typedef AutoSignInRef = FutureProviderRef<UnwrapResponse<Authentication>>;
-String _$routeConfigHash() => r'f01f59532ceb6bea9d98d3dc3e4bb34a466eef99';
-
-/// See also [routeConfig].
-@ProviderFor(routeConfig)
-final routeConfigProvider = FutureProvider<GoRouter>.internal(
-  routeConfig,
-  name: r'routeConfigProvider',
-  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product') ? null : _$routeConfigHash,
-  dependencies: null,
-  allTransitiveDependencies: null,
-);
-
-typedef RouteConfigRef = FutureProviderRef<GoRouter>;
 String _$localeUpdateHash() => r'ecfb82dc371b6f83400840c8a6a4a1050dbab199';
 
 /// See also [LocaleUpdate].
@@ -136,19 +110,6 @@ final createNewAccountProvider = AutoDisposeAsyncNotifierProvider<CreateNewAccou
 );
 
 typedef _$CreateNewAccount = AutoDisposeAsyncNotifier<UnwrapResponse<Authentication>>;
-String _$signInHash() => r'7092e23b9d2eb7a6fd674bb7ae0cf33c261f8476';
-
-/// See also [SignIn].
-@ProviderFor(SignIn)
-final signInProvider = AutoDisposeAsyncNotifierProvider<SignIn, UnwrapResponse<Authentication>>.internal(
-  SignIn.new,
-  name: r'signInProvider',
-  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product') ? null : _$signInHash,
-  dependencies: null,
-  allTransitiveDependencies: null,
-);
-
-typedef _$SignIn = AutoDisposeAsyncNotifier<UnwrapResponse<Authentication>>;
 String _$forgotPasswordHash() => r'8d7e022caeb84688174c434a9c96affbdfdf81dd';
 
 /// See also [ForgotPassword].
@@ -214,5 +175,18 @@ final searchProvider = AutoDisposeAsyncNotifierProvider<Search, String>.internal
 );
 
 typedef _$Search = AutoDisposeAsyncNotifier<String>;
+String _$routerConfigurationHash() => r'a66ab49f4f50a329a7ea335a2e07c55c38709422';
+
+/// See also [RouterConfiguration].
+@ProviderFor(RouterConfiguration)
+final routerConfigurationProvider = AsyncNotifierProvider<RouterConfiguration, GoRouterConfiguration>.internal(
+  RouterConfiguration.new,
+  name: r'routerConfigurationProvider',
+  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product') ? null : _$routerConfigurationHash,
+  dependencies: null,
+  allTransitiveDependencies: null,
+);
+
+typedef _$RouterConfiguration = AsyncNotifier<GoRouterConfiguration>;
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member

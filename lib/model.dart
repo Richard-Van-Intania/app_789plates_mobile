@@ -1,5 +1,6 @@
 // ignore_for_file: non_constant_identifier_names
 import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:go_router/go_router.dart';
 import 'constants.dart';
 
 part 'model.freezed.dart';
@@ -40,3 +41,9 @@ const unwrapResponse = UnwrapResponse<Authentication>(
     users_id: nullAliasInt,
   ),
 );
+
+class GoRouterConfiguration {
+  GoRouterConfiguration({required this.statusCode, required this.goRouter});
+  final int statusCode;
+  final GoRouter goRouter;
+}

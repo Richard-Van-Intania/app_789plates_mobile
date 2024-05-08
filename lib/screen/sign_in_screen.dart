@@ -22,14 +22,14 @@ class _SignInScreenState extends ConsumerState<SignInScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final signIn = ref.watch(signInProvider);
+    final routerConfiguration = ref.watch(routerConfigurationProvider);
     final emailController = useTextEditingController();
     final passwordController = useTextEditingController();
     final pendingFetch = useState<Future<void>?>(null);
     final snapshot = useFuture(pendingFetch.value);
     final isErrored = snapshot.hasError && snapshot.connectionState != ConnectionState.waiting;
     WidgetsBinding.instance.addPostFrameCallback((Duration timeStamp) {
-      switch (signIn) {
+      switch (routerConfiguration) {
         case AsyncValue(:final error?):
           print(error.toString());
         case AsyncValue(:final valueOrNull?):
@@ -42,7 +42,7 @@ class _SignInScreenState extends ConsumerState<SignInScreen> {
         default:
       }
     });
-    return signIn.when(
+    return routerConfiguration.when(
       data: (data) {
         return PopScope(
           canPop: false,
@@ -107,7 +107,7 @@ class _SignInScreenState extends ConsumerState<SignInScreen> {
                           ? null
                           : () {
                               if (key.currentState!.validate()) {
-                                pendingFetch.value = ref.read(signInProvider.notifier).fetch(emailController.text.trim().toLowerCase(), passwordController.text.trim());
+                                pendingFetch.value = ref.read(routerConfigurationProvider.notifier).fetch(emailController.text.trim().toLowerCase(), passwordController.text.trim());
                                 FocusScope.of(context).unfocus();
                               }
                             },
@@ -157,9 +157,9 @@ class _SignInScreenState extends ConsumerState<SignInScreen> {
                 ],
               ),
             ),
-            floatingActionButton: FloatingActionButton(onPressed: () {
-              context.go('/error');
-            }),
+            // floatingActionButton: FloatingActionButton(onPressed: () {
+            //   context.go('/error');
+            // }),
           ),
         );
       },
