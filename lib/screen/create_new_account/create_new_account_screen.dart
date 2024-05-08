@@ -29,7 +29,8 @@ class _CreateNewAccountScreenState extends ConsumerState<CreateNewAccountScreen>
           print(error.toString());
         case AsyncValue(:final valueOrNull?):
           if (valueOrNull.statusCode == 200) {
-            Navigator.of(context, rootNavigator: true).pushAndRemoveUntil(MaterialPageRoute(builder: (context) => const MyHomePage()), (Route<dynamic> route) => false);
+            ref.invalidate(routerConfigurationProvider);
+            // Navigator.of(context, rootNavigator: true).pushAndRemoveUntil(MaterialPageRoute(builder: (context) => const MyHomePage()), (Route<dynamic> route) => false);
           } else {
             print(valueOrNull.statusCode);
           }

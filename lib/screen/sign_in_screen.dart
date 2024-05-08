@@ -34,7 +34,7 @@ class _SignInScreenState extends ConsumerState<SignInScreen> {
           print(error.toString());
         case AsyncValue(:final valueOrNull?):
           if (valueOrNull.statusCode == 200) {
-            context.go('/home');
+            // context.go('/home');
             // Navigator.of(context, rootNavigator: true).pushAndRemoveUntil(MaterialPageRoute(builder: (context) => const MyHomePage()), (Route<dynamic> route) => false);
           } else {
             print(valueOrNull.statusCode);
