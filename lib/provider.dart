@@ -813,19 +813,19 @@ class Search extends _$Search {
 //   return goRouter;
 // }
 
-final GlobalKey<NavigatorState> rootNavigatorKey = GlobalKey<NavigatorState>(debugLabel: 'root');
-final GlobalKey<NavigatorState> homeNavigatorKey = GlobalKey<NavigatorState>(debugLabel: 'home');
-final GlobalKey<NavigatorState> exploreNavigatorKey = GlobalKey<NavigatorState>(debugLabel: 'explore');
-final GlobalKey<NavigatorState> savedNavigatorKey = GlobalKey<NavigatorState>(debugLabel: 'saved');
-final GlobalKey<NavigatorState> chatsNavigatorKey = GlobalKey<NavigatorState>(debugLabel: 'chats');
-final GlobalKey<NavigatorState> storeNavigatorKey = GlobalKey<NavigatorState>(debugLabel: 'store');
+final GlobalKey<NavigatorState> _rootNavigatorKey = GlobalKey<NavigatorState>(debugLabel: 'root');
+final GlobalKey<NavigatorState> _homeNavigatorKey = GlobalKey<NavigatorState>(debugLabel: 'home');
+final GlobalKey<NavigatorState> _exploreNavigatorKey = GlobalKey<NavigatorState>(debugLabel: 'explore');
+final GlobalKey<NavigatorState> _savedNavigatorKey = GlobalKey<NavigatorState>(debugLabel: 'saved');
+final GlobalKey<NavigatorState> _chatsNavigatorKey = GlobalKey<NavigatorState>(debugLabel: 'chats');
+final GlobalKey<NavigatorState> _storeNavigatorKey = GlobalKey<NavigatorState>(debugLabel: 'store');
 
-final signed_in = GoRouter(
-  navigatorKey: rootNavigatorKey,
+final _signed_in = GoRouter(
+  navigatorKey: _rootNavigatorKey,
   initialLocation: '/home',
   routes: <RouteBase>[
     StatefulShellRoute.indexedStack(
-      parentNavigatorKey: rootNavigatorKey,
+      parentNavigatorKey: _rootNavigatorKey,
       builder: (BuildContext context, GoRouterState state, StatefulNavigationShell navigationShell) {
         return Scaffold(
           body: navigationShell,
@@ -866,7 +866,7 @@ final signed_in = GoRouter(
       },
       branches: <StatefulShellBranch>[
         StatefulShellBranch(
-          navigatorKey: homeNavigatorKey,
+          navigatorKey: _homeNavigatorKey,
           routes: <RouteBase>[
             GoRoute(
               path: '/home',
@@ -875,7 +875,7 @@ final signed_in = GoRouter(
           ],
         ),
         StatefulShellBranch(
-          navigatorKey: exploreNavigatorKey,
+          navigatorKey: _exploreNavigatorKey,
           routes: <RouteBase>[
             GoRoute(
               path: '/explore',
@@ -884,7 +884,7 @@ final signed_in = GoRouter(
           ],
         ),
         StatefulShellBranch(
-          navigatorKey: savedNavigatorKey,
+          navigatorKey: _savedNavigatorKey,
           routes: <RouteBase>[
             GoRoute(
               path: '/saved',
@@ -893,7 +893,7 @@ final signed_in = GoRouter(
           ],
         ),
         StatefulShellBranch(
-          navigatorKey: chatsNavigatorKey,
+          navigatorKey: _chatsNavigatorKey,
           routes: <RouteBase>[
             GoRoute(
               path: '/chats',
@@ -902,7 +902,7 @@ final signed_in = GoRouter(
           ],
         ),
         StatefulShellBranch(
-          navigatorKey: storeNavigatorKey,
+          navigatorKey: _storeNavigatorKey,
           routes: <RouteBase>[
             GoRoute(
               path: '/store',
@@ -915,7 +915,7 @@ final signed_in = GoRouter(
   ],
 );
 
-final un_signed = GoRouter(
+final _un_signed = GoRouter(
   initialLocation: '/sign_in',
   routes: <RouteBase>[
     GoRoute(
@@ -980,19 +980,19 @@ class RouterConfiguration extends _$RouterConfiguration {
         await ref.read(credentialProvider.notifier).write(email: authentication.email, password: authentication.password, access_token: authentication.access_token, refresh_token: authentication.refresh_token, users_id: authentication.users_id);
         return GoRouterConfiguration(
           statusCode: response.statusCode,
-          goRouter: signed_in,
+          goRouter: _signed_in,
         );
       } else {
         return GoRouterConfiguration(
           statusCode: response.statusCode,
-          goRouter: un_signed,
+          goRouter: _un_signed,
         );
       }
     } else {
       await ref.read(credentialProvider.notifier).deleteAll();
       return GoRouterConfiguration(
         statusCode: 0,
-        goRouter: un_signed,
+        goRouter: _un_signed,
       );
     }
   }
@@ -1025,12 +1025,12 @@ class RouterConfiguration extends _$RouterConfiguration {
       await ref.read(credentialProvider.notifier).write(email: authentication.email, password: authentication.password, access_token: authentication.access_token, refresh_token: authentication.refresh_token, users_id: authentication.users_id);
       state = AsyncData(GoRouterConfiguration(
         statusCode: response.statusCode,
-        goRouter: signed_in,
+        goRouter: _signed_in,
       ));
     } else {
       state = AsyncData(GoRouterConfiguration(
         statusCode: response.statusCode,
-        goRouter: un_signed,
+        goRouter: _un_signed,
       ));
     }
   }

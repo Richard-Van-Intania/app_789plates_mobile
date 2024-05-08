@@ -175,7 +175,7 @@ final searchProvider = AutoDisposeAsyncNotifierProvider<Search, String>.internal
 );
 
 typedef _$Search = AutoDisposeAsyncNotifier<String>;
-String _$routerConfigurationHash() => r'a66ab49f4f50a329a7ea335a2e07c55c38709422';
+String _$routerConfigurationHash() => r'9bd2eaad3724e909b48964fe2fa3580a1223e719';
 
 /// See also [RouterConfiguration].
 @ProviderFor(RouterConfiguration)
