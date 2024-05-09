@@ -175,11 +175,11 @@ final searchProvider = AutoDisposeAsyncNotifierProvider<Search, String>.internal
 );
 
 typedef _$Search = AutoDisposeAsyncNotifier<String>;
-String _$routerConfigurationHash() => r'9bd2eaad3724e909b48964fe2fa3580a1223e719';
+String _$routerConfigurationHash() => r'7262a390d0a27e1085b14115bb1f236f49e05a34';
 
 /// See also [RouterConfiguration].
 @ProviderFor(RouterConfiguration)
-final routerConfigurationProvider = AsyncNotifierProvider<RouterConfiguration, GoRouterConfiguration>.internal(
+final routerConfigurationProvider = AsyncNotifierProvider<RouterConfiguration, RouterWithStatusCode>.internal(
   RouterConfiguration.new,
   name: r'routerConfigurationProvider',
   debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product') ? null : _$routerConfigurationHash,
@@ -187,6 +187,19 @@ final routerConfigurationProvider = AsyncNotifierProvider<RouterConfiguration, G
   allTransitiveDependencies: null,
 );
 
-typedef _$RouterConfiguration = AsyncNotifier<GoRouterConfiguration>;
+typedef _$RouterConfiguration = AsyncNotifier<RouterWithStatusCode>;
+String _$dynamicRoutingConfigHash() => r'68cfa440a383ba34fbf9c73b6ffb0c0464f8df31';
+
+/// See also [DynamicRoutingConfig].
+@ProviderFor(DynamicRoutingConfig)
+final dynamicRoutingConfigProvider = AsyncNotifierProvider<DynamicRoutingConfig, RouterWithStatusCode>.internal(
+  DynamicRoutingConfig.new,
+  name: r'dynamicRoutingConfigProvider',
+  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product') ? null : _$dynamicRoutingConfigHash,
+  dependencies: null,
+  allTransitiveDependencies: null,
+);
+
+typedef _$DynamicRoutingConfig = AsyncNotifier<RouterWithStatusCode>;
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member

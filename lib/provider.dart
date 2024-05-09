@@ -952,7 +952,7 @@ final on_loading = GoRouter(
 @Riverpod(keepAlive: true)
 class RouterConfiguration extends _$RouterConfiguration {
   @override
-  Future<GoRouterConfiguration> build() async {
+  Future<RouterWithStatusCode> build() async {
     final credential = await ref.read(credentialProvider.future);
     final email = credential['email'];
     final password = credential['password'];
@@ -982,21 +982,21 @@ class RouterConfiguration extends _$RouterConfiguration {
         final Authentication authentication = Authentication.fromJson(jsonDecode(utf8.decode(response.bodyBytes)));
         await ref.read(credentialProvider.notifier).deleteAll();
         await ref.read(credentialProvider.notifier).write(email: authentication.email, password: authentication.password, access_token: authentication.access_token, refresh_token: authentication.refresh_token, users_id: authentication.users_id);
-        return GoRouterConfiguration(
+        return RouterWithStatusCode(
           statusCode: response.statusCode,
-          goRouter: _signed_in,
+          router: _signed_in,
         );
       } else {
-        return GoRouterConfiguration(
+        return RouterWithStatusCode(
           statusCode: response.statusCode,
-          goRouter: _un_signed,
+          router: _un_signed,
         );
       }
     } else {
       await ref.read(credentialProvider.notifier).deleteAll();
-      return GoRouterConfiguration(
+      return RouterWithStatusCode(
         statusCode: 0,
-        goRouter: _un_signed,
+        router: _un_signed,
       );
     }
   }
@@ -1027,15 +1027,116 @@ class RouterConfiguration extends _$RouterConfiguration {
       final Authentication authentication = Authentication.fromJson(jsonDecode(utf8.decode(response.bodyBytes)));
       await ref.read(credentialProvider.notifier).deleteAll();
       await ref.read(credentialProvider.notifier).write(email: authentication.email, password: authentication.password, access_token: authentication.access_token, refresh_token: authentication.refresh_token, users_id: authentication.users_id);
-      state = AsyncData(GoRouterConfiguration(
+      state = AsyncData(RouterWithStatusCode(
         statusCode: response.statusCode,
-        goRouter: _signed_in,
+        router: _signed_in,
       ));
     } else {
-      state = AsyncData(GoRouterConfiguration(
+      state = AsyncData(RouterWithStatusCode(
         statusCode: response.statusCode,
-        goRouter: _un_signed,
+        router: _un_signed,
       ));
     }
   }
 }
+
+@Riverpod(keepAlive: true)
+class DynamicRoutingConfig extends _$DynamicRoutingConfig {
+  @override
+  Future<RouterWithStatusCode> build() async {
+    final credential = await ref.read(credentialProvider.future);
+    final email = credential['email'];
+    final password = credential['password'];
+    if (email != null && password != null) {
+      final Uri uri = Uri(
+        scheme: 'http',
+        host: '10.0.2.2',
+        port: 8700,
+        path: '/sign_in',
+        queryParameters: {'api_key': apiKey},
+      );
+      final response = await http.post(
+        uri,
+        headers: <String, String>{'Content-Type': 'application/json; charset=UTF-8'},
+        body: jsonEncode(Authentication(
+          verification_id: nullAliasInt,
+          reference: nullAliasInt,
+          code: nullAliasInt,
+          email: email,
+          password: password,
+          access_token: nullAliasString,
+          refresh_token: nullAliasString,
+          users_id: nullAliasInt,
+        ).toJson()),
+      );
+      if (response.statusCode == 200) {
+        final Authentication authentication = Authentication.fromJson(jsonDecode(utf8.decode(response.bodyBytes)));
+        await ref.read(credentialProvider.notifier).deleteAll();
+        await ref.read(credentialProvider.notifier).write(email: authentication.email, password: authentication.password, access_token: authentication.access_token, refresh_token: authentication.refresh_token, users_id: authentication.users_id);
+        return RouterWithStatusCode(
+          statusCode: response.statusCode,
+          router: _signed_in,
+        );
+      } else {
+        return RouterWithStatusCode(
+          statusCode: response.statusCode,
+          router: _un_signed,
+        );
+      }
+    } else {
+      await ref.read(credentialProvider.notifier).deleteAll();
+      return RouterWithStatusCode(
+        statusCode: 0,
+        router: _un_signed,
+      );
+    }
+  }
+
+  Future<void> fetch(String email, String password) async {
+    final Uri uri = Uri(
+      scheme: 'http',
+      host: '10.0.2.2',
+      port: 8700,
+      path: '/sign_in',
+      queryParameters: {'api_key': apiKey},
+    );
+    final response = await http.post(
+      uri,
+      headers: <String, String>{'Content-Type': 'application/json; charset=UTF-8'},
+      body: jsonEncode(Authentication(
+        verification_id: nullAliasInt,
+        reference: nullAliasInt,
+        code: nullAliasInt,
+        email: email,
+        password: password,
+        access_token: nullAliasString,
+        refresh_token: nullAliasString,
+        users_id: nullAliasInt,
+      ).toJson()),
+    );
+    if (response.statusCode == 200) {
+      final Authentication authentication = Authentication.fromJson(jsonDecode(utf8.decode(response.bodyBytes)));
+      await ref.read(credentialProvider.notifier).deleteAll();
+      await ref.read(credentialProvider.notifier).write(email: authentication.email, password: authentication.password, access_token: authentication.access_token, refresh_token: authentication.refresh_token, users_id: authentication.users_id);
+      state = AsyncData(RouterWithStatusCode(
+        statusCode: response.statusCode,
+        router: _signed_in,
+      ));
+    } else {
+      state = AsyncData(RouterWithStatusCode(
+        statusCode: response.statusCode,
+        router: _un_signed,
+      ));
+    }
+  }
+}
+
+final ValueNotifier<RoutingConfig> routingConfig = ValueNotifier<RoutingConfig>(
+  RoutingConfig(
+    routes: <RouteBase>[
+      GoRoute(path: '/sign_in', builder: (context, state) => SignInScreen()),
+    ],
+  ),
+);
+
+final GoRouter router = GoRouter.routingConfig(routingConfig: routingConfig);

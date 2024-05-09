@@ -42,8 +42,8 @@ const unwrapResponse = UnwrapResponse<Authentication>(
   ),
 );
 
-class GoRouterConfiguration {
-  GoRouterConfiguration({required this.statusCode, required this.goRouter});
+class RouterWithStatusCode {
+  RouterWithStatusCode({required this.statusCode, required this.router});
   final int statusCode;
-  final GoRouter goRouter;
+  final GoRouter router;
 }

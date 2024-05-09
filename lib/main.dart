@@ -68,7 +68,7 @@ class MyApp extends HookConsumerWidget {
       theme: ThemeData(fontFamily: 'Noto Sans Thai', useMaterial3: true, colorScheme: lightColorScheme),
       darkTheme: ThemeData(fontFamily: 'Noto Sans Thai', useMaterial3: true, colorScheme: darkColorScheme),
       routerConfig: switch (routerConfiguration) {
-        AsyncData(:final value) => value.goRouter,
+        AsyncData(:final value) => value.router,
         AsyncError() => on_error,
         _ => on_loading,
       },

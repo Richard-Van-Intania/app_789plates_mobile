@@ -6,7 +6,8 @@ part of 'model.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-_$AuthenticationImpl _$$AuthenticationImplFromJson(Map<String, dynamic> json) => _$AuthenticationImpl(
+_$AuthenticationImpl _$$AuthenticationImplFromJson(Map<String, dynamic> json) =>
+    _$AuthenticationImpl(
       verification_id: (json['verification_id'] as num).toInt(),
       reference: (json['reference'] as num).toInt(),
       code: (json['code'] as num).toInt(),
@@ -17,7 +18,9 @@ _$AuthenticationImpl _$$AuthenticationImplFromJson(Map<String, dynamic> json) =>
       users_id: (json['users_id'] as num).toInt(),
     );
 
-Map<String, dynamic> _$$AuthenticationImplToJson(_$AuthenticationImpl instance) => <String, dynamic>{
+Map<String, dynamic> _$$AuthenticationImplToJson(
+        _$AuthenticationImpl instance) =>
+    <String, dynamic>{
       'verification_id': instance.verification_id,
       'reference': instance.reference,
       'code': instance.code,
