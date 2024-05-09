@@ -188,18 +188,5 @@ final routerConfigurationProvider = AsyncNotifierProvider<RouterConfiguration, R
 );
 
 typedef _$RouterConfiguration = AsyncNotifier<RouterWithStatusCode>;
-String _$dynamicRoutingConfigHash() => r'68cfa440a383ba34fbf9c73b6ffb0c0464f8df31';
-
-/// See also [DynamicRoutingConfig].
-@ProviderFor(DynamicRoutingConfig)
-final dynamicRoutingConfigProvider = AsyncNotifierProvider<DynamicRoutingConfig, RouterWithStatusCode>.internal(
-  DynamicRoutingConfig.new,
-  name: r'dynamicRoutingConfigProvider',
-  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product') ? null : _$dynamicRoutingConfigHash,
-  dependencies: null,
-  allTransitiveDependencies: null,
-);
-
-typedef _$DynamicRoutingConfig = AsyncNotifier<RouterWithStatusCode>;
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member
