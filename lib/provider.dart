@@ -823,6 +823,7 @@ final GlobalKey<NavigatorState> _storeNavigatorKey = GlobalKey<NavigatorState>(d
 final _signed_in = GoRouter(
   navigatorKey: _rootNavigatorKey,
   initialLocation: '/home',
+  debugLogDiagnostics: true,
   routes: <RouteBase>[
     StatefulShellRoute.indexedStack(
       parentNavigatorKey: _rootNavigatorKey,
@@ -917,6 +918,7 @@ final _signed_in = GoRouter(
 
 final _un_signed = GoRouter(
   initialLocation: '/sign_in',
+  debugLogDiagnostics: true,
   routes: <RouteBase>[
     GoRoute(
       path: '/sign_in',
@@ -927,6 +929,7 @@ final _un_signed = GoRouter(
 
 final on_error = GoRouter(
   initialLocation: '/on_error',
+  debugLogDiagnostics: true,
   routes: [
     GoRoute(
       path: '/on_error',
@@ -937,6 +940,7 @@ final on_error = GoRouter(
 
 final on_loading = GoRouter(
   initialLocation: '/on_loading',
+  debugLogDiagnostics: true,
   routes: [
     GoRoute(
       path: '/on_loading',

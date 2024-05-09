@@ -44,8 +44,14 @@ provider name
 
 route name same as provider name
 
-auto login
+
+
+
 
 lillpu@live.com
 
 upYnjd5NhQno1GHgxAMQNF0vDNw_
+
+
+Dynamic RoutingConfig
+
