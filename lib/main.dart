@@ -1,11 +1,7 @@
-import 'package:app_789plates_mobile/constants.dart';
-import 'package:app_789plates_mobile/model.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import 'package:go_router/go_router.dart';
-
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'color_schemes.g.dart';
 import 'initialize.dart';
@@ -37,11 +33,11 @@ class MyApp extends HookConsumerWidget {
       themeMode: themeMode,
       theme: ThemeData(fontFamily: 'Noto Sans Thai', useMaterial3: true, colorScheme: lightColorScheme),
       darkTheme: ThemeData(fontFamily: 'Noto Sans Thai', useMaterial3: true, colorScheme: darkColorScheme),
-      routerConfig: switch (routingConfig) {
-        AsyncData(:final value) => value.router,
-        AsyncError() => errorRoute,
-        _ => loadingRoute,
-      },
+      routerConfig: routingConfig.when(
+        data: (data) => data.router,
+        error: (error, stackTrace) => errorRoute,
+        loading: () => loadingRoute,
+      ),
     );
   }
 }

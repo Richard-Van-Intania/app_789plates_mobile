@@ -35,7 +35,6 @@ class _SignInScreenState extends ConsumerState<SignInScreen> {
         case AsyncValue(:final valueOrNull?):
           if (valueOrNull.statusCode == 200) {
             // context.go('/home');
-            // Navigator.of(context, rootNavigator: true).pushAndRemoveUntil(MaterialPageRoute(builder: (context) => const MyHomePage()), (Route<dynamic> route) => false);
           } else {
             print(valueOrNull.statusCode);
           }
@@ -128,10 +127,6 @@ class _SignInScreenState extends ConsumerState<SignInScreen> {
                   ),
                   SizedBox(
                     height: 24,
-                  ),
-                  ElevatedButton(
-                    onPressed: () {},
-                    child: Text('use as anonyumous'),
                   ),
                   SizedBox(
                     height: 24,

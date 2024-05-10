@@ -32,7 +32,6 @@ class _ResetPasswordScreenState extends ConsumerState<ResetPasswordScreen> {
           if (valueOrNull.statusCode == 200) {
             ref.invalidate(routingConfigProvider);
             //
-            // Navigator.of(context, rootNavigator: true).pushAndRemoveUntil(MaterialPageRoute(builder: (context) => const MyHomePage()), (Route<dynamic> route) => false);
           } else {
             print(valueOrNull.statusCode);
           }
