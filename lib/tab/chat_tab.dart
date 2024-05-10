@@ -52,9 +52,7 @@ class _ChatTabState extends ConsumerState<ChatTab> {
               subtitle: Text('Supporting text'),
               trailing: Icon(Icons.favorite_rounded),
               isThreeLine: true,
-              onTap: () {
-                Navigator.of(context, rootNavigator: true).push(MaterialPageRoute(builder: (context) => const ChatRoomScreen()));
-              },
+              onTap: () {},
             ),
           ],
         ));

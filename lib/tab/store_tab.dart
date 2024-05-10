@@ -135,7 +135,6 @@ class _StoreTabState extends ConsumerState<StoreTab> {
                 // await ref.read(credentialProvider.notifier).deleteAll();
                 // ref.invalidate(autoSignInProvider);
                 // ref.invalidate(routeConfigProvider);
-                // Navigator.of(context, rootNavigator: true).pushAndRemoveUntil(MaterialPageRoute(builder: (context) => const SignInScreen()), (Route<dynamic> route) => false);
 
                 Navigator.pop(context);
                 await ref.read(credentialProvider.notifier).deleteAll();

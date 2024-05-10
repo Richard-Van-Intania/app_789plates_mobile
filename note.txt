@@ -11,6 +11,8 @@ StatefulHookConsumerWidget
 
    Navigator.of(context, rootNavigator: true).push(MaterialPageRoute(builder: (context) => const ChatRoomScreen()));
 
+         // Navigator.of(context, rootNavigator: true).pushAndRemoveUntil(MaterialPageRoute(builder: (context) => const SignInScreen()), (Route<dynamic> route) => false);
+
 
 
     Navigator.of(context).pushAndRemoveUntil(MaterialPageRoute(builder: (context) => const MainScreen()), (Route<dynamic> route) => false);

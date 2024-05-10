@@ -10,18 +10,6 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'color_schemes.g.dart';
 import 'initialize.dart';
 import 'provider.dart';
-import 'screen/create_new_account/create_new_account_screen.dart';
-import 'screen/create_new_account/check_availability_email_screen.dart';
-import 'screen/reset_password/forgot_password_screen.dart';
-
-import 'screen/reset_password/reset_password_screen.dart';
-import 'screen/sign_in_screen.dart';
-
-import 'tab/chat_tab.dart';
-import 'tab/explore_tab.dart';
-import 'tab/home_tab.dart';
-import 'tab/saved_tab.dart';
-import 'tab/store_tab.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
