@@ -40,7 +40,7 @@ class MyApp extends HookConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final Locale locale = ref.watch(localeUpdateProvider);
     final ThemeMode themeMode = ref.watch(themeModeUpdateProvider);
-    final routerConfiguration = ref.watch(routerConfigurationProvider);
+    final routingConfig = ref.watch(routingConfigProvider);
     return MaterialApp.router(
       title: '789plates',
       localizationsDelegates: AppLocalizations.localizationsDelegates,
@@ -49,10 +49,10 @@ class MyApp extends HookConsumerWidget {
       themeMode: themeMode,
       theme: ThemeData(fontFamily: 'Noto Sans Thai', useMaterial3: true, colorScheme: lightColorScheme),
       darkTheme: ThemeData(fontFamily: 'Noto Sans Thai', useMaterial3: true, colorScheme: darkColorScheme),
-      routerConfig: switch (routerConfiguration) {
+      routerConfig: switch (routingConfig) {
         AsyncData(:final value) => value.router,
-        AsyncError() => on_error,
-        _ => on_loading,
+        AsyncError() => errorRoute,
+        _ => loadingRoute,
       },
     );
   }

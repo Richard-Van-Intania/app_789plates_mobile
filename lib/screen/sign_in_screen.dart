@@ -22,14 +22,14 @@ class _SignInScreenState extends ConsumerState<SignInScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final routerConfiguration = ref.watch(routerConfigurationProvider);
+    final routingConfig = ref.watch(routingConfigProvider);
     final emailController = useTextEditingController();
     final passwordController = useTextEditingController();
     final pendingFetch = useState<Future<void>?>(null);
     final snapshot = useFuture(pendingFetch.value);
     final isErrored = snapshot.hasError && snapshot.connectionState != ConnectionState.waiting;
     WidgetsBinding.instance.addPostFrameCallback((Duration timeStamp) {
-      switch (routerConfiguration) {
+      switch (routingConfig) {
         case AsyncValue(:final error?):
           print(error.toString());
         case AsyncValue(:final valueOrNull?):
@@ -42,7 +42,7 @@ class _SignInScreenState extends ConsumerState<SignInScreen> {
         default:
       }
     });
-    return routerConfiguration.when(
+    return routingConfig.when(
       data: (data) {
         return PopScope(
           canPop: false,
@@ -107,7 +107,7 @@ class _SignInScreenState extends ConsumerState<SignInScreen> {
                           ? null
                           : () {
                               if (key.currentState!.validate()) {
-                                pendingFetch.value = ref.read(routerConfigurationProvider.notifier).fetch(emailController.text.trim().toLowerCase(), passwordController.text.trim());
+                                pendingFetch.value = ref.read(routingConfigProvider.notifier).fetch(emailController.text.trim().toLowerCase(), passwordController.text.trim());
                                 FocusScope.of(context).unfocus();
                               }
                             },

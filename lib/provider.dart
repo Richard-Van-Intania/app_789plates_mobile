@@ -33,13 +33,6 @@ class LocaleUpdate extends _$LocaleUpdate {
 }
 
 @riverpod
-class TabIndex extends _$TabIndex {
-  @override
-  int build() => 0;
-  void updateTabIndex(int index) => state = index;
-}
-
-@riverpod
 class DrawerIndex extends _$DrawerIndex {
   @override
   int build() => 0;
@@ -574,7 +567,7 @@ final GlobalKey<NavigatorState> _savedNavigatorKey = GlobalKey<NavigatorState>(d
 final GlobalKey<NavigatorState> _chatsNavigatorKey = GlobalKey<NavigatorState>(debugLabel: 'chats');
 final GlobalKey<NavigatorState> _storeNavigatorKey = GlobalKey<NavigatorState>(debugLabel: 'store');
 
-final _signed_in = GoRouter(
+final signedInRoute = GoRouter(
   navigatorKey: _rootNavigatorKey,
   initialLocation: '/home',
   debugLogDiagnostics: true,
@@ -670,7 +663,7 @@ final _signed_in = GoRouter(
   ],
 );
 
-final _un_signed = GoRouter(
+final unSignedRoute = GoRouter(
   initialLocation: '/sign_in',
   debugLogDiagnostics: true,
   redirect: (context, state) {
@@ -684,30 +677,30 @@ final _un_signed = GoRouter(
   ],
 );
 
-final on_error = GoRouter(
-  initialLocation: '/on_error',
+final errorRoute = GoRouter(
+  initialLocation: '/error',
   debugLogDiagnostics: true,
   routes: [
     GoRoute(
-      path: '/on_error',
+      path: '/error',
       builder: (context, state) => const Scaffold(body: Center(child: Text('Oops, something unexpected happened!'))),
     ),
   ],
 );
 
-final on_loading = GoRouter(
-  initialLocation: '/on_loading',
+final loadingRoute = GoRouter(
+  initialLocation: '/loading',
   debugLogDiagnostics: true,
   routes: [
     GoRoute(
-      path: '/on_loading',
+      path: '/loading',
       builder: (context, state) => const Scaffold(body: Center(child: CircularProgressIndicator())),
     ),
   ],
 );
 
 @Riverpod(keepAlive: true)
-class RouterConfiguration extends _$RouterConfiguration {
+class RoutingConfig extends _$RoutingConfig {
   @override
   Future<RouterWithStatusCode> build() async {
     final credential = await ref.read(credentialProvider.future);
@@ -741,19 +734,19 @@ class RouterConfiguration extends _$RouterConfiguration {
         await ref.read(credentialProvider.notifier).write(email: authentication.email, password: authentication.password, access_token: authentication.access_token, refresh_token: authentication.refresh_token, users_id: authentication.users_id);
         return RouterWithStatusCode(
           statusCode: response.statusCode,
-          router: _signed_in,
+          router: signedInRoute,
         );
       } else {
         return RouterWithStatusCode(
           statusCode: response.statusCode,
-          router: _un_signed,
+          router: unSignedRoute,
         );
       }
     } else {
       await ref.read(credentialProvider.notifier).deleteAll();
       return RouterWithStatusCode(
         statusCode: 0,
-        router: _un_signed,
+        router: unSignedRoute,
       );
     }
   }
@@ -786,12 +779,12 @@ class RouterConfiguration extends _$RouterConfiguration {
       await ref.read(credentialProvider.notifier).write(email: authentication.email, password: authentication.password, access_token: authentication.access_token, refresh_token: authentication.refresh_token, users_id: authentication.users_id);
       state = AsyncData(RouterWithStatusCode(
         statusCode: response.statusCode,
-        router: _signed_in,
+        router: signedInRoute,
       ));
     } else {
       state = AsyncData(RouterWithStatusCode(
         statusCode: response.statusCode,
-        router: _un_signed,
+        router: unSignedRoute,
       ));
     }
   }

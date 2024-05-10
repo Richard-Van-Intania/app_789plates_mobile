@@ -19,19 +19,6 @@ final localeUpdateProvider = AutoDisposeNotifierProvider<LocaleUpdate, Locale>.i
 );
 
 typedef _$LocaleUpdate = AutoDisposeNotifier<Locale>;
-String _$tabIndexHash() => r'94c85a9090a1843123f5e566f8b967538c3c5b69';
-
-/// See also [TabIndex].
-@ProviderFor(TabIndex)
-final tabIndexProvider = AutoDisposeNotifierProvider<TabIndex, int>.internal(
-  TabIndex.new,
-  name: r'tabIndexProvider',
-  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product') ? null : _$tabIndexHash,
-  dependencies: null,
-  allTransitiveDependencies: null,
-);
-
-typedef _$TabIndex = AutoDisposeNotifier<int>;
 String _$drawerIndexHash() => r'a09012e30c1335159b5e2eb1a29bf036d42bd255';
 
 /// See also [DrawerIndex].
@@ -175,18 +162,18 @@ final searchProvider = AutoDisposeAsyncNotifierProvider<Search, String>.internal
 );
 
 typedef _$Search = AutoDisposeAsyncNotifier<String>;
-String _$routerConfigurationHash() => r'7262a390d0a27e1085b14115bb1f236f49e05a34';
+String _$routingConfigHash() => r'22541998a364d4a6c1f9b9acb2b34d56b70eac02';
 
-/// See also [RouterConfiguration].
-@ProviderFor(RouterConfiguration)
-final routerConfigurationProvider = AsyncNotifierProvider<RouterConfiguration, RouterWithStatusCode>.internal(
-  RouterConfiguration.new,
-  name: r'routerConfigurationProvider',
-  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product') ? null : _$routerConfigurationHash,
+/// See also [RoutingConfig].
+@ProviderFor(RoutingConfig)
+final routingConfigProvider = AsyncNotifierProvider<RoutingConfig, RouterWithStatusCode>.internal(
+  RoutingConfig.new,
+  name: r'routingConfigProvider',
+  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product') ? null : _$routingConfigHash,
   dependencies: null,
   allTransitiveDependencies: null,
 );
 
-typedef _$RouterConfiguration = AsyncNotifier<RouterWithStatusCode>;
+typedef _$RoutingConfig = AsyncNotifier<RouterWithStatusCode>;
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member

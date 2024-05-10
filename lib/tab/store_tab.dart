@@ -139,7 +139,7 @@ class _StoreTabState extends ConsumerState<StoreTab> {
 
                 Navigator.pop(context);
                 await ref.read(credentialProvider.notifier).deleteAll();
-                ref.invalidate(routerConfigurationProvider);
+                ref.invalidate(routingConfigProvider);
               },
               icon: const Icon(Icons.logout_outlined),
               label: Text(AppLocalizations.of(context)!.logOut),
