@@ -19,19 +19,6 @@ final localeUpdateProvider = AutoDisposeNotifierProvider<LocaleUpdate, Locale>.i
 );
 
 typedef _$LocaleUpdate = AutoDisposeNotifier<Locale>;
-String _$drawerIndexHash() => r'a09012e30c1335159b5e2eb1a29bf036d42bd255';
-
-/// See also [DrawerIndex].
-@ProviderFor(DrawerIndex)
-final drawerIndexProvider = AutoDisposeNotifierProvider<DrawerIndex, int>.internal(
-  DrawerIndex.new,
-  name: r'drawerIndexProvider',
-  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product') ? null : _$drawerIndexHash,
-  dependencies: null,
-  allTransitiveDependencies: null,
-);
-
-typedef _$DrawerIndex = AutoDisposeNotifier<int>;
 String _$themeModeUpdateHash() => r'dabfd75d393239efa938cb4d1a28a4224c892c78';
 
 /// See also [ThemeModeUpdate].

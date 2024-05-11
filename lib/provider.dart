@@ -29,13 +29,6 @@ class LocaleUpdate extends _$LocaleUpdate {
 }
 
 @riverpod
-class DrawerIndex extends _$DrawerIndex {
-  @override
-  int build() => 0;
-  void updateDrawerIndex(int index) => state = index;
-}
-
-@riverpod
 class ThemeModeUpdate extends _$ThemeModeUpdate {
   @override
   ThemeMode build() {
@@ -633,3 +626,43 @@ class DynamicRouteConfig extends _$DynamicRouteConfig {
     state = AsyncData(response.statusCode);
   }
 }
+
+// @riverpod
+// class ChangePassword extends _$ChangePassword {
+//   @override
+//   Future<int> build() async {
+//     return 0;
+//   }
+
+//   Future<void> fetch(String pw) async {
+//     final credential = await ref.read(credentialProvider.future);
+//     final email = credential['email'];
+//     final password = credential['password'];
+//     final access_token = credential['access_token'];
+//     final users_id = credential['users_id'];
+//     if (email != null && password != null && access_token != null && users_id != null && (password == pw)) {
+//       final Uri uri = Uri(
+//         scheme: 'http',
+//         host: '10.0.2.2',
+//         port: 8700,
+//         path: '/change_password',
+//       );
+//       final response = await http.put(
+//         uri,
+//         headers: <String, String>{'Content-Type': 'application/json; charset=UTF-8', HttpHeaders.authorizationHeader: 'Bearer $access_token'},
+//         body: jsonEncode(Authentication(
+//           verification_id: nullAliasInt,
+//           reference: nullAliasInt,
+//           code: nullAliasInt,
+//           email: email,
+//           password: password,
+//           access_token: access_token,
+//           refresh_token: nullAliasString,
+//           users_id: int.parse(users_id),
+//         ).toJson()),
+//       );
+//     } else {
+//       state = const AsyncData(409);
+//     }
+//   }
+// }
