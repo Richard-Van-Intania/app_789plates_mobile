@@ -4,7 +4,7 @@ import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import '../../initialize.dart';
 import '../../main.dart';
-import '../../provider.dart';
+
 import '../../provider/authentication.dart';
 
 class CreateNewAccountScreen extends StatefulHookConsumerWidget {

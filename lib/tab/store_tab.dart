@@ -7,7 +7,7 @@ import '../drawer/help_and_support_drawer.dart';
 import '../drawer/liked_drawer.dart';
 import '../drawer/settings_drawer.dart';
 import '../drawer/store_drawer.dart';
-import '../provider.dart';
+
 import '../provider/authentication.dart';
 import '../screen/sign_in_screen.dart';
 

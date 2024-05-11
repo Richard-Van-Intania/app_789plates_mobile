@@ -5,7 +5,6 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'color_schemes.g.dart';
 import 'initialize.dart';
-import 'provider.dart';
 import 'provider/authentication.dart';
 import 'provider/settings.dart';
 import 'routes.dart';
