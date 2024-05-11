@@ -30,7 +30,7 @@ class _ResetPasswordScreenState extends ConsumerState<ResetPasswordScreen> {
           print(error.toString());
         case AsyncValue(:final valueOrNull?):
           if (valueOrNull.statusCode == 200) {
-            ref.invalidate(routingConfigProvider);
+            ref.invalidate(dynamicRouteConfigProvider);
             //
           } else {
             print(valueOrNull.statusCode);

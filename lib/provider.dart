@@ -2,19 +2,15 @@
 import 'dart:convert';
 import 'dart:io';
 import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
+
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'constants.dart';
+
 import 'initialize.dart';
 import 'package:http/http.dart' as http;
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+
 import 'model.dart';
-import 'screen/sign_in_screen.dart';
-import 'tab/chat_tab.dart';
-import 'tab/explore_tab.dart';
-import 'tab/home_tab.dart';
-import 'tab/saved_tab.dart';
-import 'tab/store_tab.dart';
+import 'routes.dart';
 
 part 'provider.g.dart';
 
@@ -558,151 +554,13 @@ class Search extends _$Search {
       state = const AsyncData('sign out');
     }
   }
+  // Search
 }
 
-final GlobalKey<NavigatorState> _rootNavigatorKey = GlobalKey<NavigatorState>(debugLabel: 'root');
-final GlobalKey<NavigatorState> _homeNavigatorKey = GlobalKey<NavigatorState>(debugLabel: 'home');
-final GlobalKey<NavigatorState> _exploreNavigatorKey = GlobalKey<NavigatorState>(debugLabel: 'explore');
-final GlobalKey<NavigatorState> _savedNavigatorKey = GlobalKey<NavigatorState>(debugLabel: 'saved');
-final GlobalKey<NavigatorState> _chatsNavigatorKey = GlobalKey<NavigatorState>(debugLabel: 'chats');
-final GlobalKey<NavigatorState> _storeNavigatorKey = GlobalKey<NavigatorState>(debugLabel: 'store');
-
-final signedInRoute = GoRouter(
-  navigatorKey: _rootNavigatorKey,
-  initialLocation: '/home',
-  debugLogDiagnostics: true,
-  routes: <RouteBase>[
-    StatefulShellRoute.indexedStack(
-      parentNavigatorKey: _rootNavigatorKey,
-      builder: (BuildContext context, GoRouterState state, StatefulNavigationShell navigationShell) {
-        return Scaffold(
-          body: navigationShell,
-          bottomNavigationBar: NavigationBar(
-            selectedIndex: navigationShell.currentIndex,
-            onDestinationSelected: (int index) {
-              navigationShell.goBranch(index, initialLocation: index == navigationShell.currentIndex);
-            },
-            destinations: <Widget>[
-              NavigationDestination(
-                icon: const Icon(Icons.home_outlined),
-                selectedIcon: const Icon(Icons.home),
-                label: AppLocalizations.of(context)!.home,
-              ),
-              NavigationDestination(
-                icon: const Icon(Icons.explore_outlined),
-                selectedIcon: const Icon(Icons.explore),
-                label: AppLocalizations.of(context)!.explore,
-              ),
-              NavigationDestination(
-                icon: const Icon(Icons.bookmark_border_outlined),
-                selectedIcon: const Icon(Icons.bookmark_outlined),
-                label: AppLocalizations.of(context)!.saved,
-              ),
-              NavigationDestination(
-                icon: const Icon(Icons.chat_outlined),
-                selectedIcon: const Icon(Icons.chat),
-                label: AppLocalizations.of(context)!.chats,
-              ),
-              NavigationDestination(
-                icon: const Icon(Icons.store_outlined),
-                selectedIcon: const Icon(Icons.store),
-                label: AppLocalizations.of(context)!.store,
-              ),
-            ],
-          ),
-        );
-      },
-      branches: <StatefulShellBranch>[
-        StatefulShellBranch(
-          navigatorKey: _homeNavigatorKey,
-          routes: <RouteBase>[
-            GoRoute(
-              path: '/home',
-              builder: (context, state) => HomeTab(),
-            ),
-          ],
-        ),
-        StatefulShellBranch(
-          navigatorKey: _exploreNavigatorKey,
-          routes: <RouteBase>[
-            GoRoute(
-              path: '/explore',
-              builder: (context, state) => ExploreTab(),
-            ),
-          ],
-        ),
-        StatefulShellBranch(
-          navigatorKey: _savedNavigatorKey,
-          routes: <RouteBase>[
-            GoRoute(
-              path: '/saved',
-              builder: (context, state) => SavedTab(),
-            ),
-          ],
-        ),
-        StatefulShellBranch(
-          navigatorKey: _chatsNavigatorKey,
-          routes: <RouteBase>[
-            GoRoute(
-              path: '/chats',
-              builder: (context, state) => ChatTab(),
-            ),
-          ],
-        ),
-        StatefulShellBranch(
-          navigatorKey: _storeNavigatorKey,
-          routes: <RouteBase>[
-            GoRoute(
-              path: '/store',
-              builder: (context, state) => StoreTab(),
-            ),
-          ],
-        ),
-      ],
-    ),
-  ],
-);
-
-final unSignedRoute = GoRouter(
-  initialLocation: '/sign_in',
-  debugLogDiagnostics: true,
-  redirect: (context, state) {
-    return '/sign_in';
-  },
-  routes: <RouteBase>[
-    GoRoute(
-      path: '/sign_in',
-      builder: (context, state) => SignInScreen(),
-    ),
-  ],
-);
-
-final errorRoute = GoRouter(
-  initialLocation: '/error',
-  debugLogDiagnostics: true,
-  routes: [
-    GoRoute(
-      path: '/error',
-      builder: (context, state) => const Scaffold(body: Center(child: Text('Oops, something unexpected happened!'))),
-    ),
-  ],
-);
-
-final loadingRoute = GoRouter(
-  initialLocation: '/loading',
-  debugLogDiagnostics: true,
-  routes: [
-    GoRoute(
-      path: '/loading',
-      builder: (context, state) => const Scaffold(body: Center(child: CircularProgressIndicator())),
-    ),
-  ],
-);
-
 @Riverpod(keepAlive: true)
-class RoutingConfig extends _$RoutingConfig {
+class DynamicRouteConfig extends _$DynamicRouteConfig {
   @override
-  Future<RouterWithStatusCode> build() async {
+  Future<int> build() async {
     final credential = await ref.read(credentialProvider.future);
     final email = credential['email'];
     final password = credential['password'];
@@ -732,22 +590,16 @@ class RoutingConfig extends _$RoutingConfig {
         final Authentication authentication = Authentication.fromJson(jsonDecode(utf8.decode(response.bodyBytes)));
         await ref.read(credentialProvider.notifier).deleteAll();
         await ref.read(credentialProvider.notifier).write(email: authentication.email, password: authentication.password, access_token: authentication.access_token, refresh_token: authentication.refresh_token, users_id: authentication.users_id);
-        return RouterWithStatusCode(
-          statusCode: response.statusCode,
-          router: signedInRoute,
-        );
+        routingConfig.value = mainRoute;
+        return response.statusCode;
       } else {
-        return RouterWithStatusCode(
-          statusCode: response.statusCode,
-          router: unSignedRoute,
-        );
+        routingConfig.value = signInRoute;
+        return response.statusCode;
       }
     } else {
       await ref.read(credentialProvider.notifier).deleteAll();
-      return RouterWithStatusCode(
-        statusCode: 0,
-        router: unSignedRoute,
-      );
+      routingConfig.value = signInRoute;
+      return 0;
     }
   }
 
@@ -777,15 +629,11 @@ class RoutingConfig extends _$RoutingConfig {
       final Authentication authentication = Authentication.fromJson(jsonDecode(utf8.decode(response.bodyBytes)));
       await ref.read(credentialProvider.notifier).deleteAll();
       await ref.read(credentialProvider.notifier).write(email: authentication.email, password: authentication.password, access_token: authentication.access_token, refresh_token: authentication.refresh_token, users_id: authentication.users_id);
-      state = AsyncData(RouterWithStatusCode(
-        statusCode: response.statusCode,
-        router: signedInRoute,
-      ));
+      routingConfig.value = mainRoute;
+      state = AsyncData(response.statusCode);
     } else {
-      state = AsyncData(RouterWithStatusCode(
-        statusCode: response.statusCode,
-        router: unSignedRoute,
-      ));
+      routingConfig.value = signInRoute;
+      state = AsyncData(response.statusCode);
     }
   }
 }

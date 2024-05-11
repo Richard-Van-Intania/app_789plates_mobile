@@ -162,18 +162,18 @@ final searchProvider = AutoDisposeAsyncNotifierProvider<Search, String>.internal
 );
 
 typedef _$Search = AutoDisposeAsyncNotifier<String>;
-String _$routingConfigHash() => r'22541998a364d4a6c1f9b9acb2b34d56b70eac02';
+String _$dynamicRouteConfigHash() => r'66c470205e868649a8dec3d215a1f169e62b9a62';
 
-/// See also [RoutingConfig].
-@ProviderFor(RoutingConfig)
-final routingConfigProvider = AsyncNotifierProvider<RoutingConfig, RouterWithStatusCode>.internal(
-  RoutingConfig.new,
-  name: r'routingConfigProvider',
-  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product') ? null : _$routingConfigHash,
+/// See also [DynamicRouteConfig].
+@ProviderFor(DynamicRouteConfig)
+final dynamicRouteConfigProvider = AsyncNotifierProvider<DynamicRouteConfig, int>.internal(
+  DynamicRouteConfig.new,
+  name: r'dynamicRouteConfigProvider',
+  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product') ? null : _$dynamicRouteConfigHash,
   dependencies: null,
   allTransitiveDependencies: null,
 );
 
-typedef _$RoutingConfig = AsyncNotifier<RouterWithStatusCode>;
+typedef _$DynamicRouteConfig = AsyncNotifier<int>;
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member

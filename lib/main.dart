@@ -6,6 +6,7 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'color_schemes.g.dart';
 import 'initialize.dart';
 import 'provider.dart';
+import 'routes.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -24,7 +25,7 @@ class MyApp extends HookConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final Locale locale = ref.watch(localeUpdateProvider);
     final ThemeMode themeMode = ref.watch(themeModeUpdateProvider);
-    final routingConfig = ref.watch(routingConfigProvider);
+    final dynamicRouteConfig = ref.watch(dynamicRouteConfigProvider);
     return MaterialApp.router(
       title: '789plates',
       localizationsDelegates: AppLocalizations.localizationsDelegates,
@@ -33,11 +34,7 @@ class MyApp extends HookConsumerWidget {
       themeMode: themeMode,
       theme: ThemeData(fontFamily: 'Noto Sans Thai', useMaterial3: true, colorScheme: lightColorScheme),
       darkTheme: ThemeData(fontFamily: 'Noto Sans Thai', useMaterial3: true, colorScheme: darkColorScheme),
-      routerConfig: routingConfig.when(
-        data: (data) => data.router,
-        error: (error, stackTrace) => errorRoute,
-        loading: () => loadingRoute,
-      ),
+      routerConfig: goRouter,
     );
   }
 }

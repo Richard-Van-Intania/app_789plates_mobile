@@ -2,11 +2,7 @@ import 'package:app_789plates_mobile/provider.dart';
 import 'package:email_validator/email_validator.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
-import 'package:go_router/go_router.dart';
-
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import '../initialize.dart';
-import '../main.dart';
 import 'create_new_account/check_availability_email_screen.dart';
 import 'reset_password/forgot_password_screen.dart';
 
@@ -22,26 +18,26 @@ class _SignInScreenState extends ConsumerState<SignInScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final routingConfig = ref.watch(routingConfigProvider);
+    final dynamicRouteConfig = ref.watch(dynamicRouteConfigProvider);
     final emailController = useTextEditingController();
     final passwordController = useTextEditingController();
     final pendingFetch = useState<Future<void>?>(null);
     final snapshot = useFuture(pendingFetch.value);
     final isErrored = snapshot.hasError && snapshot.connectionState != ConnectionState.waiting;
-    WidgetsBinding.instance.addPostFrameCallback((Duration timeStamp) {
-      switch (routingConfig) {
-        case AsyncValue(:final error?):
-          print(error.toString());
-        case AsyncValue(:final valueOrNull?):
-          if (valueOrNull.statusCode == 200) {
-            // context.go('/home');
-          } else {
-            print(valueOrNull.statusCode);
-          }
-        default:
-      }
-    });
-    return routingConfig.when(
+    // WidgetsBinding.instance.addPostFrameCallback((Duration timeStamp) {
+    //   switch (dynamicRouteConfig) {
+    //     case AsyncValue(:final error?):
+    //       print(error.toString());
+    //     case AsyncValue(:final valueOrNull?):
+    //       if (valueOrNull == 200) {
+    //         // context.go('/home');
+    //       } else {
+    //         print(valueOrNull);
+    //       }
+    //     default:
+    //   }
+    // });
+    return dynamicRouteConfig.when(
       data: (data) {
         return PopScope(
           canPop: false,
@@ -106,7 +102,7 @@ class _SignInScreenState extends ConsumerState<SignInScreen> {
                           ? null
                           : () {
                               if (key.currentState!.validate()) {
-                                pendingFetch.value = ref.read(routingConfigProvider.notifier).fetch(emailController.text.trim().toLowerCase(), passwordController.text.trim());
+                                pendingFetch.value = ref.read(dynamicRouteConfigProvider.notifier).fetch(emailController.text.trim().toLowerCase(), passwordController.text.trim());
                                 FocusScope.of(context).unfocus();
                               }
                             },

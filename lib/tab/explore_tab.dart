@@ -71,7 +71,7 @@ class _ExploreTabState extends ConsumerState<ExploreTab> {
       //   loading: () => const Center(child: CircularProgressIndicator()),
       // ),
       floatingActionButton: FloatingActionButton(onPressed: () {
-        context.go('/home');
+        context.go('/');
       }),
     );
   }

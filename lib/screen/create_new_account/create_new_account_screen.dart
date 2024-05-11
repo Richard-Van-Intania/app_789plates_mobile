@@ -30,7 +30,7 @@ class _CreateNewAccountScreenState extends ConsumerState<CreateNewAccountScreen>
         case AsyncValue(:final valueOrNull?):
           if (valueOrNull.statusCode == 200) {
             //
-            ref.invalidate(routingConfigProvider);
+            ref.invalidate(dynamicRouteConfigProvider);
           } else {
             print(valueOrNull.statusCode);
           }
