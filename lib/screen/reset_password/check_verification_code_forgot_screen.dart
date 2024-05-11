@@ -1,6 +1,7 @@
 import 'package:app_789plates_mobile/provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
+import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 import 'reset_password_screen.dart';
@@ -28,7 +29,7 @@ class _CheckVerificationCodeForgotScreenState extends ConsumerState<CheckVerific
           print(error.toString());
         case AsyncValue(:final valueOrNull?):
           if (valueOrNull.statusCode == 200) {
-            Navigator.of(context).push(MaterialPageRoute(builder: (context) => const ResetPasswordScreen()));
+            context.go('/forgot_password_screen/check_verification_code_forgot_screen/reset_password_screen');
           } else {
             print(valueOrNull.statusCode);
           }

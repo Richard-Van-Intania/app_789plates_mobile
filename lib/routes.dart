@@ -1,6 +1,12 @@
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'screen/create_new_account/check_availability_email_screen.dart';
+import 'screen/create_new_account/check_verification_code_screen.dart';
+import 'screen/create_new_account/create_new_account_screen.dart';
+import 'screen/reset_password/check_verification_code_forgot_screen.dart';
+import 'screen/reset_password/forgot_password_screen.dart';
+import 'screen/reset_password/reset_password_screen.dart';
 import 'screen/sign_in_screen.dart';
 import 'tab/chat_tab.dart';
 import 'tab/explore_tab.dart';
@@ -19,7 +25,44 @@ final loadingRoute = RoutingConfig(
 
 final signInRoute = RoutingConfig(
   routes: <RouteBase>[
-    GoRoute(path: '/', builder: (context, state) => SignInScreen()),
+    GoRoute(
+      path: '/',
+      builder: (context, state) => SignInScreen(),
+      routes: <RouteBase>[
+        GoRoute(
+          path: 'check_availability_email_screen',
+          builder: (context, state) => CheckAvailabilityEmailScreen(),
+          routes: <RouteBase>[
+            GoRoute(
+              path: 'check_verification_code_screen',
+              builder: (context, state) => const CheckVerificationCodeScreen(),
+              routes: <RouteBase>[
+                GoRoute(
+                  path: 'create_new_account_screen',
+                  builder: (context, state) => const CreateNewAccountScreen(),
+                ),
+              ],
+            ),
+          ],
+        ),
+        GoRoute(
+          path: 'forgot_password_screen',
+          builder: (context, state) => const ForgotPasswordScreen(),
+          routes: <RouteBase>[
+            GoRoute(
+              path: 'check_verification_code_forgot_screen',
+              builder: (context, state) => const CheckVerificationCodeForgotScreen(),
+              routes: <RouteBase>[
+                GoRoute(
+                  path: 'reset_password_screen',
+                  builder: (context, state) => const ResetPasswordScreen(),
+                ),
+              ],
+            ),
+          ],
+        ),
+      ],
+    ),
   ],
 );
 
@@ -119,5 +162,5 @@ final GoRouter goRouter = GoRouter.routingConfig(
   navigatorKey: _navigatorKey,
   routingConfig: routeConfig,
   initialLocation: '/',
-  errorBuilder: (context, state) => SignInScreen(),
+  // errorBuilder: (context, state) => SignInScreen(),
 );

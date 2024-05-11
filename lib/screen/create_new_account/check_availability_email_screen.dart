@@ -4,6 +4,7 @@ import 'package:app_789plates_mobile/provider.dart';
 import 'package:email_validator/email_validator.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
+import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 import 'create_new_account_screen.dart';
@@ -32,7 +33,7 @@ class _CheckAvailabilityEmailScreenState extends ConsumerState<CheckAvailability
           print(error.toString());
         case AsyncValue(:final valueOrNull?):
           if (valueOrNull.statusCode == 200) {
-            Navigator.of(context).push(MaterialPageRoute(builder: (context) => const CheckVerificationCodeScreen()));
+            context.go('/check_availability_email_screen/check_verification_code_screen');
           } else {
             print(valueOrNull.statusCode);
           }

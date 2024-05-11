@@ -130,13 +130,9 @@ class _StoreTabState extends ConsumerState<StoreTab> {
             padding: const EdgeInsets.all(16.0),
             child: TextButton.icon(
               onPressed: () async {
-                // // pop up confirm
-                // Navigator.pop(context);
-                // await ref.read(credentialProvider.notifier).deleteAll();
-                // ref.invalidate(autoSignInProvider);
-                // ref.invalidate(routeConfigProvider);
-
+                //
                 Navigator.pop(context);
+                context.go('/');
                 await ref.read(credentialProvider.notifier).deleteAll();
                 ref.invalidate(dynamicRouteConfigProvider);
               },
