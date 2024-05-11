@@ -10,28 +10,14 @@ import '../drawer/store_drawer.dart';
 import '../provider.dart';
 import '../screen/sign_in_screen.dart';
 
-class StoreTab extends StatefulHookConsumerWidget {
-  const StoreTab({super.key});
-
+class StoreTab extends HookConsumerWidget {
+  const StoreTab({super.key, required this.navigationShell});
+  final StatefulNavigationShell navigationShell;
   @override
-  ConsumerState<ConsumerStatefulWidget> createState() => _StoreTabState();
-}
-
-class _StoreTabState extends ConsumerState<StoreTab> {
-  final List<GlobalKey<NavigatorState>> _drawerNavigatorKeys = [
-    GlobalKey<NavigatorState>(),
-    GlobalKey<NavigatorState>(),
-    GlobalKey<NavigatorState>(),
-    GlobalKey<NavigatorState>(),
-    GlobalKey<NavigatorState>(),
-  ];
-
-  @override
-  Widget build(BuildContext context) {
-    final int drawerIndex = ref.watch(drawerIndexProvider);
+  Widget build(BuildContext context, WidgetRef ref) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(switch (drawerIndex) {
+        title: Text(switch (navigationShell.currentIndex) {
           0 => AppLocalizations.of(context)!.store,
           1 => AppLocalizations.of(context)!.liked,
           2 => AppLocalizations.of(context)!.account,
@@ -40,61 +26,12 @@ class _StoreTabState extends ConsumerState<StoreTab> {
           _ => 'null',
         }),
       ),
-      body: IndexedStack(
-        index: drawerIndex,
-        children: [
-          Navigator(
-              key: _drawerNavigatorKeys[0],
-              onGenerateRoute: (RouteSettings settings) {
-                return MaterialPageRoute<void>(
-                    settings: settings,
-                    builder: (BuildContext context) {
-                      return const StoreDrawer();
-                    });
-              }),
-          Navigator(
-              key: _drawerNavigatorKeys[1],
-              onGenerateRoute: (RouteSettings settings) {
-                return MaterialPageRoute<void>(
-                    settings: settings,
-                    builder: (BuildContext context) {
-                      return const LikedDrawer();
-                    });
-              }),
-          Navigator(
-              key: _drawerNavigatorKeys[2],
-              onGenerateRoute: (RouteSettings settings) {
-                return MaterialPageRoute<void>(
-                    settings: settings,
-                    builder: (BuildContext context) {
-                      return const AccountDrawer();
-                    });
-              }),
-          Navigator(
-              key: _drawerNavigatorKeys[3],
-              onGenerateRoute: (RouteSettings settings) {
-                return MaterialPageRoute<void>(
-                    settings: settings,
-                    builder: (BuildContext context) {
-                      return const SettingsDrawer();
-                    });
-              }),
-          Navigator(
-              key: _drawerNavigatorKeys[4],
-              onGenerateRoute: (RouteSettings settings) {
-                return MaterialPageRoute<void>(
-                    settings: settings,
-                    builder: (BuildContext context) {
-                      return const HelpAndSupportDrawer();
-                    });
-              }),
-        ],
-      ),
+      body: navigationShell,
       drawer: NavigationDrawer(
-        selectedIndex: drawerIndex,
+        selectedIndex: navigationShell.currentIndex,
         onDestinationSelected: (int index) {
-          ref.read(drawerIndexProvider.notifier).updateDrawerIndex(index);
-          Navigator.pop(context);
+          navigationShell.goBranch(index, initialLocation: index == navigationShell.currentIndex);
+          context.pop();
         },
         children: [
           const DrawerHeader(
@@ -130,8 +67,7 @@ class _StoreTabState extends ConsumerState<StoreTab> {
             padding: const EdgeInsets.all(16.0),
             child: TextButton.icon(
               onPressed: () async {
-                //
-                Navigator.pop(context);
+                // pop up confirm
                 context.go('/');
                 await ref.read(credentialProvider.notifier).deleteAll();
                 ref.invalidate(dynamicRouteConfigProvider);

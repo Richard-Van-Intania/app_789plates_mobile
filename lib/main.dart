@@ -15,11 +15,11 @@ Future<void> main() async {
     yield LicenseEntryWithLineBreaks(['google_fonts'], license);
   });
   await initialize();
-  runApp(const ProviderScope(child: MyApp()));
+  runApp(const ProviderScope(child: Application()));
 }
 
-class MyApp extends HookConsumerWidget {
-  const MyApp({super.key});
+class Application extends HookConsumerWidget {
+  const Application({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {

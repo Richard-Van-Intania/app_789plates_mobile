@@ -1,6 +1,10 @@
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'drawer/account_drawer.dart';
+import 'drawer/help_and_support_drawer.dart';
+import 'drawer/liked_drawer.dart';
+import 'drawer/settings_drawer.dart';
+import 'drawer/store_drawer.dart';
 import 'screen/create_new_account/check_availability_email_screen.dart';
 import 'screen/create_new_account/check_verification_code_screen.dart';
 import 'screen/create_new_account/create_new_account_screen.dart';
@@ -11,6 +15,7 @@ import 'screen/sign_in_screen.dart';
 import 'tab/chat_tab.dart';
 import 'tab/explore_tab.dart';
 import 'tab/home_tab.dart';
+import 'tab/main_tab.dart';
 import 'tab/saved_tab.dart';
 import 'tab/store_tab.dart';
 
@@ -70,42 +75,7 @@ final mainRoute = RoutingConfig(
   routes: <RouteBase>[
     StatefulShellRoute.indexedStack(
       builder: (BuildContext context, GoRouterState state, StatefulNavigationShell navigationShell) {
-        return Scaffold(
-          body: navigationShell,
-          bottomNavigationBar: NavigationBar(
-            selectedIndex: navigationShell.currentIndex,
-            onDestinationSelected: (int index) {
-              navigationShell.goBranch(index, initialLocation: index == navigationShell.currentIndex);
-            },
-            destinations: <Widget>[
-              NavigationDestination(
-                icon: const Icon(Icons.home_outlined),
-                selectedIcon: const Icon(Icons.home),
-                label: AppLocalizations.of(context)!.home,
-              ),
-              NavigationDestination(
-                icon: const Icon(Icons.explore_outlined),
-                selectedIcon: const Icon(Icons.explore),
-                label: AppLocalizations.of(context)!.explore,
-              ),
-              NavigationDestination(
-                icon: const Icon(Icons.bookmark_border_outlined),
-                selectedIcon: const Icon(Icons.bookmark_outlined),
-                label: AppLocalizations.of(context)!.saved,
-              ),
-              NavigationDestination(
-                icon: const Icon(Icons.chat_outlined),
-                selectedIcon: const Icon(Icons.chat),
-                label: AppLocalizations.of(context)!.chats,
-              ),
-              NavigationDestination(
-                icon: const Icon(Icons.store_outlined),
-                selectedIcon: const Icon(Icons.store),
-                label: AppLocalizations.of(context)!.store,
-              ),
-            ],
-          ),
-        );
+        return MainTab(navigationShell: navigationShell);
       },
       branches: <StatefulShellBranch>[
         StatefulShellBranch(
@@ -113,38 +83,90 @@ final mainRoute = RoutingConfig(
             GoRoute(
               path: '/',
               builder: (context, state) => HomeTab(),
+              routes: <RouteBase>[],
             ),
           ],
         ),
         StatefulShellBranch(
           routes: <RouteBase>[
             GoRoute(
-              path: '/explore',
+              path: '/explore_tab',
               builder: (context, state) => ExploreTab(),
+              routes: <RouteBase>[],
             ),
           ],
         ),
         StatefulShellBranch(
           routes: <RouteBase>[
             GoRoute(
-              path: '/saved',
+              path: '/saved_tab',
               builder: (context, state) => SavedTab(),
+              routes: <RouteBase>[],
             ),
           ],
         ),
         StatefulShellBranch(
           routes: <RouteBase>[
             GoRoute(
-              path: '/chats',
+              path: '/chat_tab',
               builder: (context, state) => ChatTab(),
+              routes: <RouteBase>[],
             ),
           ],
         ),
         StatefulShellBranch(
           routes: <RouteBase>[
-            GoRoute(
-              path: '/store',
-              builder: (context, state) => StoreTab(),
+            StatefulShellRoute.indexedStack(
+              builder: (BuildContext context, GoRouterState state, StatefulNavigationShell navigationShell) {
+                return StoreTab(navigationShell: navigationShell);
+              },
+              branches: <StatefulShellBranch>[
+                StatefulShellBranch(
+                  routes: <RouteBase>[
+                    GoRoute(
+                      path: '/store_drawer',
+                      builder: (context, state) => StoreDrawer(),
+                      routes: <RouteBase>[],
+                    ),
+                  ],
+                ),
+                StatefulShellBranch(
+                  routes: <RouteBase>[
+                    GoRoute(
+                      path: '/liked_drawer',
+                      builder: (context, state) => LikedDrawer(),
+                      routes: <RouteBase>[],
+                    ),
+                  ],
+                ),
+                StatefulShellBranch(
+                  routes: <RouteBase>[
+                    GoRoute(
+                      path: '/account_drawer',
+                      builder: (context, state) => AccountDrawer(),
+                      routes: <RouteBase>[],
+                    ),
+                  ],
+                ),
+                StatefulShellBranch(
+                  routes: <RouteBase>[
+                    GoRoute(
+                      path: '/settings_drawer',
+                      builder: (context, state) => SettingsDrawer(),
+                      routes: <RouteBase>[],
+                    ),
+                  ],
+                ),
+                StatefulShellBranch(
+                  routes: <RouteBase>[
+                    GoRoute(
+                      path: '/help_and_support_drawer',
+                      builder: (context, state) => HelpAndSupportDrawer(),
+                      routes: <RouteBase>[],
+                    ),
+                  ],
+                ),
+              ],
             ),
           ],
         ),
@@ -155,7 +177,7 @@ final mainRoute = RoutingConfig(
 
 final ValueNotifier<RoutingConfig> routeConfig = ValueNotifier<RoutingConfig>(loadingRoute);
 
-final GlobalKey<NavigatorState> _navigatorKey = GlobalKey<NavigatorState>(debugLabel: 'root');
+final GlobalKey<NavigatorState> _navigatorKey = GlobalKey<NavigatorState>();
 
 final GoRouter goRouter = GoRouter.routingConfig(
   debugLogDiagnostics: true,
