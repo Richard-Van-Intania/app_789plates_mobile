@@ -110,14 +110,14 @@ final mainRoute = RoutingConfig(
   ],
 );
 
-final ValueNotifier<RoutingConfig> routingConfig = ValueNotifier<RoutingConfig>(loadingRoute);
+final ValueNotifier<RoutingConfig> routeConfig = ValueNotifier<RoutingConfig>(loadingRoute);
 
 final GlobalKey<NavigatorState> _navigatorKey = GlobalKey<NavigatorState>(debugLabel: 'root');
 
 final GoRouter goRouter = GoRouter.routingConfig(
   debugLogDiagnostics: true,
   navigatorKey: _navigatorKey,
-  routingConfig: routingConfig,
+  routingConfig: routeConfig,
   initialLocation: '/',
   errorBuilder: (context, state) => SignInScreen(),
 );

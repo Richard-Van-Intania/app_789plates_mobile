@@ -590,15 +590,15 @@ class DynamicRouteConfig extends _$DynamicRouteConfig {
         final Authentication authentication = Authentication.fromJson(jsonDecode(utf8.decode(response.bodyBytes)));
         await ref.read(credentialProvider.notifier).deleteAll();
         await ref.read(credentialProvider.notifier).write(email: authentication.email, password: authentication.password, access_token: authentication.access_token, refresh_token: authentication.refresh_token, users_id: authentication.users_id);
-        routingConfig.value = mainRoute;
+        routeConfig.value = mainRoute;
         return response.statusCode;
       } else {
-        routingConfig.value = signInRoute;
+        routeConfig.value = signInRoute;
         return response.statusCode;
       }
     } else {
       await ref.read(credentialProvider.notifier).deleteAll();
-      routingConfig.value = signInRoute;
+      routeConfig.value = signInRoute;
       return 0;
     }
   }
@@ -629,10 +629,10 @@ class DynamicRouteConfig extends _$DynamicRouteConfig {
       final Authentication authentication = Authentication.fromJson(jsonDecode(utf8.decode(response.bodyBytes)));
       await ref.read(credentialProvider.notifier).deleteAll();
       await ref.read(credentialProvider.notifier).write(email: authentication.email, password: authentication.password, access_token: authentication.access_token, refresh_token: authentication.refresh_token, users_id: authentication.users_id);
-      routingConfig.value = mainRoute;
+      routeConfig.value = mainRoute;
       state = AsyncData(response.statusCode);
     } else {
-      routingConfig.value = signInRoute;
+      routeConfig.value = signInRoute;
       state = AsyncData(response.statusCode);
     }
   }
