@@ -6,6 +6,8 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'color_schemes.g.dart';
 import 'initialize.dart';
 import 'provider.dart';
+import 'provider/authentication.dart';
+import 'provider/settings.dart';
 import 'routes.dart';
 
 Future<void> main() async {

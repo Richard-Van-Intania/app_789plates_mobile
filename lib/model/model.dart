@@ -1,7 +1,7 @@
 // ignore_for_file: non_constant_identifier_names
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:go_router/go_router.dart';
-import 'constants.dart';
+import '../constants.dart';
 
 part 'model.freezed.dart';
 part 'model.g.dart';

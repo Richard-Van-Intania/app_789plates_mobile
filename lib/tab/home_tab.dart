@@ -3,6 +3,7 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import '../provider.dart';
+import '../provider/settings.dart';
 import '../screen/reset_password/forgot_password_screen.dart';
 
 class HomeTab extends StatefulHookConsumerWidget {

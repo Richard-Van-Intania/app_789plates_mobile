@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import '../../model.dart';
+import '../../provider/authentication.dart';
 import 'create_new_account_screen.dart';
 import 'package:http/http.dart' as http;
 

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import '../provider.dart';
+import '../provider/settings.dart';
 
 class SettingsDrawer extends StatefulHookConsumerWidget {
   const SettingsDrawer({super.key});

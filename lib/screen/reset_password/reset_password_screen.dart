@@ -6,6 +6,7 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 import '../../initialize.dart';
 import '../../main.dart';
+import '../../provider/authentication.dart';
 
 class ResetPasswordScreen extends StatefulHookConsumerWidget {
   const ResetPasswordScreen({super.key});

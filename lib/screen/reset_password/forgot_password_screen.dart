@@ -5,6 +5,7 @@ import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
+import '../../provider/authentication.dart';
 import 'check_verification_code_forgot_screen.dart';
 
 class ForgotPasswordScreen extends StatefulHookConsumerWidget {
