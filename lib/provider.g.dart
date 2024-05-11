@@ -162,7 +162,7 @@ final searchProvider = AutoDisposeAsyncNotifierProvider<Search, String>.internal
 );
 
 typedef _$Search = AutoDisposeAsyncNotifier<String>;
-String _$dynamicRouteConfigHash() => r'2fc3f8d6e448be0190523d8b0bf483d946c03c01';
+String _$dynamicRouteConfigHash() => r'6152593249e4981a7fafbd562a76b8baf506258e';
 
 /// See also [DynamicRouteConfig].
 @ProviderFor(DynamicRouteConfig)

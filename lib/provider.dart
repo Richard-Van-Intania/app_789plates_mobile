@@ -591,11 +591,10 @@ class DynamicRouteConfig extends _$DynamicRouteConfig {
         await ref.read(credentialProvider.notifier).deleteAll();
         await ref.read(credentialProvider.notifier).write(email: authentication.email, password: authentication.password, access_token: authentication.access_token, refresh_token: authentication.refresh_token, users_id: authentication.users_id);
         routeConfig.value = mainRoute;
-        return response.statusCode;
       } else {
         routeConfig.value = signInRoute;
-        return response.statusCode;
       }
+      return response.statusCode;
     } else {
       await ref.read(credentialProvider.notifier).deleteAll();
       routeConfig.value = signInRoute;
@@ -630,10 +629,7 @@ class DynamicRouteConfig extends _$DynamicRouteConfig {
       await ref.read(credentialProvider.notifier).deleteAll();
       await ref.read(credentialProvider.notifier).write(email: authentication.email, password: authentication.password, access_token: authentication.access_token, refresh_token: authentication.refresh_token, users_id: authentication.users_id);
       routeConfig.value = mainRoute;
-      state = AsyncData(response.statusCode);
-    } else {
-      routeConfig.value = signInRoute;
-      state = AsyncData(response.statusCode);
     }
+    state = AsyncData(response.statusCode);
   }
 }
