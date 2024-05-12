@@ -10,12 +10,10 @@ String _$drawerIndexHash() => r'a09012e30c1335159b5e2eb1a29bf036d42bd255';
 
 /// See also [DrawerIndex].
 @ProviderFor(DrawerIndex)
-final drawerIndexProvider =
-    AutoDisposeNotifierProvider<DrawerIndex, int>.internal(
+final drawerIndexProvider = AutoDisposeNotifierProvider<DrawerIndex, int>.internal(
   DrawerIndex.new,
   name: r'drawerIndexProvider',
-  debugGetCreateSourceHash:
-      const bool.fromEnvironment('dart.vm.product') ? null : _$drawerIndexHash,
+  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product') ? null : _$drawerIndexHash,
   dependencies: null,
   allTransitiveDependencies: null,
 );
@@ -25,12 +23,10 @@ String _$searchHash() => r'38efee8581af7ee1767822837f6a390959b43a77';
 
 /// See also [Search].
 @ProviderFor(Search)
-final searchProvider =
-    AutoDisposeAsyncNotifierProvider<Search, String>.internal(
+final searchProvider = AutoDisposeAsyncNotifierProvider<Search, String>.internal(
   Search.new,
   name: r'searchProvider',
-  debugGetCreateSourceHash:
-      const bool.fromEnvironment('dart.vm.product') ? null : _$searchHash,
+  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product') ? null : _$searchHash,
   dependencies: null,
   allTransitiveDependencies: null,
 );
