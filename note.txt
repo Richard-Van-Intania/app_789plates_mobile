@@ -37,23 +37,14 @@ forgotpasswordscreen
 
 main logic first design later
 
-refactor model and response
-
-naming route model provider
-
-model name
-provider name
-
-route name same as provider name
-
-
-
 
 
 lillpu@live.com
 
 upYnjd5NhQno1GHgxAMQNF0vDNw_
 
+
+auto refresh pattern
 
 
 

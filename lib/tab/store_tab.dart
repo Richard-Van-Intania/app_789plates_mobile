@@ -71,7 +71,7 @@ class StoreTab extends HookConsumerWidget {
                 // pop up confirm
                 context.go('/');
                 await ref.read(credentialProvider.notifier).deleteAll();
-                ref.invalidate(dynamicRouteConfigProvider);
+                ref.invalidate(signInProvider);
               },
               icon: const Icon(Icons.logout_outlined),
               label: Text(AppLocalizations.of(context)!.logOut),

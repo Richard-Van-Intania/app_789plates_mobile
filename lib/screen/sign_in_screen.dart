@@ -19,7 +19,7 @@ class _SignInScreenState extends ConsumerState<SignInScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final dynamicRouteConfig = ref.watch(dynamicRouteConfigProvider);
+    final signIn = ref.watch(signInProvider);
     final emailController = useTextEditingController();
     final passwordController = useTextEditingController();
     final pendingFetch = useState<Future<void>?>(null);
@@ -38,7 +38,7 @@ class _SignInScreenState extends ConsumerState<SignInScreen> {
     //     default:
     //   }
     // });
-    return dynamicRouteConfig.when(
+    return signIn.when(
       data: (data) {
         return Scaffold(
           resizeToAvoidBottomInset: false,
@@ -101,7 +101,7 @@ class _SignInScreenState extends ConsumerState<SignInScreen> {
                         ? null
                         : () {
                             if (key.currentState!.validate()) {
-                              pendingFetch.value = ref.read(dynamicRouteConfigProvider.notifier).fetch(emailController.text.trim().toLowerCase(), passwordController.text.trim());
+                              pendingFetch.value = ref.read(signInProvider.notifier).fetch(emailController.text.trim().toLowerCase(), passwordController.text.trim());
                               FocusScope.of(context).unfocus();
                             }
                           },

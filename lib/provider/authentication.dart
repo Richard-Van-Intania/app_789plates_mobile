@@ -1,5 +1,6 @@
 // ignore_for_file: non_constant_identifier_names
 import 'dart:convert';
+import 'dart:io';
 import 'package:http/http.dart' as http;
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import '../constants.dart';
@@ -362,6 +363,83 @@ class ResetPassword extends _$ResetPassword {
   }
 }
 
+@Riverpod(keepAlive: true)
+class SignIn extends _$SignIn {
+  @override
+  Future<int> build() async {
+    final credential = await ref.read(credentialProvider.future);
+    final email = credential['email'];
+    final password = credential['password'];
+    if (email != null && password != null) {
+      final Uri uri = Uri(
+        scheme: 'http',
+        host: '10.0.2.2',
+        port: 8700,
+        path: '/sign_in',
+        queryParameters: {'api_key': apiKey},
+      );
+      final response = await http.post(
+        uri,
+        headers: <String, String>{'Content-Type': 'application/json; charset=UTF-8'},
+        body: jsonEncode(Authentication(
+          verification_id: nullAliasInt,
+          reference: nullAliasInt,
+          code: nullAliasInt,
+          email: email,
+          password: password,
+          access_token: nullAliasString,
+          refresh_token: nullAliasString,
+          users_id: nullAliasInt,
+        ).toJson()),
+      );
+      if (response.statusCode == 200) {
+        final Authentication authentication = Authentication.fromJson(jsonDecode(utf8.decode(response.bodyBytes)));
+        await ref.read(credentialProvider.notifier).deleteAll();
+        await ref.read(credentialProvider.notifier).write(email: authentication.email, password: authentication.password, access_token: authentication.access_token, refresh_token: authentication.refresh_token, users_id: authentication.users_id);
+        routeConfig.value = mainRoute;
+      } else {
+        routeConfig.value = signInRoute;
+      }
+      return response.statusCode;
+    } else {
+      await ref.read(credentialProvider.notifier).deleteAll();
+      routeConfig.value = signInRoute;
+      return preconditionRequired;
+    }
+  }
+
+  Future<void> fetch(String email, String password) async {
+    final Uri uri = Uri(
+      scheme: 'http',
+      host: '10.0.2.2',
+      port: 8700,
+      path: '/sign_in',
+      queryParameters: {'api_key': apiKey},
+    );
+    final response = await http.post(
+      uri,
+      headers: <String, String>{'Content-Type': 'application/json; charset=UTF-8'},
+      body: jsonEncode(Authentication(
+        verification_id: nullAliasInt,
+        reference: nullAliasInt,
+        code: nullAliasInt,
+        email: email,
+        password: password,
+        access_token: nullAliasString,
+        refresh_token: nullAliasString,
+        users_id: nullAliasInt,
+      ).toJson()),
+    );
+    if (response.statusCode == 200) {
+      final Authentication authentication = Authentication.fromJson(jsonDecode(utf8.decode(response.bodyBytes)));
+      await ref.read(credentialProvider.notifier).deleteAll();
+      await ref.read(credentialProvider.notifier).write(email: authentication.email, password: authentication.password, access_token: authentication.access_token, refresh_token: authentication.refresh_token, users_id: authentication.users_id);
+      routeConfig.value = mainRoute;
+    }
+    state = AsyncData(response.statusCode);
+  }
+}
+
 @riverpod
 class RenewToken extends _$RenewToken {
   @override
@@ -446,133 +524,65 @@ class RenewToken extends _$RenewToken {
           }
         } else {
           await ref.read(credentialProvider.notifier).deleteAll();
+          routeConfig.value = signInRoute;
           state = const AsyncData(unwrapResponse);
         }
       } else {
         await ref.read(credentialProvider.notifier).deleteAll();
+        routeConfig.value = signInRoute;
         state = const AsyncData(unwrapResponse);
       }
     } else {
       await ref.read(credentialProvider.notifier).deleteAll();
+      routeConfig.value = signInRoute;
       state = const AsyncData(unwrapResponse);
     }
   }
 }
 
-@Riverpod(keepAlive: true)
-class DynamicRouteConfig extends _$DynamicRouteConfig {
+// later
+
+@riverpod
+class ChangePassword extends _$ChangePassword {
   @override
   Future<int> build() async {
+    return processing;
+  }
+
+  Future<void> fetch(String password) async {
     final credential = await ref.read(credentialProvider.future);
-    final email = credential['email'];
-    final password = credential['password'];
-    if (email != null && password != null) {
+    final access_token = credential['access_token'];
+    final users_id = credential['users_id'];
+    if (users_id != null && access_token != null) {
       final Uri uri = Uri(
         scheme: 'http',
         host: '10.0.2.2',
         port: 8700,
-        path: '/sign_in',
-        queryParameters: {'api_key': apiKey},
+        path: '/change_password',
       );
-      final response = await http.post(
+      final response = await http.put(
         uri,
-        headers: <String, String>{'Content-Type': 'application/json; charset=UTF-8'},
+        headers: <String, String>{'Content-Type': 'application/json; charset=UTF-8', HttpHeaders.authorizationHeader: 'Bearer $access_token'},
         body: jsonEncode(Authentication(
           verification_id: nullAliasInt,
           reference: nullAliasInt,
           code: nullAliasInt,
-          email: email,
+          email: nullAliasString,
           password: password,
-          access_token: nullAliasString,
+          access_token: access_token,
           refresh_token: nullAliasString,
-          users_id: nullAliasInt,
+          users_id: int.parse(users_id),
         ).toJson()),
       );
-      if (response.statusCode == 200) {
-        final Authentication authentication = Authentication.fromJson(jsonDecode(utf8.decode(response.bodyBytes)));
-        await ref.read(credentialProvider.notifier).deleteAll();
-        await ref.read(credentialProvider.notifier).write(email: authentication.email, password: authentication.password, access_token: authentication.access_token, refresh_token: authentication.refresh_token, users_id: authentication.users_id);
-        routeConfig.value = mainRoute;
+      if (response.statusCode == 401) {
+        // refresh token and recursive
+        await ref.read(renewTokenProvider.notifier).fetch();
+        ref.read(changePasswordProvider.notifier).fetch(password);
       } else {
-        routeConfig.value = signInRoute;
+        state = AsyncData(response.statusCode);
       }
-      return response.statusCode;
     } else {
-      await ref.read(credentialProvider.notifier).deleteAll();
-      routeConfig.value = signInRoute;
-      return 0;
+      state = const AsyncData(preconditionRequired);
     }
-  }
-
-  Future<void> fetch(String email, String password) async {
-    final Uri uri = Uri(
-      scheme: 'http',
-      host: '10.0.2.2',
-      port: 8700,
-      path: '/sign_in',
-      queryParameters: {'api_key': apiKey},
-    );
-    final response = await http.post(
-      uri,
-      headers: <String, String>{'Content-Type': 'application/json; charset=UTF-8'},
-      body: jsonEncode(Authentication(
-        verification_id: nullAliasInt,
-        reference: nullAliasInt,
-        code: nullAliasInt,
-        email: email,
-        password: password,
-        access_token: nullAliasString,
-        refresh_token: nullAliasString,
-        users_id: nullAliasInt,
-      ).toJson()),
-    );
-    if (response.statusCode == 200) {
-      final Authentication authentication = Authentication.fromJson(jsonDecode(utf8.decode(response.bodyBytes)));
-      await ref.read(credentialProvider.notifier).deleteAll();
-      await ref.read(credentialProvider.notifier).write(email: authentication.email, password: authentication.password, access_token: authentication.access_token, refresh_token: authentication.refresh_token, users_id: authentication.users_id);
-      routeConfig.value = mainRoute;
-    }
-    state = AsyncData(response.statusCode);
   }
 }
-
-
-// @riverpod
-// class ChangePassword extends _$ChangePassword {
-//   @override
-//   Future<int> build() async {
-//     return 0;
-//   }
-
-//   Future<void> fetch(String pw) async {
-//     final credential = await ref.read(credentialProvider.future);
-//     final email = credential['email'];
-//     final password = credential['password'];
-//     final access_token = credential['access_token'];
-//     final users_id = credential['users_id'];
-//     if (email != null && password != null && access_token != null && users_id != null && (password == pw)) {
-//       final Uri uri = Uri(
-//         scheme: 'http',
-//         host: '10.0.2.2',
-//         port: 8700,
-//         path: '/change_password',
-//       );
-//       final response = await http.put(
-//         uri,
-//         headers: <String, String>{'Content-Type': 'application/json; charset=UTF-8', HttpHeaders.authorizationHeader: 'Bearer $access_token'},
-//         body: jsonEncode(Authentication(
-//           verification_id: nullAliasInt,
-//           reference: nullAliasInt,
-//           code: nullAliasInt,
-//           email: email,
-//           password: password,
-//           access_token: access_token,
-//           refresh_token: nullAliasString,
-//           users_id: int.parse(users_id),
-//         ).toJson()),
-//       );
-//     } else {
-//       state = const AsyncData(409);
-//     }
-//   }
-// }

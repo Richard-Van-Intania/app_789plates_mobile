@@ -97,7 +97,20 @@ final resetPasswordProvider = AutoDisposeAsyncNotifierProvider<ResetPassword, Un
 );
 
 typedef _$ResetPassword = AutoDisposeAsyncNotifier<UnwrapResponse<Authentication>>;
-String _$renewTokenHash() => r'bf221ac48cfabf6c491f9c7698056d6523227c08';
+String _$signInHash() => r'90d2aaa8cd74831a8d899d1b9e6713dcf20dd971';
+
+/// See also [SignIn].
+@ProviderFor(SignIn)
+final signInProvider = AsyncNotifierProvider<SignIn, int>.internal(
+  SignIn.new,
+  name: r'signInProvider',
+  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product') ? null : _$signInHash,
+  dependencies: null,
+  allTransitiveDependencies: null,
+);
+
+typedef _$SignIn = AsyncNotifier<int>;
+String _$renewTokenHash() => r'326ea83e5a19cbbdd0f3c164a981e085b567c6e0';
 
 /// See also [RenewToken].
 @ProviderFor(RenewToken)
@@ -110,18 +123,18 @@ final renewTokenProvider = AutoDisposeAsyncNotifierProvider<RenewToken, UnwrapRe
 );
 
 typedef _$RenewToken = AutoDisposeAsyncNotifier<UnwrapResponse<Authentication>>;
-String _$dynamicRouteConfigHash() => r'6152593249e4981a7fafbd562a76b8baf506258e';
+String _$changePasswordHash() => r'4431b39171617a4a0769966533542d4d9edfce5e';
 
-/// See also [DynamicRouteConfig].
-@ProviderFor(DynamicRouteConfig)
-final dynamicRouteConfigProvider = AsyncNotifierProvider<DynamicRouteConfig, int>.internal(
-  DynamicRouteConfig.new,
-  name: r'dynamicRouteConfigProvider',
-  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product') ? null : _$dynamicRouteConfigHash,
+/// See also [ChangePassword].
+@ProviderFor(ChangePassword)
+final changePasswordProvider = AutoDisposeAsyncNotifierProvider<ChangePassword, int>.internal(
+  ChangePassword.new,
+  name: r'changePasswordProvider',
+  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product') ? null : _$changePasswordHash,
   dependencies: null,
   allTransitiveDependencies: null,
 );
 
-typedef _$DynamicRouteConfig = AsyncNotifier<int>;
+typedef _$ChangePassword = AutoDisposeAsyncNotifier<int>;
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member

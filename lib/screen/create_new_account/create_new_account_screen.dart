@@ -33,7 +33,7 @@ class _CreateNewAccountScreenState extends ConsumerState<CreateNewAccountScreen>
           if (valueOrNull.statusCode == 200) {
             //
             context.go('/');
-            ref.invalidate(dynamicRouteConfigProvider);
+            ref.invalidate(signInProvider);
           } else {
             print(valueOrNull.statusCode);
           }
