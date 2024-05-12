@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
-class AccountDrawer extends HookConsumerWidget {
-  const AccountDrawer({super.key});
+class ChangePasswordScreen extends HookConsumerWidget {
+  const ChangePasswordScreen({super.key});
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     return Scaffold(
@@ -13,15 +13,9 @@ class AccountDrawer extends HookConsumerWidget {
           children: [
             ElevatedButton(
                 onPressed: () {
-                  context.go('/account_drawer/change_password_screen');
+                  context.pop();
                 },
-                child: Text('Change Password')),
-            SizedBox(height: 32.0),
-            ElevatedButton(
-                onPressed: () {
-                  context.go('/account_drawer/delete_account_screen');
-                },
-                child: Text('Delete Account')),
+                child: Text('Back')),
           ],
         ),
       ),

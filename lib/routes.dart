@@ -5,9 +5,11 @@ import 'drawer/help_and_support_drawer.dart';
 import 'drawer/liked_drawer.dart';
 import 'drawer/settings_drawer.dart';
 import 'drawer/store_drawer.dart';
+import 'screen/change_password_screen.dart';
 import 'screen/create_new_account/check_availability_email_screen.dart';
 import 'screen/create_new_account/check_verification_code_screen.dart';
 import 'screen/create_new_account/create_new_account_screen.dart';
+import 'screen/delete_account_screen.dart';
 import 'screen/reset_password/check_verification_code_forgot_screen.dart';
 import 'screen/reset_password/forgot_password_screen.dart';
 import 'screen/reset_password/reset_password_screen.dart';
@@ -144,7 +146,16 @@ final mainRoute = RoutingConfig(
                     GoRoute(
                       path: '/account_drawer',
                       builder: (context, state) => AccountDrawer(),
-                      routes: <RouteBase>[],
+                      routes: <RouteBase>[
+                        GoRoute(
+                          path: 'change_password_screen',
+                          builder: (context, state) => ChangePasswordScreen(),
+                        ),
+                        GoRoute(
+                          path: 'delete_account_screen',
+                          builder: (context, state) => DeleteAccountScreen(),
+                        ),
+                      ],
                     ),
                   ],
                 ),

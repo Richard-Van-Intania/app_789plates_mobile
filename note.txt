@@ -50,5 +50,7 @@ migrate to new repo later before build check impotant pub
 
 debug riverpod
 
+HookConsumerWidget first if StatefulHookConsumerWidget need then do
+
 
 
