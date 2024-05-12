@@ -4,6 +4,7 @@ import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
+// check old password then next
 class ChangePasswordScreen extends HookConsumerWidget {
   ChangePasswordScreen({super.key});
   final textFormKey = GlobalKey<FormFieldState>();

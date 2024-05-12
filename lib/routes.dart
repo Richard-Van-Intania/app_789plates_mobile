@@ -10,6 +10,7 @@ import 'screen/create_new_account/check_availability_email_screen.dart';
 import 'screen/create_new_account/check_verification_code_screen.dart';
 import 'screen/create_new_account/create_new_account_screen.dart';
 import 'screen/delete_account_screen.dart';
+import 'screen/new_password_screen.dart';
 import 'screen/reset_password/check_verification_code_forgot_screen.dart';
 import 'screen/reset_password/forgot_password_screen.dart';
 import 'screen/reset_password/reset_password_screen.dart';
@@ -150,6 +151,12 @@ final mainRoute = RoutingConfig(
                         GoRoute(
                           path: 'change_password_screen',
                           builder: (context, state) => ChangePasswordScreen(),
+                          routes: <RouteBase>[
+                            GoRoute(
+                              path: 'new_password_screen',
+                              builder: (context, state) => NewPasswordScreen(),
+                            ),
+                          ],
                         ),
                         GoRoute(
                           path: 'delete_account_screen',
