@@ -46,7 +46,9 @@ upYnjd5NhQno1GHgxAMQNF0vDNw_
 
 auto refresh pattern
 
-migrate to new repo
+migrate to new repo later before build check impotant pub
+
+debug riverpod
 
 
 

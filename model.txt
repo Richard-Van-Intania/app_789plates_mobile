@@ -20,5 +20,12 @@ class Person with _$Person {
       => _$PersonFromJson(json);
 }
 
+    final credential = await ref.read(credentialProvider.future);
+    final email = credential['email'];
+    final password = credential['password'];
+    final access_token = credential['access_token'];
+    final refresh_token = credential['refresh_token'];
+    final users_id = credential['users_id'];
+
 
 dart run build_runner build

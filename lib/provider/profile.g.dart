@@ -19,7 +19,7 @@ final drawerIndexProvider = AutoDisposeNotifierProvider<DrawerIndex, int>.intern
 );
 
 typedef _$DrawerIndex = AutoDisposeNotifier<int>;
-String _$searchHash() => r'38efee8581af7ee1767822837f6a390959b43a77';
+String _$searchHash() => r'3b75003c18c4924a29d0aedc77c189ddcbe8aeae';
 
 /// See also [Search].
 @ProviderFor(Search)

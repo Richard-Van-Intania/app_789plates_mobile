@@ -6,6 +6,19 @@ part of 'authentication.dart';
 // RiverpodGenerator
 // **************************************************************************
 
+String _$autoRenewTokenHash() => r'b892525b1601bb638fc8c28878ece1f52e577aa2';
+
+/// See also [autoRenewToken].
+@ProviderFor(autoRenewToken)
+final autoRenewTokenProvider = FutureProvider<int>.internal(
+  autoRenewToken,
+  name: r'autoRenewTokenProvider',
+  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product') ? null : _$autoRenewTokenHash,
+  dependencies: null,
+  allTransitiveDependencies: null,
+);
+
+typedef AutoRenewTokenRef = FutureProviderRef<int>;
 String _$credentialHash() => r'672b4a56a3c1d8d2be46a7b44f46635dc36ac2f5';
 
 /// See also [Credential].
@@ -110,20 +123,7 @@ final signInProvider = AsyncNotifierProvider<SignIn, int>.internal(
 );
 
 typedef _$SignIn = AsyncNotifier<int>;
-String _$renewTokenHash() => r'326ea83e5a19cbbdd0f3c164a981e085b567c6e0';
-
-/// See also [RenewToken].
-@ProviderFor(RenewToken)
-final renewTokenProvider = AutoDisposeAsyncNotifierProvider<RenewToken, UnwrapResponse<Authentication>>.internal(
-  RenewToken.new,
-  name: r'renewTokenProvider',
-  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product') ? null : _$renewTokenHash,
-  dependencies: null,
-  allTransitiveDependencies: null,
-);
-
-typedef _$RenewToken = AutoDisposeAsyncNotifier<UnwrapResponse<Authentication>>;
-String _$changePasswordHash() => r'4431b39171617a4a0769966533542d4d9edfce5e';
+String _$changePasswordHash() => r'1e3b57405d0e2c5bfdcf00a6873aa8666b0938b6';
 
 /// See also [ChangePassword].
 @ProviderFor(ChangePassword)
@@ -136,5 +136,18 @@ final changePasswordProvider = AutoDisposeAsyncNotifierProvider<ChangePassword, 
 );
 
 typedef _$ChangePassword = AutoDisposeAsyncNotifier<int>;
+String _$deleteAccountHash() => r'4c4e45f9aec5d6b257f1a7077cbe846832dd2ead';
+
+/// See also [DeleteAccount].
+@ProviderFor(DeleteAccount)
+final deleteAccountProvider = AutoDisposeAsyncNotifierProvider<DeleteAccount, int>.internal(
+  DeleteAccount.new,
+  name: r'deleteAccountProvider',
+  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product') ? null : _$deleteAccountHash,
+  dependencies: null,
+  allTransitiveDependencies: null,
+);
+
+typedef _$DeleteAccount = AutoDisposeAsyncNotifier<int>;
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member

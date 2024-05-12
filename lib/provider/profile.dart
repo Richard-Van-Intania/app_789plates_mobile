@@ -44,8 +44,8 @@ class Search extends _$Search {
       if (response.statusCode == 200) {
         state = AsyncData(response.body);
       } else if (response.statusCode == 401) {
-        await ref.read(renewTokenProvider.notifier).fetch();
-        ref.read(searchProvider.notifier).fetch(query);
+        // await ref.read(renewTokenProvider.notifier).fetch();
+        // ref.read(searchProvider.notifier).fetch(query);
       } else {
         // await ref.read(credentialProvider.notifier).deleteAll();
         // other error
@@ -55,6 +55,7 @@ class Search extends _$Search {
       await ref.read(credentialProvider.notifier).deleteAll();
       state = const AsyncData('sign out');
     }
+    //
   }
   // Search
 }

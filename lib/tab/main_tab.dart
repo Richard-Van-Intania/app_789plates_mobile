@@ -1,3 +1,4 @@
+import 'package:app_789plates_mobile/provider/authentication.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:go_router/go_router.dart';
@@ -9,7 +10,7 @@ class MainTab extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    // here
+    final autoRenewToken = ref.watch(autoRenewTokenProvider);
     return Scaffold(
       body: navigationShell,
       bottomNavigationBar: NavigationBar(
