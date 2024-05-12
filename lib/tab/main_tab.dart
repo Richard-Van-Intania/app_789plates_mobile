@@ -10,7 +10,7 @@ class MainTab extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final autoRenewToken = ref.watch(autoRenewTokenProvider);
+    ref.watch(autoRenewTokenProvider);
     return Scaffold(
       body: navigationShell,
       bottomNavigationBar: NavigationBar(

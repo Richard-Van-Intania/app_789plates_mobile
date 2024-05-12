@@ -556,7 +556,7 @@ class ChangePassword extends _$ChangePassword {
         ).toJson()),
       );
       if (response.statusCode == 401) {
-        final statusCode = await ref.read(autoRenewTokenProvider.future);
+        final statusCode = await ref.refresh(autoRenewTokenProvider.future);
         if (statusCode == 200) {
           ref.read(changePasswordProvider.notifier).fetch(password);
         }
@@ -604,7 +604,7 @@ class DeleteAccount extends _$DeleteAccount {
         ).toJson()),
       );
       if (response.statusCode == 401) {
-        final statusCode = await ref.read(autoRenewTokenProvider.future);
+        final statusCode = await ref.refresh(autoRenewTokenProvider.future);
         if (statusCode == 200) {
           ref.read(deleteAccountProvider.notifier).fetch(password);
         }
