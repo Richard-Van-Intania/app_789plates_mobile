@@ -364,7 +364,7 @@ class ResetPassword extends _$ResetPassword {
 }
 
 @Riverpod(keepAlive: true)
-class SignIn extends _$SignIn {
+class AutoSignIn extends _$AutoSignIn {
   @override
   Future<int> build() async {
     final credential = await ref.read(credentialProvider.future);

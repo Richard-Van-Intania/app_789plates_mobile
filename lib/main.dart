@@ -27,7 +27,7 @@ class Application extends HookConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final Locale locale = ref.watch(localeUpdateProvider);
     final ThemeMode themeMode = ref.watch(themeModeUpdateProvider);
-    final signIn = ref.watch(signInProvider);
+    final autoSignIn = ref.watch(autoSignInProvider);
     return MaterialApp.router(
       title: '789plates',
       localizationsDelegates: AppLocalizations.localizationsDelegates,

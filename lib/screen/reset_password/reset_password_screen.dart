@@ -32,7 +32,7 @@ class _ResetPasswordScreenState extends ConsumerState<ResetPasswordScreen> {
         case AsyncValue(:final valueOrNull?):
           if (valueOrNull.statusCode == 200) {
             context.go('/');
-            ref.invalidate(signInProvider);
+            ref.invalidate(autoSignInProvider);
 
             //
           } else {

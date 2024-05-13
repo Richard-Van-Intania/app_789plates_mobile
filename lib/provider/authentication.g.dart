@@ -110,19 +110,19 @@ final resetPasswordProvider = AutoDisposeAsyncNotifierProvider<ResetPassword, Un
 );
 
 typedef _$ResetPassword = AutoDisposeAsyncNotifier<UnwrapResponse<Authentication>>;
-String _$signInHash() => r'90d2aaa8cd74831a8d899d1b9e6713dcf20dd971';
+String _$autoSignInHash() => r'f34eefe422a64205617a10bcd65777868f657ea9';
 
-/// See also [SignIn].
-@ProviderFor(SignIn)
-final signInProvider = AsyncNotifierProvider<SignIn, int>.internal(
-  SignIn.new,
-  name: r'signInProvider',
-  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product') ? null : _$signInHash,
+/// See also [AutoSignIn].
+@ProviderFor(AutoSignIn)
+final autoSignInProvider = AsyncNotifierProvider<AutoSignIn, int>.internal(
+  AutoSignIn.new,
+  name: r'autoSignInProvider',
+  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product') ? null : _$autoSignInHash,
   dependencies: null,
   allTransitiveDependencies: null,
 );
 
-typedef _$SignIn = AsyncNotifier<int>;
+typedef _$AutoSignIn = AsyncNotifier<int>;
 String _$changePasswordHash() => r'89a386cc4a3274a0e9ebfe6281f4c9c360dc2ea9';
 
 /// See also [ChangePassword].
