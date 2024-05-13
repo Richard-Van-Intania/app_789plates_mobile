@@ -1,3 +1,4 @@
+// ignore_for_file: unused_local_variable
 import 'package:app_789plates_mobile/provider/authentication.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
@@ -10,7 +11,7 @@ class MainTab extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    ref.watch(autoRenewTokenProvider);
+    final autoRenewToken = ref.watch(autoRenewTokenProvider);
     return Scaffold(
       body: navigationShell,
       bottomNavigationBar: NavigationBar(
