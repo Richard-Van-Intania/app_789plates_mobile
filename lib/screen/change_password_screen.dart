@@ -16,7 +16,7 @@ class ChangePasswordScreen extends HookConsumerWidget {
     final snapshot = useFuture(pendingFetch.value);
     // here
     WidgetsBinding.instance.addPostFrameCallback((Duration timeStamp) {
-      changePassword.whenData((value) async {
+      changePassword.whenData((value) {
         if (value == 200) {
           context.pop();
           ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('Ok!')));

@@ -556,20 +556,23 @@ class ChangePassword extends _$ChangePassword {
         ).toJson()),
       );
       if (response.statusCode == 401) {
-        final statusCode = await ref.refresh(autoRenewTokenProvider.future);
+        final int statusCode = await ref.refresh(autoRenewTokenProvider.future);
         if (statusCode == 200) {
           ref.read(changePasswordProvider.notifier).fetch(password);
         }
-      } else {
-        // here
-        state = AsyncData(response.statusCode);
+      } else if (response.statusCode == 200) {
+        await ref.read(credentialProvider.notifier).write(email: null, password: password, access_token: null, refresh_token: null, users_id: null);
       }
+      state = AsyncData(response.statusCode);
     } else {
+      await ref.read(credentialProvider.notifier).deleteAll();
+      routeConfig.value = signInRoute;
       state = const AsyncData(preconditionRequired);
     }
   }
 }
 
+// here
 @riverpod
 class DeleteAccount extends _$DeleteAccount {
   @override
@@ -604,7 +607,7 @@ class DeleteAccount extends _$DeleteAccount {
         ).toJson()),
       );
       if (response.statusCode == 401) {
-        final statusCode = await ref.refresh(autoRenewTokenProvider.future);
+        final int statusCode = await ref.refresh(autoRenewTokenProvider.future);
         if (statusCode == 200) {
           ref.read(deleteAccountProvider.notifier).fetch(password);
         }
