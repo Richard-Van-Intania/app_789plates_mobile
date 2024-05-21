@@ -54,5 +54,7 @@ HookConsumerWidget first if StatefulHookConsumerWidget need then do
 
 provider required only things its need, validate outside
 
+for inside login see chenge pass and delete deleteAccount
+
 
 
