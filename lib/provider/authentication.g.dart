@@ -123,7 +123,7 @@ final autoSignInProvider = AsyncNotifierProvider<AutoSignIn, int>.internal(
 );
 
 typedef _$AutoSignIn = AsyncNotifier<int>;
-String _$changePasswordHash() => r'8c96fe062ce71697d52ccd2d105eacbdfe4be5e1';
+String _$changePasswordHash() => r'8de5bc39273f394d8baab868e1e66a8c6b5956c6';
 
 /// See also [ChangePassword].
 @ProviderFor(ChangePassword)

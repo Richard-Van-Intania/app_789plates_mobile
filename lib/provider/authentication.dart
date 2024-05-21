@@ -562,6 +562,7 @@ class ChangePassword extends _$ChangePassword {
         }
       } else if (response.statusCode == 200) {
         await ref.read(credentialProvider.notifier).write(email: null, password: password, access_token: null, refresh_token: null, users_id: null);
+        ref.invalidate(autoRenewTokenProvider);
       }
       state = AsyncData(response.statusCode);
     } else {
