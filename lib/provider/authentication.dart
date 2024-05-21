@@ -624,5 +624,3 @@ class DeleteAccount extends _$DeleteAccount {
     }
   }
 }
-
-// CheckCurrentPassword
