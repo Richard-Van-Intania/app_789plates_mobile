@@ -52,5 +52,7 @@ debug riverpod
 
 HookConsumerWidget first if StatefulHookConsumerWidget need then do
 
+provider required only things its need, validate outside
+
 
 

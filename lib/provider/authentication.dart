@@ -567,13 +567,12 @@ class ChangePassword extends _$ChangePassword {
       state = AsyncData(response.statusCode);
     } else {
       await ref.read(credentialProvider.notifier).deleteAll();
-      routeConfig.value = signInRoute;
+      ref.invalidate(autoRenewTokenProvider);
       state = const AsyncData(preconditionRequired);
     }
   }
 }
 
-// here
 @riverpod
 class DeleteAccount extends _$DeleteAccount {
   @override
@@ -581,12 +580,13 @@ class DeleteAccount extends _$DeleteAccount {
     return processing;
   }
 
-  Future<void> fetch(String password) async {
+  Future<void> fetch() async {
     final credential = await ref.read(credentialProvider.future);
     final email = credential['email'];
+    final password = credential['password'];
     final access_token = credential['access_token'];
     final users_id = credential['users_id'];
-    if (email != null && access_token != null && users_id != null) {
+    if (email != null && password != null && access_token != null && users_id != null) {
       final Uri uri = Uri(
         scheme: 'http',
         host: '10.0.2.2',
@@ -610,13 +610,19 @@ class DeleteAccount extends _$DeleteAccount {
       if (response.statusCode == 401) {
         final int statusCode = await ref.refresh(autoRenewTokenProvider.future);
         if (statusCode == 200) {
-          ref.read(deleteAccountProvider.notifier).fetch(password);
+          ref.read(deleteAccountProvider.notifier).fetch();
         }
-      } else {
-        state = AsyncData(response.statusCode);
+      } else if (response.statusCode == 200) {
+        await ref.read(credentialProvider.notifier).deleteAll();
+        ref.invalidate(autoRenewTokenProvider);
       }
+      state = AsyncData(response.statusCode);
     } else {
+      await ref.read(credentialProvider.notifier).deleteAll();
+      ref.invalidate(autoRenewTokenProvider);
       state = const AsyncData(preconditionRequired);
     }
   }
 }
+
+// CheckCurrentPassword

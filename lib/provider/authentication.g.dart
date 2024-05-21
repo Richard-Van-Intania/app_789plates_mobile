@@ -123,7 +123,7 @@ final autoSignInProvider = AsyncNotifierProvider<AutoSignIn, int>.internal(
 );
 
 typedef _$AutoSignIn = AsyncNotifier<int>;
-String _$changePasswordHash() => r'8de5bc39273f394d8baab868e1e66a8c6b5956c6';
+String _$changePasswordHash() => r'6c438b6aaad66ae2145369d9e2b945994108d11c';
 
 /// See also [ChangePassword].
 @ProviderFor(ChangePassword)
@@ -136,7 +136,7 @@ final changePasswordProvider = AutoDisposeAsyncNotifierProvider<ChangePassword, 
 );
 
 typedef _$ChangePassword = AutoDisposeAsyncNotifier<int>;
-String _$deleteAccountHash() => r'ff1d8064b273f5003ae25e1b8cecfd9529d7949f';
+String _$deleteAccountHash() => r'41518c0c51631e5679fc8a6f12fb7954b100164d';
 
 /// See also [DeleteAccount].
 @ProviderFor(DeleteAccount)
