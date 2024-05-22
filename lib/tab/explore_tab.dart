@@ -17,7 +17,6 @@ class ExploreTab extends StatefulHookConsumerWidget {
 class _ExploreTabState extends ConsumerState<ExploreTab> {
   @override
   Widget build(BuildContext context) {
-    final search = ref.watch(searchProvider);
     // final fetchProfile = ref.watch(fetchProfileProvider('hello from fetch'));
     final pendingFetch = useState<Future<void>?>(null);
     final snapshot = useFuture(pendingFetch.value);

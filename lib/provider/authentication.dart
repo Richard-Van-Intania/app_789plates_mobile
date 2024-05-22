@@ -523,6 +523,8 @@ Future<int> autoRenewToken(AutoRenewTokenRef ref) async {
   }
 }
 
+// inside login below
+
 @riverpod
 class ChangePassword extends _$ChangePassword {
   @override
@@ -567,6 +569,7 @@ class ChangePassword extends _$ChangePassword {
       state = AsyncData(response.statusCode);
     } else {
       await ref.read(credentialProvider.notifier).deleteAll();
+      ref.invalidate(autoSignInProvider);
       ref.invalidate(autoRenewTokenProvider);
       state = const AsyncData(preconditionRequired);
     }
@@ -619,6 +622,7 @@ class DeleteAccount extends _$DeleteAccount {
       state = AsyncData(response.statusCode);
     } else {
       await ref.read(credentialProvider.notifier).deleteAll();
+      ref.invalidate(autoSignInProvider);
       ref.invalidate(autoRenewTokenProvider);
       state = const AsyncData(preconditionRequired);
     }

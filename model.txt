@@ -29,6 +29,5 @@ class Person with _$Person {
 
 
 dart run build_runner build
-
-flutter pub add intl
+flutter pub get
 

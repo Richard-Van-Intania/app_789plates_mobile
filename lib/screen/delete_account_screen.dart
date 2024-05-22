@@ -16,9 +16,8 @@ class DeleteAccountScreen extends HookConsumerWidget {
             ElevatedButton(
                 onPressed: () {
                   context.pop();
-                  ref.read(deleteAccountProvider.notifier).fetch();
                 },
-                child: Text('Delete')),
+                child: Text('Bacl')),
           ],
         ),
       ),
