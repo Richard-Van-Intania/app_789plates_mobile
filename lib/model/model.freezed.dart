@@ -245,3 +245,188 @@ abstract class _Authentication implements Authentication {
   @JsonKey(ignore: true)
   _$$AuthenticationImplCopyWith<_$AuthenticationImpl> get copyWith => throw _privateConstructorUsedError;
 }
+
+Profile _$ProfileFromJson(Map<String, dynamic> json) {
+  return _Profile.fromJson(json);
+}
+
+/// @nodoc
+mixin _$Profile {
+  String get name => throw _privateConstructorUsedError;
+  String get email => throw _privateConstructorUsedError;
+  String? get profile_uri => throw _privateConstructorUsedError;
+  String? get cover_uri => throw _privateConstructorUsedError;
+  String? get information => throw _privateConstructorUsedError;
+
+  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
+  @JsonKey(ignore: true)
+  $ProfileCopyWith<Profile> get copyWith => throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class $ProfileCopyWith<$Res> {
+  factory $ProfileCopyWith(Profile value, $Res Function(Profile) then) = _$ProfileCopyWithImpl<$Res, Profile>;
+  @useResult
+  $Res call({String name, String email, String? profile_uri, String? cover_uri, String? information});
+}
+
+/// @nodoc
+class _$ProfileCopyWithImpl<$Res, $Val extends Profile> implements $ProfileCopyWith<$Res> {
+  _$ProfileCopyWithImpl(this._value, this._then);
+
+  // ignore: unused_field
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? name = null,
+    Object? email = null,
+    Object? profile_uri = freezed,
+    Object? cover_uri = freezed,
+    Object? information = freezed,
+  }) {
+    return _then(_value.copyWith(
+      name: null == name
+          ? _value.name
+          : name // ignore: cast_nullable_to_non_nullable
+              as String,
+      email: null == email
+          ? _value.email
+          : email // ignore: cast_nullable_to_non_nullable
+              as String,
+      profile_uri: freezed == profile_uri
+          ? _value.profile_uri
+          : profile_uri // ignore: cast_nullable_to_non_nullable
+              as String?,
+      cover_uri: freezed == cover_uri
+          ? _value.cover_uri
+          : cover_uri // ignore: cast_nullable_to_non_nullable
+              as String?,
+      information: freezed == information
+          ? _value.information
+          : information // ignore: cast_nullable_to_non_nullable
+              as String?,
+    ) as $Val);
+  }
+}
+
+/// @nodoc
+abstract class _$$ProfileImplCopyWith<$Res> implements $ProfileCopyWith<$Res> {
+  factory _$$ProfileImplCopyWith(_$ProfileImpl value, $Res Function(_$ProfileImpl) then) = __$$ProfileImplCopyWithImpl<$Res>;
+  @override
+  @useResult
+  $Res call({String name, String email, String? profile_uri, String? cover_uri, String? information});
+}
+
+/// @nodoc
+class __$$ProfileImplCopyWithImpl<$Res> extends _$ProfileCopyWithImpl<$Res, _$ProfileImpl> implements _$$ProfileImplCopyWith<$Res> {
+  __$$ProfileImplCopyWithImpl(_$ProfileImpl _value, $Res Function(_$ProfileImpl) _then) : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? name = null,
+    Object? email = null,
+    Object? profile_uri = freezed,
+    Object? cover_uri = freezed,
+    Object? information = freezed,
+  }) {
+    return _then(_$ProfileImpl(
+      name: null == name
+          ? _value.name
+          : name // ignore: cast_nullable_to_non_nullable
+              as String,
+      email: null == email
+          ? _value.email
+          : email // ignore: cast_nullable_to_non_nullable
+              as String,
+      profile_uri: freezed == profile_uri
+          ? _value.profile_uri
+          : profile_uri // ignore: cast_nullable_to_non_nullable
+              as String?,
+      cover_uri: freezed == cover_uri
+          ? _value.cover_uri
+          : cover_uri // ignore: cast_nullable_to_non_nullable
+              as String?,
+      information: freezed == information
+          ? _value.information
+          : information // ignore: cast_nullable_to_non_nullable
+              as String?,
+    ));
+  }
+}
+
+/// @nodoc
+@JsonSerializable()
+class _$ProfileImpl implements _Profile {
+  const _$ProfileImpl({required this.name, required this.email, required this.profile_uri, required this.cover_uri, required this.information});
+
+  factory _$ProfileImpl.fromJson(Map<String, dynamic> json) => _$$ProfileImplFromJson(json);
+
+  @override
+  final String name;
+  @override
+  final String email;
+  @override
+  final String? profile_uri;
+  @override
+  final String? cover_uri;
+  @override
+  final String? information;
+
+  @override
+  String toString() {
+    return 'Profile(name: $name, email: $email, profile_uri: $profile_uri, cover_uri: $cover_uri, information: $information)';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$ProfileImpl &&
+            (identical(other.name, name) || other.name == name) &&
+            (identical(other.email, email) || other.email == email) &&
+            (identical(other.profile_uri, profile_uri) || other.profile_uri == profile_uri) &&
+            (identical(other.cover_uri, cover_uri) || other.cover_uri == cover_uri) &&
+            (identical(other.information, information) || other.information == information));
+  }
+
+  @JsonKey(ignore: true)
+  @override
+  int get hashCode => Object.hash(runtimeType, name, email, profile_uri, cover_uri, information);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$ProfileImplCopyWith<_$ProfileImpl> get copyWith => __$$ProfileImplCopyWithImpl<_$ProfileImpl>(this, _$identity);
+
+  @override
+  Map<String, dynamic> toJson() {
+    return _$$ProfileImplToJson(
+      this,
+    );
+  }
+}
+
+abstract class _Profile implements Profile {
+  const factory _Profile({required final String name, required final String email, required final String? profile_uri, required final String? cover_uri, required final String? information}) = _$ProfileImpl;
+
+  factory _Profile.fromJson(Map<String, dynamic> json) = _$ProfileImpl.fromJson;
+
+  @override
+  String get name;
+  @override
+  String get email;
+  @override
+  String? get profile_uri;
+  @override
+  String? get cover_uri;
+  @override
+  String? get information;
+  @override
+  @JsonKey(ignore: true)
+  _$$ProfileImplCopyWith<_$ProfileImpl> get copyWith => throw _privateConstructorUsedError;
+}

@@ -13,8 +13,7 @@ String _$fetchProfileHash() => r'465b1ac29830bac43ef0e0995c17cb4f8ed260da';
 final fetchProfileProvider = AutoDisposeFutureProvider<int>.internal(
   fetchProfile,
   name: r'fetchProfileProvider',
-  debugGetCreateSourceHash:
-      const bool.fromEnvironment('dart.vm.product') ? null : _$fetchProfileHash,
+  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product') ? null : _$fetchProfileHash,
   dependencies: null,
   allTransitiveDependencies: null,
 );

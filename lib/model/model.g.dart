@@ -27,3 +27,19 @@ Map<String, dynamic> _$$AuthenticationImplToJson(_$AuthenticationImpl instance) 
       'refresh_token': instance.refresh_token,
       'users_id': instance.users_id,
     };
+
+_$ProfileImpl _$$ProfileImplFromJson(Map<String, dynamic> json) => _$ProfileImpl(
+      name: json['name'] as String,
+      email: json['email'] as String,
+      profile_uri: json['profile_uri'] as String?,
+      cover_uri: json['cover_uri'] as String?,
+      information: json['information'] as String?,
+    );
+
+Map<String, dynamic> _$$ProfileImplToJson(_$ProfileImpl instance) => <String, dynamic>{
+      'name': instance.name,
+      'email': instance.email,
+      'profile_uri': instance.profile_uri,
+      'cover_uri': instance.cover_uri,
+      'information': instance.information,
+    };

@@ -21,6 +21,19 @@ class Authentication with _$Authentication {
   factory Authentication.fromJson(Map<String, Object?> json) => _$AuthenticationFromJson(json);
 }
 
+@freezed
+class Profile with _$Profile {
+  const factory Profile({
+    required String name,
+    required String email,
+    required String? profile_uri,
+    required String? cover_uri,
+    required String? information,
+  }) = _Profile;
+
+  factory Profile.fromJson(Map<String, Object?> json) => _$ProfileFromJson(json);
+}
+
 class UnwrapResponse<M extends Object> {
   const UnwrapResponse({required this.statusCode, required this.model});
   final int statusCode;
