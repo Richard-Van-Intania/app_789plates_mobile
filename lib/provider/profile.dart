@@ -3,7 +3,7 @@ import 'dart:convert';
 import 'dart:io';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:http/http.dart' as http;
-import '../constants.dart';
+import '../initialize.dart';
 import '../model/model.dart';
 import 'authentication.dart';
 

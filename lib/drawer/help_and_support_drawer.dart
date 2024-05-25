@@ -12,8 +12,13 @@ class _HelpAndSupportDrawerState extends ConsumerState<HelpAndSupportDrawer> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Center(
-        child: Text('HelpAndSupportDrawer'),
+      body: Container(
+        alignment: Alignment.center,
+        padding: EdgeInsets.all(16.0),
+        child: Image.network('https://d27r257vlsyci.cloudfront.net/profile/IMG_9394.JPG'),
+      ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {},
       ),
     );
   }
