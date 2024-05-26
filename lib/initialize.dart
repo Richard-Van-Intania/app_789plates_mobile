@@ -23,4 +23,4 @@ const FlutterSecureStorage flutterSecureStorage = FlutterSecureStorage();
 const int processing = 102;
 const int preconditionRequired = 428;
 
-const String cdnDomain = 'https://d27r257vlsyci.cloudfront.net/';
+const String cdnDomainName = 'https://d27r257vlsyci.cloudfront.net/';
