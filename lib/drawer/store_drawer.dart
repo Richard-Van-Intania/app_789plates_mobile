@@ -6,6 +6,8 @@ import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:image_picker/image_picker.dart';
 
+import '../initialize.dart';
+
 class StoreDrawer extends HookConsumerWidget {
   const StoreDrawer({super.key});
   @override
@@ -20,6 +22,13 @@ class StoreDrawer extends HookConsumerWidget {
               ? Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
+                    data.model.profile_uri == null
+                        ? Image.asset('assets/images/1655587_747333558634961_112430579_o.jpg')
+                        : CachedNetworkImage(
+                            imageUrl: cdnDomainName + data.model.profile_uri!,
+                            placeholder: (context, url) => CircularProgressIndicator(),
+                            errorWidget: (context, url, error) => Icon(Icons.error),
+                          ),
                     Text(data.model.email, style: const TextStyle(fontSize: 24.0)),
                     Text(data.model.name, style: const TextStyle(fontSize: 24.0)),
                     Text(data.model.information ?? 'empty', style: const TextStyle(fontSize: 24.0)),

@@ -1,7 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-
 import '../initialize.dart';
 
 class HelpAndSupportDrawer extends StatefulHookConsumerWidget {
